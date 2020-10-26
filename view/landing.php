@@ -1,0 +1,26 @@
+<?php include 'header.php'; ?> 
+        <div id="form-wrapper" style="max-width:500px;margin:auto;">
+            <div class="row"><center>
+                <div class="large-12 columns">
+                    <center><h1>Welcome <?php { echo $user->getname(); }?>!</h1></center>
+                </div><br><br>
+        <form action="." method="post" id="landing">
+            <input type="submit" name="action" class="button" value="Edit Profile" >
+            <input type="submit" name="action" class="button" value="Image Upload">
+            <input type="submit" name="action" class="button" value="Manage Schedule" >
+            <input class="button" type="submit" name="action" value="Logout" >
+        </form>
+        <br>
+        <?php $username = $_SESSION['username'];
+            $image = User_db::get_image($username);
+
+            if($image != null){
+               $filepath = './images/' . $username . '/' . $image; 
+               echo "<img src=$filepath>";
+            }
+            else{
+                echo "<img src='./images/image.jpg'>";
+            }
+        ?>
+        </div></div><br><br></center>
+<?php include 'footer.php'; ?>
