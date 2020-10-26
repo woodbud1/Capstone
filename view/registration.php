@@ -71,7 +71,7 @@
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">                
                         <label>Password<font color="red">*</font>: </label>
-                        <input type="password" name="password" placeholder="please enter a password"><span><font color="red"> <?php if(isset($errorPassword)) { echo $errorPassword; }?></font></span><br>          
+                        <input type="text" name="password" placeholder="please enter a password"><span><font color="red"> <?php if(isset($errorPassword)) { echo $errorPassword; }?></font></span><br>          
                 </div></div>
         <div class="grid-x grid-padding-x">
                 <div class="medium-12 cell">

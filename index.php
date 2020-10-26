@@ -192,6 +192,7 @@ switch ($action) {
         $phonenumber = '0000000000';
         $notes = 'notes';
         $type = 0;
+        $image = "One Single Potato Chip";
         $_SESSION['username'] = $username;
         User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
         mkdir("./images/".$username, 0777, true);
