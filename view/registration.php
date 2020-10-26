@@ -11,18 +11,19 @@
         if(!isset($errorPostal)) { $errorPostal=''; }
         ?>
     <body>
-        <form action="." method="post" id="registration">
-        <input type="hidden" name="action" value="Add" />
+
 
         <div class="row">
                 <div class="large-12 columns">
                     <center><h1>Registration</h1></center>
-            <center><form action="." method="post">
+            <!-- <center><form action="." method="post">
                         <input class="button" type="submit" value="Return To Login">
                         <input type="hidden" name="action" value="Login" />
             </form></center>
-                </div>
+                </div> -->
         </div>    
+        <form action="." method="post" id="registration">
+        <input type="hidden" name="action" value="Add" />
         <div id="form-wrapper" style="max-width:500px;margin:auto;">
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
@@ -70,14 +71,15 @@
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">                
                         <label>Password<font color="red">*</font>: </label>
-                        <input type="text" name="password" placeholder="please enter a password"><span><font color="red"> <?php if(isset($errorPassword)) { echo $errorPassword; }?></font></span><br>          
+                        <input type="password" name="password" placeholder="please enter a password"><span><font color="red"> <?php if(isset($errorPassword)) { echo $errorPassword; }?></font></span><br>          
                 </div></div>
         <div class="grid-x grid-padding-x">
                 <div class="medium-12 cell">
                         <label>&nbsp;</label>
-            <center><form action="." method="post">
                         <input class="button" type="submit" value="Sign Up">
-                        <input type="hidden" name="action" value="Add" />
+            <!-- <center><form action="." method="post">
+                        
+                        <input type="hidden" name="action" value="Add" /> -->
             </form></center>
                 </div>
         </div></div></div>
