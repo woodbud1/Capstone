@@ -1,14 +1,15 @@
 <?php include 'header.php'; 
 
-        if(!isset($name)) { $name=''; }
-        if(!isset($username)) { $username=''; }
-        if(!isset($email)) { $email=''; }
-        if(!isset($password)) { $password=''; }
-        if(!isset($errorEmail)) { $errorEmail=''; }
-        if(!isset($errorStreet)) { $errorStreet=''; }
-        if(!isset($errorCity)) { $errorCity=''; }
-        if(!isset($errorState)) { $errorState=''; }
-        if(!isset($errorPostal)) { $errorPostal=''; }
+        // if(!isset($name)) { $name=''; }
+        // if(!isset($username)) { $username=''; }
+        // if(!isset($email)) { $email=''; }
+        // if(!isset($password)) { $password=''; }
+        // if(!isset($errorEmail)) { $errorEmail=''; }
+        // if(!isset($errorStreet)) { $errorStreet=''; }
+        // if(!isset($errorCity)) { $errorCity=''; }
+        // if(!isset($errorState)) { $errorState=''; }
+        // if(!isset($errorPostal)) { $errorPostal=''; }
+        // if(!isset($errorPasswordConfirm)) { $errorPasswordConfirm=''; }
         ?>
     <body>
 
@@ -72,6 +73,11 @@
                     <div class="medium-12 cell">                
                         <label>Password<font color="red">*</font>: </label>
                         <input type="text" name="password" placeholder="please enter a password"><span><font color="red"> <?php if(isset($errorPassword)) { echo $errorPassword; }?></font></span><br>          
+                </div></div>
+                <div class="grid-x grid-padding-x">
+                    <div class="medium-12 cell">                
+                        <label>Confirm Password<font color="red">*</font>: </label>
+                        <input type="text" name="confirm_password" placeholder="please re-enter password"><span><font color="red"> <?php if(isset($errorPasswordConfirm)) { echo $errorPasswordConfirm; }?></font></span><br>          
                 </div></div>
         <div class="grid-x grid-padding-x">
                 <div class="medium-12 cell">

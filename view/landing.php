@@ -13,14 +13,16 @@
         <br>
         <?php $username = $_SESSION['username'];
             $image = User_db::get_image($username);
-
-            if($image != null){
+            if($image != null && $image != 'initial'){
                $filepath = './images/' . $username . '/' . $image; 
                echo "<img src=$filepath>";
             }
+            // elseif($image === 'initial') {
+            //     echo "<img src='./images/image.jpg'>";
+            // }
             else{
                 echo "<img src='./images/image.jpg'>";
-            }
+            } 
         ?>
         </div></div><br><br></center>
 <?php include 'footer.php'; ?>

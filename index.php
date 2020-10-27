@@ -90,6 +90,7 @@ switch ($action) {
         if(!isset($errorCity)) { $errorCity=''; }
         if(!isset($errorState)) { $errorState=''; }
         if(!isset($errorPostal)) { $errorPostal=''; }
+        if(!isset($errorPasswordConfirm)) { $errorPasswordConfirm=''; }
         
 
         // Display the registration form
@@ -104,7 +105,7 @@ switch ($action) {
           $city = filter_input(INPUT_POST, "city");
           $state = filter_input(INPUT_POST, "state");
           $postal = filter_input(INPUT_POST, "postal");
-  
+          $confirm_password = filter_input(INPUT_POST, "confirm_password");
           $error = '';
           $errorName ='';
           $errorUsername = '';
@@ -114,6 +115,7 @@ switch ($action) {
           $errorCity = '';
           $errorState = '';
           $errorPostal = '';
+          $errorPasswordConfirm = '';
 
         // Validate the inputs
     if($name === '') {
@@ -143,6 +145,10 @@ switch ($action) {
         $email = "";
     }
     
+    if($confirm_password !== $password){
+        $errorPasswordConfirm = "Passwords must match!";
+    }
+
     if($password === ''){
         $errorPassword .= "Please enter a password. ";
     }else if(Validation::validPasswordLength($password) === false){
@@ -185,16 +191,18 @@ switch ($action) {
         $errorPostal .= "Please enter your postal (Zip) code. ";
     }
     
-    if($errorName !== '' || $errorUsername !== '' || $errorEmail !== '' || $errorPassword !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== ''){
+    if($errorName !== '' || $errorUsername !== '' || $errorEmail !== '' || $errorPassword !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorPasswordConfirm !== ''){
         include('view/registration.php');
         break;
     }else {
         $phonenumber = '0000000000';
         $notes = 'notes';
         $type = 0;
-        $image = "One Single Potato Chip";
+        $image = 'initial';
         $_SESSION['username'] = $username;
         User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
+        // TODO: If a username is used and then later deleted mkdir() command will flag an error as the $username directory still exists. Pretty corner case issue.
+        // Warning: mkdir(): File exists in C:\xampp\htdocs\GroupProject2\Capstone\index.php on line 204
         mkdir("./images/".$username, 0777, true);
         $user = User_db::get_user($username);
         include('view/landing.php'); 
