@@ -20,10 +20,10 @@
 	}
 	?>
 </div>
-<form action="." method="post" >
-        <p><input type="submit" name="action" value="cart" ></p>
+<form action="." method="post" id="cart">
+        <p><input type="submit" name="action" value="Cart" ></p>
 </form>
-<form action="." method="post" >
-        <p><input type="submit" name="action" value="pay" ></p>
+<form action="." method="post" id="pay">
+        <p><input type="submit" name="action" value="Pay" ></p>
 </form>
 <?php include '../view/footer.php'; ?>

@@ -25,7 +25,14 @@ switch ($action) {
         if(!empty($_POST["quantity"])) {
             // $productByCode = $db_handle->runQuery("SELECT * FROM product WHERE code='" . $_GET["code"] . "'");
             // $itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
-            
+            // `productID` bigint(20) NOT NULL,
+            // `categoryID` int(11) NOT NULL,
+            // `productName` varchar(255) NOT NULL,
+            // `price` decimal(10,0) NOT NULL,
+            // `sku` bigint(20) NOT NULL,
+            // `imageURL` varchar(255) NOT NULL,
+            // `description` varchar(255) NOT NULL,
+            // `count` bigint(20) NOT NULL
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
@@ -60,6 +67,89 @@ switch ($action) {
             unset($_SESSION["cart_item"]);
             include("checkout.php");
         break;	
+        case "pay":
+            include("payment.php");
+        break;	
+        case 'payment':
+              $name = filter_input(INPUT_POST, "name");
+              $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+              $street = filter_input(INPUT_POST, "street");
+              $city = filter_input(INPUT_POST, "city");
+              $state = filter_input(INPUT_POST, "state");
+              $postal = filter_input(INPUT_POST, "postal");
+              $creditcard_num = filter_input(INPUT_POST, "ccNum");
+              $creditcard_exp = filter_input(INPUT_POST, "ccExp");
+              $creditcard_sec = filter_input(INPUT_POST, "ccSec");
+
+              $error = '';
+              $errorName ='';
+              $errorUsername = '';
+              $errorEmail = '';
+              $errorStreet = '';
+              $errorCity = '';
+              $errorState = '';
+              $errorPostal = '';
+              $errorCardNum = '';
+              $errorCardExp = '';
+              $errorCardSec = '';
+    
+            // Validate the inputs
+        if($name === '') {
+            $errorName .= "Please enter you full name. ";
+        }else if(Validation::validName($name) === 0){
+            $errorName .= "Name must begin with a letter. ";
+            $name = "";
+        }
+        
+        if($email === FALSE){
+            $errorEmail = "Please enter a valid email. ";
+        }
+        
+        if($street === '') {
+            $errorStreet .= "Please enter your street address. ";
+        }else if(Validation::validName($street) === 0){
+            $errorStreet .= "Street Error. ";
+            $errorStreet = "";
+        }
+        
+            if($city === '') {
+            $errorCity .= "Please enter your city of residence. ";
+        }else if(Validation::validName($city) === 0){
+            $errorCity .= "City Error. ";
+            $city = "";
+        }
+        
+            if($state === '') {
+            $errorState .= "Please enter your state of residence. ";
+        }else if(Validation::validName($state) === 0){
+            $errorState .= "state error. ";
+            $state = "";
+        }
+        
+        if($postal === '') {
+            $errorPostal .= "Please enter your postal (Zip) code. ";
+        }
+
+        if($creditcard_num === '') {
+            $errorCardNum .= "Invalid number. ";
+        }
+
+        if($creditcard_exp === '') {
+            $errorCardExp .= "Invalid date. ";
+        }
+
+        if($creditcard_sec === '') {
+            $errorCardSec .= "Invalid number. ";
+        }
+        
+        if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
+            include('payment.php');
+            break;
+        }else {
+           // Order_db::add_order($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
+            include('confirmation.php'); 
+            break;
+        }
         default:
         $error = "A single frickin' potato chip!";
         include("../errors/error.php");
