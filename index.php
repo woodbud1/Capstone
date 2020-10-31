@@ -3,7 +3,8 @@ require_once('./model/database_oo.php');
 require_once('./model/User_db.php');
 require_once('./model/User.php');
 require_once('./model/Validation.php');
-
+require_once('./model/Product_db.php');
+require_once('./model/Product.php');
 
 session_start();
 $action = filter_input(INPUT_POST, 'action');
@@ -345,4 +346,8 @@ switch ($action) {
      include('view/logout.php');
      die;
      break;
+    // case 'Shop':
+    //     $product_array = Product_db::select_all();
+    //     include('./store_manager/storefront.php');
+    // break;
 }

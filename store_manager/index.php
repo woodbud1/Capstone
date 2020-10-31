@@ -1,6 +1,8 @@
 <?php
+require_once('../model/database_oo.php');
 require_once('../model/validation.php');
-
+require_once('../model/Product_db.php');
+require_once('../model/Product.php');
 
 session_start();
 $action = filter_input(INPUT_POST, 'action');
@@ -16,15 +18,15 @@ switch ($action) {
     //     include("storefront.php");
     // break;
     case "shop":
+        $product_array = Product_db::select_all();
         include("storefront.php");
     break;
     case "cart":
         include("checkout.php");
     break;
     case "add":
+
         if(!empty($_POST["quantity"])) {
-            // $productByCode = $db_handle->runQuery("SELECT * FROM product WHERE code='" . $_GET["code"] . "'");
-            // $itemArray = array($productByCode[0]["code"]=>array('name'=>$productByCode[0]["name"], 'code'=>$productByCode[0]["code"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"], 'image'=>$productByCode[0]["image"]));
             // `productID` bigint(20) NOT NULL,
             // `categoryID` int(11) NOT NULL,
             // `productName` varchar(255) NOT NULL,

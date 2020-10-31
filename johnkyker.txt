@@ -1,1 +1,6 @@
-let name = "John Kyker"
+	<?php 
+	echo $product_array; 
+	if(!empty($product_array)){
+		echo "No Data!";
+	} 
+	?>
