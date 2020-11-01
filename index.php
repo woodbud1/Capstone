@@ -3,6 +3,11 @@ require_once('./model/database_oo.php');
 require_once('./model/User_db.php');
 require_once('./model/User.php');
 require_once('./model/Validation.php');
+require_once('./model/category_db.php');
+require_once('./model/category.php');
+require_once('./model/product_db.php');
+require_once('./model/product.php');
+
 
 
 session_start();
@@ -345,4 +350,19 @@ switch ($action) {
      include('view/logout.php');
      die;
      break;
+    
+    case 'Inventory Manager':
+    $category_id = filter_input(INPUT_GET, 'category_id', 
+            FILTER_VALIDATE_INT);
+    if ($category_id == NULL || $category_id == FALSE) {
+        $category_id = 1;
+    }
+
+    // Get product and category data
+    $current_category = CategoryDB::getCategory($category_id);
+    $categories = CategoryDB::getCategories();
+    $products = ProductDB::getProductsByCategory($category_id);
+
+    // Display the product list
+    include('product_list.php');
 }
