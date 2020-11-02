@@ -191,8 +191,9 @@ switch ($action) {
     }else {
         $phonenumber = '0000000000';
         $notes = 'notes';
-        $type = 0;
+        $type = 1;
         $_SESSION['username'] = $username;
+        $image = 'abc';
         User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
         mkdir("./images/".$username, 0777, true);
         $user = User_db::get_user($username);
