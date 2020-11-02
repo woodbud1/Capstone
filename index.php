@@ -350,6 +350,7 @@ switch ($action) {
      include('view/logout.php');
      die;
      break;
+
     
     case 'Inventory Manager':
     $category_id = filter_input(INPUT_GET, 'category_id', 
@@ -395,3 +396,10 @@ switch ($action) {
     die;
     break;    
 }
+
+//     case 'Shop':
+//         $product_array = Product_db::select_all();
+//         include('./store_manager/index.php');
+//     break;
+
+

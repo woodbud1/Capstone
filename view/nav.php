@@ -1,3 +1,3 @@
     <nav>  
-        <a href="../index.php" input class="button">Return to Login</a>
+        <a href="../index.php" class="button">Return to Login</a>
     </nav>

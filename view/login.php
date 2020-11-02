@@ -12,7 +12,7 @@
                 <input type="text" name="username" value=""><br><br>
                  <label>Password: </label>
                 <input type="password" name="password" value="">
-                <span><font color="red"<b><?php if(isset($errorLogin)) { echo $errorLogin; }?></b></font> </span><br>
+                <span><font color="red"><b><?php if(isset($errorLogin)) { echo $errorLogin; }?></b></font> </span><br>
                 <input class="button" type="submit" value="Login" >  
         </form>
         <form action="." method="post" >
