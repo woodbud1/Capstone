@@ -26,6 +26,8 @@ switch ($action) {
     break;
     case "add":
 
+        $itemArray = [];
+            
         if(!empty($_POST["quantity"])) {
             // `productID` bigint(20) NOT NULL,
             // `categoryID` int(11) NOT NULL,
@@ -35,6 +37,8 @@ switch ($action) {
             // `imageURL` varchar(255) NOT NULL,
             // `description` varchar(255) NOT NULL,
             // `count` bigint(20) NOT NULL
+            
+            
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
