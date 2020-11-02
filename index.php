@@ -346,8 +346,8 @@ switch ($action) {
      include('view/logout.php');
      die;
      break;
-    // case 'Shop':
-    //     $product_array = Product_db::select_all();
-    //     include('./store_manager/storefront.php');
-    // break;
+//     case 'Shop':
+//         $product_array = Product_db::select_all();
+//         include('./store_manager/index.php');
+//     break;
 }

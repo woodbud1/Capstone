@@ -157,7 +157,7 @@ switch ($action) {
             break;
         }
         default:
-        $error = "A single frickin' potato chip!";
-        include("../errors/error.php");
+            $error = "A single frickin' potato chip!";
+            include("./errors/error.php");
     break;
 }
