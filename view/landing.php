@@ -7,7 +7,7 @@
         <form action="." method="post" id="landing">
             <input type="submit" name="action" class="button" value="Edit Profile" >
             <input type="submit" name="action" class="button" value="Image Upload">
-            <input type="submit" name="action" class="button" value="Manage Schedule" >
+            <!-- <input type="submit" name="action" class="button" value="Manage Schedule" > -->
             <input class="button" type="submit" name="action" value="Logout" >
         </form>
         <br>
@@ -24,5 +24,5 @@
                 echo "<img src='./images/image.jpg'>";
             } 
         ?>
-        </div></div><br><br></center>
+        </div></div><br><br>
 <?php include 'footer.php'; ?>
