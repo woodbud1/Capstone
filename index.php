@@ -8,8 +8,6 @@ require_once('./model/category.php');
 require_once('./model/product_db.php');
 require_once('./model/product.php');
 
-
-
 session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
@@ -205,6 +203,7 @@ switch ($action) {
         $type = 0;
         $image = 'initial';
         $_SESSION['username'] = $username;
+        $image = 'abc';
         User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
         // TODO: If a username is used and then later deleted mkdir() command will flag an error as the $username directory still exists. Pretty corner case issue.
         // Warning: mkdir(): File exists in C:\xampp\htdocs\GroupProject2\Capstone\index.php on line 204
@@ -409,8 +408,25 @@ switch ($action) {
     include('manage_inventory/product_view.php');
     die;
     break;
-}
 
+
+    case 'User Manager':
+
+        $users = User_db::select_all();
+        include('view/UserManager.php');
+        break;
+
+    case 'See_Profile':
+        $profile = filter_input(INPUT_POST, 'profile');
+        $user = User_db::get_user($profile);
+        include('view/profile.php');
+        break;   
+
+     case 'Store Manager':
+         $product_array = Product_db::select_all();
+         include('./store_manager/index.php');
+     break;
+}
 //     case 'Shop':
 //         $product_array = Product_db::select_all();
 //         include('./store_manager/index.php');

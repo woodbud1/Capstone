@@ -83,10 +83,14 @@
                 <div class="medium-12 cell">
                         <label>&nbsp;</label>
                         <input class="button" type="submit" value="Sign Up">
-            <!-- <center><form action="." method="post">
-                        
-                        <input type="hidden" name="action" value="Add" /> -->
+                        <input type="hidden" name="action" value="Add" />
+            <center><form action="." method="post">
+                        <input type="hidden" name="action" value="Add" />
             </form></center>
+            <form action="index.php" method="post" id="edituserinfo">
+            <input type="hidden" name="action" value="Landing" >
+            <input class="button" type="submit" value="Back" >
+        </form>
                 </div>
         </div></div></div>
         </form>

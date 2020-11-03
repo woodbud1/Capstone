@@ -1,10 +1,10 @@
 <?php
-require_once('../model/database_oo.php');
-require_once('../model/validation.php');
-require_once('../model/Product_db.php');
-require_once('../model/Product.php');
+require_once('./model/database_oo.php');
+require_once('./model/validation.php');
+require_once('./model/Product_db.php');
+require_once('./model/Product.php');
 
-session_start();
+//session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -25,37 +25,18 @@ switch ($action) {
         include("checkout.php");
     break;
     case "add":
-
-        $itemArray = [];
-            
-        if(!empty($_POST["quantity"])) {
-            // `productID` bigint(20) NOT NULL,
-            // `categoryID` int(11) NOT NULL,
-            // `productName` varchar(255) NOT NULL,
-            // `price` decimal(10,0) NOT NULL,
-            // `sku` bigint(20) NOT NULL,
-            // `imageURL` varchar(255) NOT NULL,
-            // `description` varchar(255) NOT NULL,
-            // `count` bigint(20) NOT NULL
-            
-            
-            if(!empty($_SESSION["cart_item"])) {
-                if(in_array($productByCode[0]["code"],array_keys($_SESSION["cart_item"]))) {
-                    foreach($_SESSION["cart_item"] as $k => $v) {
-                            if($productByCode[0]["code"] == $k) {
-                                if(empty($_SESSION["cart_item"][$k]["quantity"])) {
-                                    $_SESSION["cart_item"][$k]["quantity"] = 0;
-                                }
-                                $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
-                            }
-                    }
-                } else {
-                    $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-                }
-            } else {
-                $_SESSION["cart_item"] = $itemArray;
-            }
+        $sku = $_GET["code"];
+        $count = $_POST["count"]; 
+        $itemArray = Product_db::get_product($sku);
+        if(!empty($_SESSION["cart_item"])){
+            $_SESSION["cart_item"] = $itemArray;
         }
+        if(!empty($_SESSION["cart_item"])){
+
+        } else{
+            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+        }
+
         include("checkout.php");
         break;
     	case "remove":
@@ -74,6 +55,8 @@ switch ($action) {
             include("checkout.php");
         break;	
         case "pay":
+            if(!isset($name)) { $name=''; }
+            if(!isset($email)) { $email=''; }
             include("payment.php");
         break;	
         case 'payment':
@@ -158,6 +141,6 @@ switch ($action) {
         }
         default:
             $error = "A single frickin' potato chip!";
-            include("./errors/error.php");
+            include("../errors/error.php");
     break;
 }
