@@ -6,11 +6,10 @@
                 </div><br><br>
         <form action="." method="post" id="landing">
             <input type="submit" name="action" class="button" value="Edit Profile" >
-            <input type="submit" name="action" class="button" value="Image Upload">
-            <input type="submit" name="action" class="button" value="Registration" >            
+            <input type="submit" name="action" class="button" value="Image Upload">         
             <input type="submit" name="action" class="button" value="Manage Schedule" >
             <input type="submit" name="action" class="button" value="Inventory Manager" >
-            <input type="submit" name="action" class="button" value="Registration" >
+            <input type="submit" name="action" class="button" value="User Manager" >
             <input type="submit" name="action" class="button" value="Shop" >
             <input class="button" type="submit" name="action" value="Logout" >
         </form>

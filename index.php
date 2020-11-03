@@ -395,8 +395,22 @@ switch ($action) {
     case 'Delete Product':
         
     die;
-    break;    
-}
+    break; 
+
+    case 'User Manager':
+
+        $users = User_db::select_all();
+        include('view/UserManager.php');
+        break;
+
+    case 'See_Profile':
+        $profile = filter_input(INPUT_POST, 'profile');
+        $user = User_db::get_user($profile);
+        include('view/profile.php');
+        break;
+
+    }
+
 
 //     case 'Shop':
 //         $product_array = Product_db::select_all();
