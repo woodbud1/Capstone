@@ -1,4 +1,4 @@
-<?php include './view/header.php'; ?> 
+<?php include '../view/header.php'; ?> 
 <div id="product-grid">
 	<div class="txt-heading"><h1>Products</h1></div>
 	<?php
@@ -27,4 +27,4 @@
 <form action="." method="post" id="pay">
         <p><input type="submit" name="action" value="Pay" ></p>
 </form>
-<?php include './view/footer.php'; ?>
+<?php include '../view/footer.php'; ?>

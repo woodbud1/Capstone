@@ -1,8 +1,8 @@
 <?php
-require_once('./model/database_oo.php');
-require_once('./model/validation.php');
-require_once('./model/Product_db.php');
-require_once('./model/Product.php');
+require_once('../model/database_oo.php');
+require_once('../model/validation.php');
+require_once('../model/Product_db.php');
+require_once('../model/Product.php');
 
 //session_start();
 $action = filter_input(INPUT_POST, 'action');
@@ -28,7 +28,7 @@ switch ($action) {
         $sku = $_GET["code"];
         $count = $_POST["count"]; 
         $itemArray = Product_db::get_product($sku);
-        if(!empty($_SESSION["cart_item"])){
+        if(empty($_SESSION["cart_item"])){
             $_SESSION["cart_item"] = $itemArray;
         }
         if(!empty($_SESSION["cart_item"])){
