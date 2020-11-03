@@ -11,9 +11,9 @@ class Product_db {
         public static function get_product($product) 
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM products WHERE SKU = :SKU';
+            $query = 'SELECT * FROM products WHERE sku = :SKU';
             $statement = $db->prepare($query);
-            $statement->bindValue(':Product', $product);
+            $statement->bindValue(':SKU', $product);
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();
