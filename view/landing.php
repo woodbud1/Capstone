@@ -8,6 +8,7 @@
             <input type="submit" name="action" class="button" value="Edit Profile" >
             <input type="submit" name="action" class="button" value="Image Upload">
             <!-- <input type="submit" name="action" class="button" value="Manage Schedule" > -->
+            <input class="button" type="submit" name="action" value="Store Manager" >
             <input class="button" type="submit" name="action" value="Logout" >
         </form>
         <br>

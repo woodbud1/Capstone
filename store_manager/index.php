@@ -1,10 +1,10 @@
 <?php
-require_once('../model/database_oo.php');
-require_once('../model/validation.php');
-require_once('../model/Product_db.php');
-require_once('../model/Product.php');
+require_once('./model/database_oo.php');
+require_once('./model/validation.php');
+require_once('./model/Product_db.php');
+require_once('./model/Product.php');
 
-session_start();
+//session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -157,7 +157,9 @@ switch ($action) {
             break;
         }
         default:
-            $error = "A single frickin' potato chip!";
-            include("./errors/error.php");
+//            $error = "A single frickin' potato chip!";
+//            include("./errors/error.php");
+                 $product_array = Product_db::select_all();
+                 include("storefront.php");
     break;
 }
