@@ -29,7 +29,7 @@ if(isset($_SESSION["cart_item"])){
 				<td><?php echo $item["count"]; ?></td>
 				<td><?php echo "$ ".$item["price"]; ?></td>
 				<td><?php echo "$ ". number_format($item_price,2); ?></td>
-				<td><a href="index.php?action=remove&code=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
+				<td><a href="index.php?action=remove&code=<?php echo $item["sku"]; ?>" class="btnRemoveAction">Remove</a></td>
 				</tr>
 				<?php
 				$total_count += $item["count"];
