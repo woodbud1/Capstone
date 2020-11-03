@@ -8,7 +8,7 @@ if(isset($_SESSION["cart_item"])){
     $total_count = 0;
     $total_price = 0;
 ?>	
-<?php echo $_SESSION["cart_item"]; ?>
+
 <table>
 <tbody>
 <tr>
