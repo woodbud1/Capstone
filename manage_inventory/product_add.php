@@ -16,20 +16,35 @@
 
         <label>Name:</label>
         <input type="text" name="productName">
-        <br>
-
-        <label>Name:</label>
-        <input type="text" name="name">
-        <br>
+        
+<!--        $product = new Product($results['productID'],
+                             $results['categoryID'],
+                             $results['productName'],
+                             $results['price'],
+                             $results['sku'],
+                             $results['imageURL'],
+                             $results['description'],
+                             $results['count']);-->
 
         <label>List Price:</label>
         <input type="text" name="price">
-        <br>
-
+        
+        <label>SKU:</label>
+        <input type="text" name="sku">
+        
+        <label>Description:</label>
+        <input type="text" name="description">
+        
+        <label>Count:</label>
+        <input type="text" name="count">
+        
         <label>&nbsp;</label>
         <input type="submit" value="Add Product">
         <br>
     </form>
-    <p><a href="index.php?action=list_products">View Product List</a></p>
+    <form action="index.php" method="post" id="Inventory Manager">
+            <input type="hidden" name="action" value="Inventory Manager" >
+            <input class="button" type="submit" value="Back To Products" >
+        </form> 
 </main>
 <?php include './view/footer.php'; ?>

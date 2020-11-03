@@ -353,19 +353,27 @@ switch ($action) {
 
     
     case 'Inventory Manager':
-    $category_id = filter_input(INPUT_GET, 'category_id', 
-            FILTER_VALIDATE_INT);
-    if ($category_id == NULL || $category_id == FALSE) {
-        $category_id = 1;
-    }
-
-    // Get product and category data
-    $current_category = Category_db::getCategory($category_id);
-    $categories = Category_db::getCategories();
-    $products = Product_db::getProductsByCategory($category_id);
+//    $category_id = filter_input(INPUT_GET, 'category_id', 
+//            FILTER_VALIDATE_INT);
+//    if ($category_id == NULL || $category_id == FALSE) {
+//        $category_id = 1;
+//    }
+//
+//    // Get product and category data
+//    $current_category = Category_db::getCategory($category_id);
+//    $categories = Category_db::getCategories();
+//    $products = Product_db::getProductsByCategory($category_id);
 
     // Display the product list
-    include('manage_inventory/product_list.php');
+    $products = Product_db::select_all();    
+        
+    include('manage_inventory/all_products.php');
+    die;
+    break;
+
+    case 'Show Add Product Form':
+    $categories = Category_db::getCategories();
+    include('manage_inventory/product_add.php');
     die;
     break;
     
@@ -375,18 +383,18 @@ switch ($action) {
     $code = filter_input(INPUT_POST, 'code');
     $name = filter_input(INPUT_POST, 'name');
     $price = filter_input(INPUT_POST, 'price');
-    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
-            $name == NULL || $price == NULL || $price == FALSE) {
-        $error = "Invalid product data. Check all fields and try again.";
-        include('../errors/error.php');
-    } else {
-        $current_category = CategoryDB::getCategory($category_id);
-        $product = new Product($current_category, $code, $name, $price);
-        ProductDB::addProduct($product);
-
-        // Display the Product List page for the current category
-        header("Location: .?category_id=$category_id");
-    }        
+//    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
+//            $name == NULL || $price == NULL || $price == FALSE) {
+//        $error = "Invalid product data. Check all fields and try again.";
+//        include('./errors/error.php');
+//    } else {
+//        $current_category = CategoryDB::getCategory($category_id);
+//        $product = new Product($current_category, $code, $name, $price);
+//        ProductDB::addProduct($product);
+//
+//        // Display the Product List page for the current category
+//        header("Location: .?category_id=$category_id");
+//    }        
     include('manage_inventory/product_add.php');
     die;
     break;    
@@ -395,6 +403,12 @@ switch ($action) {
         
     die;
     break;    
+    
+    case 'View Product':
+        
+    include('manage_inventory/product_view.php');
+    die;
+    break;
 }
 
 //     case 'Shop':
