@@ -5,40 +5,41 @@
 <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
 <?php
 if(isset($_SESSION["cart_item"])){
-    $total_quantity = 0;
+    $total_count = 0;
     $total_price = 0;
 ?>	
+<?php echo $_SESSION["cart_item"]; ?>
 <table>
 <tbody>
 <tr>
 <th>Name</th>
-<th>Code</th>
-<th>Quantity</th>
+<th>SKU</th>
+<th>Count</th>
 <th>Unit Price</th>
 <th>Price</th>
 <th>Remove</th>
 </tr>	
 <?php		
     foreach ($_SESSION["cart_item"] as $item){
-        $item_price = $item["quantity"]*$item["price"];
+        $item_price = $item["count"]*$item["price"];
 		?>
 				<tr>
-				<td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
-				<td><?php echo $item["code"]; ?></td>
-				<td><?php echo $item["quantity"]; ?></td>
+				<td><img src="<?php echo $item["imageURL"]; ?>" class="cart-item-image" /><?php echo $item["productName"]; ?></td>
+				<td><?php echo $item["sku"]; ?></td>
+				<td><?php echo $item["count"]; ?></td>
 				<td><?php echo "$ ".$item["price"]; ?></td>
 				<td><?php echo "$ ". number_format($item_price,2); ?></td>
-				<td><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
+				<td><a href="index.php?action=remove&code=<?php echo $item["sku"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
 				</tr>
 				<?php
-				$total_quantity += $item["quantity"];
-				$total_price += ($item["price"]*$item["quantity"]);
+				$total_count += $item["count"];
+				$total_price += ($item["price"]*$item["count"]);
 		}
 		?>
 
 <tr>
 <td>Total:</td>
-<td><?php echo $total_quantity; ?></td>
+<td><?php echo $total_count; ?></td>
 <td><strong><?php echo "$ ".number_format($total_price, 2); ?></strong></td>
 <td></td>
 </tr>
@@ -52,7 +53,10 @@ if(isset($_SESSION["cart_item"])){
 }
 ?>
 </div>
-<form action="." method="post" >
-        <p><input type="submit" name="action" value="shop" ></p>
+<form action="." method="post" id="cart">
+        <p><input type="submit" name="action" value="Cart" ></p>
+</form>
+<form action="." method="post" id="pay">
+        <p><input type="submit" name="action" value="Pay" ></p>
 </form>
 <?php include '../view/footer.php'; ?>
