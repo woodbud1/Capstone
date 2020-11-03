@@ -18,9 +18,6 @@
         <form action="." method="post" >
             <p><input class="button" accept=" "type="submit" name="action" value="Registration" ></p>
         </form>
-<!--        <form action="." method="post" >
-            <p><input class="button" accept=" " type="submit" name="action" value="Shop" ></p>
-        </form>-->
             </div>
         </form>
     </main>
