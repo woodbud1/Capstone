@@ -3,6 +3,11 @@ require_once('./model/database_oo.php');
 require_once('./model/User_db.php');
 require_once('./model/User.php');
 require_once('./model/Validation.php');
+require_once('./model/category_db.php');
+require_once('./model/category.php');
+require_once('./model/product_db.php');
+require_once('./model/product.php');
+
 
 
 session_start();
@@ -90,6 +95,7 @@ switch ($action) {
         if(!isset($errorCity)) { $errorCity=''; }
         if(!isset($errorState)) { $errorState=''; }
         if(!isset($errorPostal)) { $errorPostal=''; }
+        if(!isset($errorPasswordConfirm)) { $errorPasswordConfirm=''; }
         
 
         // Display the registration form
@@ -104,7 +110,7 @@ switch ($action) {
           $city = filter_input(INPUT_POST, "city");
           $state = filter_input(INPUT_POST, "state");
           $postal = filter_input(INPUT_POST, "postal");
-  
+          $confirm_password = filter_input(INPUT_POST, "confirm_password");
           $error = '';
           $errorName ='';
           $errorUsername = '';
@@ -114,6 +120,7 @@ switch ($action) {
           $errorCity = '';
           $errorState = '';
           $errorPostal = '';
+          $errorPasswordConfirm = '';
 
         // Validate the inputs
     if($name === '') {
@@ -143,6 +150,10 @@ switch ($action) {
         $email = "";
     }
     
+    if($confirm_password !== $password){
+        $errorPasswordConfirm = "Passwords must match!";
+    }
+
     if($password === ''){
         $errorPassword .= "Please enter a password. ";
     }else if(Validation::validPasswordLength($password) === false){
@@ -185,16 +196,19 @@ switch ($action) {
         $errorPostal .= "Please enter your postal (Zip) code. ";
     }
     
-    if($errorName !== '' || $errorUsername !== '' || $errorEmail !== '' || $errorPassword !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== ''){
+    if($errorName !== '' || $errorUsername !== '' || $errorEmail !== '' || $errorPassword !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorPasswordConfirm !== ''){
         include('view/registration.php');
         break;
     }else {
         $phonenumber = '0000000000';
         $notes = 'notes';
-        $type = 1;
+        $type = 0;
+        $image = 'initial';
         $_SESSION['username'] = $username;
         $image = 'abc';
         User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
+        // TODO: If a username is used and then later deleted mkdir() command will flag an error as the $username directory still exists. Pretty corner case issue.
+        // Warning: mkdir(): File exists in C:\xampp\htdocs\GroupProject2\Capstone\index.php on line 204
         mkdir("./images/".$username, 0777, true);
         $user = User_db::get_user($username);
         include('view/landing.php'); 
@@ -337,4 +351,56 @@ switch ($action) {
      include('view/logout.php');
      die;
      break;
+
+    
+    case 'Inventory Manager':
+    $category_id = filter_input(INPUT_GET, 'category_id', 
+            FILTER_VALIDATE_INT);
+    if ($category_id == NULL || $category_id == FALSE) {
+        $category_id = 1;
+    }
+
+    // Get product and category data
+    $current_category = Category_db::getCategory($category_id);
+    $categories = Category_db::getCategories();
+    $products = Product_db::getProductsByCategory($category_id);
+
+    // Display the product list
+    include('manage_inventory/product_list.php');
+    die;
+    break;
+    
+    case 'Add Product':
+        $category_id = filter_input(INPUT_POST, 'category_id', 
+            FILTER_VALIDATE_INT);
+    $code = filter_input(INPUT_POST, 'code');
+    $name = filter_input(INPUT_POST, 'name');
+    $price = filter_input(INPUT_POST, 'price');
+    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
+            $name == NULL || $price == NULL || $price == FALSE) {
+        $error = "Invalid product data. Check all fields and try again.";
+        include('../errors/error.php');
+    } else {
+        $current_category = CategoryDB::getCategory($category_id);
+        $product = new Product($current_category, $code, $name, $price);
+        ProductDB::addProduct($product);
+
+        // Display the Product List page for the current category
+        header("Location: .?category_id=$category_id");
+    }        
+    include('manage_inventory/product_add.php');
+    die;
+    break;    
+    
+    case 'Delete Product':
+        
+    die;
+    break;    
 }
+
+//     case 'Shop':
+//         $product_array = Product_db::select_all();
+//         include('./store_manager/index.php');
+//     break;
+
+

@@ -1,41 +1,24 @@
-<?php include 'header.php'; 
-
-        // if(!isset($name)) { $name=''; }
-        // if(!isset($username)) { $username=''; }
-        // if(!isset($email)) { $email=''; }
-        // if(!isset($password)) { $password=''; }
-        // if(!isset($errorEmail)) { $errorEmail=''; }
-        // if(!isset($errorStreet)) { $errorStreet=''; }
-        // if(!isset($errorCity)) { $errorCity=''; }
-        // if(!isset($errorState)) { $errorState=''; }
-        // if(!isset($errorPostal)) { $errorPostal=''; }
-        // if(!isset($errorPasswordConfirm)) { $errorPasswordConfirm=''; }
-        ?>
+<?php include '../view/header.php'; ?>
     <body>
 
 
         <div class="row">
                 <div class="large-12 columns">
-                    <center><h1>Registration</h1></center>
-            <!-- <center><form action="." method="post">
-                        <input class="button" type="submit" value="Return To Login">
-                        <input type="hidden" name="action" value="Login" />
-            </form></center>
-                </div> -->
+                    <center><h1>Payment</h1></center>
         </div>    
-        <form action="." method="post" id="registration">
-        <input type="hidden" name="action" value="Add" />
-        <div id="form-wrapper" style="max-width:500px;margin:auto;">
+        <form action="." method="post" id="payment">
+        <input type="hidden" name="action" value="payment" />
+        <div id="form-wrapper">
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">                
-                       <label>Full Name<font color="red">*</font>: </label>
+                       <label>Full Name<span id="error">*</span>: </label>
                        <input type="text" name="name" placeholder="please enter your first name" value='<?php echo $name; ?>'><span><font color="red"><?php if(isset($errorName)) { echo $errorName; }?></font></span>
                     </div></div></div>
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">             
-                        <label>Email Address<font color="red">*</font>: </label>
+                        <label>Email Address<span id="error">*</span>: </label>
                         <input type="text" name="email" placeholder="please enter your email address" value="<?php echo $email; ?>"><span><font color="red"> <?php if(isset($errorEmail)) { echo $errorEmail; }?></font></span><br>
                 </div></div></div>
         <div class="grid-container" class="fieldset">
@@ -47,48 +30,58 @@
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">               
-                        <label>City<font color="red">*</font>: </label>
+                        <label>City<span id="error">*</span>: </label>
                         <input type="text" name="city" placeholder="please enter your city of residence"><span><font color="red"> <?php if(isset($errorCity)) { echo $errorCity; }?></font></span><br>
                 </div></div></div>
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">   
-                        <label>State<font color="red">*</font>: </label>
+                        <label>State<span id="error">*</span>: </label>
                         <input type="text" name="state" placeholder="please enter your state of residence"><span><font color="red"> <?php if(isset($errorState)) { echo $errorState; }?></font></span><br>
                     </div></div></div>
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">   
-                        <label>Zip Code<font color="red">*</font>: </label>
+                        <label>Zip Code<span id="error">*</span>: </label>
                         <input type="text" name="postal" placeholder="please enter your zip code"><span><font color="red"> <?php if(isset($errorPostal)) { echo $errorPostal; }?></font></span><br>
                  </div></div></div>
-        <div class="grid-container" class="fieldset">
+                 <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">            
-                        <label>Username<font color="red">*</font>: </label>
-                        <input type="text" name="username" placeholder="please enter a username"><span><font color="red"> <?php if(isset($errorUsername)) { echo $errorUsername; }?></font></span><br>
+                    <div class="medium-12 cell">     
+                <p>Please select payment method:
+                Note: Cash or Check payments must be received before shipping out products.</p>
+                <input type="radio" id="cash" name="payment_type" value="cash">
+                <label for="cash">Cash</label><br>
+                <input type="radio" id="check" name="payment_type" value="check">
+                <label for="check">Check</label><br>
+                <input type="radio" id="card" name="payment_type" value="card">
+                <label for="card">Card</label>
+  </div></div></div>
+  <div class="grid-container" class="fieldset">
+                <div class="grid-x grid-padding-x">
+                    <div class="medium-12 cell">   
+                        <label>Credit Card Number:<span id="error">*</span>: </label>
+                        <input type="text" name="ccNum" placeholder="Credit Card Number"><span><font color="red"> <?php if(isset($errorCardNum)) { echo $errorCardNum; }?></font></span><br>
                     </div></div></div>
-       <div class="grid-container" class="fieldset">
+                    <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">                
-                        <label>Password<font color="red">*</font>: </label>
-                        <input type="text" name="password" placeholder="please enter a password"><span><font color="red"> <?php if(isset($errorPassword)) { echo $errorPassword; }?></font></span><br>          
-                </div></div>
+                    <div class="medium-12 cell">   
+                        <label>Credit Card Expiration Date:<span id="error">*</span>: </label>
+                        <input type="text" name="ccExp" placeholder="MM/YYYY"><span><font color="red"> <?php if(isset($errorCardExp)) { echo $errorCardExp; }?></font></span><br>
+                    </div></div></div>
+                    <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">                
-                        <label>Confirm Password<font color="red">*</font>: </label>
-                        <input type="text" name="confirm_password" placeholder="please re-enter password"><span><font color="red"> <?php if(isset($errorPasswordConfirm)) { echo $errorPasswordConfirm; }?></font></span><br>          
-                </div></div>
+                    <div class="medium-12 cell">   
+                        <label>Credit Card Security Code:<span id="error">*</span>: </label>
+                        <input type="text" name="ccSec" placeholder="Card Code"><span><font color="red"> <?php if(isset($errorCardSec)) { echo $errorCardSec; }?></font></span><br>
+                    </div></div></div>
         <div class="grid-x grid-padding-x">
                 <div class="medium-12 cell">
                         <label>&nbsp;</label>
-                        <input class="button" type="submit" value="Sign Up">
-            <!-- <center><form action="." method="post">
-                        
-                        <input type="hidden" name="action" value="Add" /> -->
-            </form></center>
+                        <input class="button" type="submit" value="Done!">
+            </form>
                 </div>
         </div></div></div>
         </form>
     </body>
-<?php include 'footer.php'; ?>
+<?php include '../view/footer.php'; ?>

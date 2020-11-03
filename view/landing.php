@@ -9,19 +9,23 @@
             <input type="submit" name="action" class="button" value="Image Upload">
             <input type="submit" name="action" class="button" value="Registration" >            
             <input type="submit" name="action" class="button" value="Manage Schedule" >
+            <input type="submit" name="action" class="button" value="Inventory Manager" >
+            <!-- <input type="submit" name="action" class="button" value="Manage Schedule" > -->
             <input class="button" type="submit" name="action" value="Logout" >
         </form>
         <br>
         <?php $username = $_SESSION['username'];
             $image = User_db::get_image($username);
-
-            if($image != null){
+            if($image != null && $image != 'initial'){
                $filepath = './images/' . $username . '/' . $image; 
                echo "<img src=$filepath>";
             }
+            // elseif($image === 'initial') {
+            //     echo "<img src='./images/image.jpg'>";
+            // }
             else{
                 echo "<img src='./images/image.jpg'>";
-            }
+            } 
         ?>
-        </div></div><br><br></center>
+        </div></div><br><br>
 <?php include 'footer.php'; ?>

@@ -16,7 +16,7 @@
 
             <label>Email Address: </label>
             <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>"><font color="red"><b><?php if (isset($errorEmail)) {
-                 echo $errorEmail;} ?></b></font> </span><br>
+                 echo $errorEmail;} ?></b></font><br>
 
             <label>Password: </label>
             <input type="password" name="password"><span><font color="red"><b><?php if (isset($errorPassword)) {
