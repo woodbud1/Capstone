@@ -10,7 +10,8 @@
             <input type="submit" name="action" class="button" value="Registration" >            
             <input type="submit" name="action" class="button" value="Manage Schedule" >
             <input type="submit" name="action" class="button" value="Inventory Manager" >
-            <!-- <input type="submit" name="action" class="button" value="Manage Schedule" > -->
+            <input type="submit" name="action" class="button" value="Registration" >
+            <input type="submit" name="action" class="button" value="Shop" >
             <input class="button" type="submit" name="action" value="Logout" >
         </form>
         <br>

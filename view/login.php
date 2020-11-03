@@ -14,13 +14,7 @@
                 <input type="password" name="password" value="">
                 <span><font color="red"><b><?php if(isset($errorLogin)) { echo $errorLogin; }?></b></font> </span><br>
                 <input class="button" type="submit" value="Login" >  
-        </form>
-        <form action="." method="post" >
-            <p><input class="button" accept=" "type="submit" name="action" value="Registration" ></p>
-        </form>
-        <form action="." method="post" >
-            <p><input class="button" accept=" " type="submit" name="action" value="Shop" ></p>
-        </form>
             </div>
+        </form>
     </main>
 <?php include 'footer.php'; ?>
