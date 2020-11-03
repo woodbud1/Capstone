@@ -8,8 +8,6 @@ require_once('./model/category.php');
 require_once('./model/product_db.php');
 require_once('./model/product.php');
 
-
-
 session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
@@ -407,11 +405,13 @@ switch ($action) {
         $profile = filter_input(INPUT_POST, 'profile');
         $user = User_db::get_user($profile);
         include('view/profile.php');
-        break;
+        break;   
 
-    }
-
-
+     case 'Store Manager':
+         $product_array = Product_db::select_all();
+         include('./store_manager/index.php');
+     break;
+}
 //     case 'Shop':
 //         $product_array = Product_db::select_all();
 //         include('./store_manager/index.php');
