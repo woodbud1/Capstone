@@ -3,8 +3,10 @@ require_once('./model/database_oo.php');
 require_once('./model/User_db.php');
 require_once('./model/User.php');
 require_once('./model/Validation.php');
-require_once('./model/Product_db.php');
-require_once('./model/Product.php');
+require_once('./model/category_db.php');
+require_once('./model/category.php');
+require_once('./model/product_db.php');
+require_once('./model/product.php');
 
 session_start();
 $action = filter_input(INPUT_POST, 'action');
@@ -346,8 +348,54 @@ switch ($action) {
      include('view/logout.php');
      die;
      break;
+
+    
+    case 'Inventory Manager':
+    $category_id = filter_input(INPUT_GET, 'category_id', 
+            FILTER_VALIDATE_INT);
+    if ($category_id == NULL || $category_id == FALSE) {
+        $category_id = 1;
+    }
+
+    // Get product and category data
+    $current_category = Category_db::getCategory($category_id);
+    $categories = Category_db::getCategories();
+    $products = Product_db::getProductsByCategory($category_id);
+
+    // Display the product list
+    include('manage_inventory/product_list.php');
+    die;
+    break;
+    
+    case 'Add Product':
+        $category_id = filter_input(INPUT_POST, 'category_id', 
+            FILTER_VALIDATE_INT);
+    $code = filter_input(INPUT_POST, 'code');
+    $name = filter_input(INPUT_POST, 'name');
+    $price = filter_input(INPUT_POST, 'price');
+    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
+            $name == NULL || $price == NULL || $price == FALSE) {
+        $error = "Invalid product data. Check all fields and try again.";
+        include('../errors/error.php');
+    } else {
+        $current_category = CategoryDB::getCategory($category_id);
+        $product = new Product($current_category, $code, $name, $price);
+        ProductDB::addProduct($product);
+
+        // Display the Product List page for the current category
+        header("Location: .?category_id=$category_id");
+    }        
+    include('manage_inventory/product_add.php');
+    die;
+    break;    
+    
+    case 'Delete Product':
+        
+    die;
+    break;    
+
      case 'Store Manager':
-//         $product_array = Product_db::select_all();
+         $product_array = Product_db::select_all();
          include('./store_manager/index.php');
      break;
 }

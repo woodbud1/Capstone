@@ -95,5 +95,34 @@ class Product_db {
             $statement->execute();
             $statement->closeCursor();
         }
+        
+        public static function getProductsByCategory($category_id) {
+        $db = Database::getDB();
+
+        $category = Category_db::getCategory($category_id);
+
+        $query = 'SELECT * FROM products
+                  WHERE products.categoryID = :category_id
+                  ORDER BY productID';
+        $statement = $db->prepare($query);
+        $statement->bindValue(":category_id", $category_id);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        $statement->closeCursor();
+    
+        foreach ($rows as $row) {
+            $product = new Product($category,
+                                   $row['productID'],
+                                   $row['productName'],
+                                   $row['price'],
+                                   $row['sku'],
+                                   $row['imageURL'],
+                                   $row['description'],
+                                   $row['count']);
+            $product->setProductID($row['productID']);
+            $products[] = $product;
+        }
+        return $products;
+    }
 }
 ?>
