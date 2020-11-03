@@ -140,14 +140,7 @@ switch ($action) {
             break;
         }
         default:
-<<<<<<< Updated upstream
-//            $error = "A single frickin' potato chip!";
-//            include("./errors/error.php");
-                 $product_array = Product_db::select_all();
-                 include("storefront.php");
-=======
             $error = "A single frickin' potato chip!";
             include("../errors/error.php");
->>>>>>> Stashed changes
     break;
 }
