@@ -1,5 +1,5 @@
 <?php
-class category_db {
+class Category_db {
     public static function getCategories() {
         $db = Database::getDB();
         $query = 'SELECT * FROM categories

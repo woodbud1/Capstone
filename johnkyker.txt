@@ -21,3 +21,15 @@
         }
 
 		<img src="icon-delete.png" alt="Remove Item" />
+
+Check Regex
+^\w{1,17}$
+
+orderID
+paymentAmount
+paymentType
+checkNum
+cardNum
+userID (purchaser id)
+isPaid
+isDelievered

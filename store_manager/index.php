@@ -69,6 +69,7 @@ switch ($action) {
               $creditcard_num = filter_input(INPUT_POST, "ccNum");
               $creditcard_exp = filter_input(INPUT_POST, "ccExp");
               $creditcard_sec = filter_input(INPUT_POST, "ccSec");
+              $address; 
 
               $error = '';
               $errorName ='';
@@ -134,8 +135,9 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
             break;
-        }else {
-           // Order_db::add_order($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
+        }else { 
+           $address = $street." ".$city." ".$state." ".$postal;
+            
             include('confirmation.php'); 
             break;
         }
