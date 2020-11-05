@@ -111,5 +111,4 @@ class Order_db {
             $statement->closeCursor();
         }
     }
-}
 ?>
