@@ -27,15 +27,14 @@ switch ($action) {
     case "add": 
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
-            // $cartID = 0;
             // It's the ugliest thing I ever seen but, I cannot get PHP database call to return the values not as an array.
             // $productByID = Product_db::get_byID();
+            // $cardID = rand(1,100000); 'productID'=>$productByID[0][$cartID];
             $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $_GET["productID"] . "'");
             $itemArray = array($productByID[0]["productID"]=>array('productID'=>$productByID[0]["productID"], 'productName'=>$productByID[0]["productName"], 'sku'=>$productByID[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productByID[0]["price"], 'imageURL'=>$productByID[0]["imageURL"]));
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
-                            // $cartID++;
                             if($productByID[0]["productID"] == $k) {
                                 if(empty($_SESSION["cart_item"][$k]["count"])) {
                                     $_SESSION["cart_item"][$k]["count"] = 0;
@@ -53,7 +52,6 @@ switch ($action) {
         include("storefront.php");
         break;
         case "remove":
-            // Needs Fixing, will sometime it not get the right productID.
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
                         if($_GET["productID"] == $k)
@@ -189,7 +187,6 @@ switch ($action) {
         // }
 
         $address = $street." ".$city.", ".$state." ".$postal;
-        // Can't figure out what's going wrong here. isValid a lot cleaner.
         // if($isValid === true) {
         //     $errorCardNum = "Returned a false";
         //     include('confirmation.php'); 
