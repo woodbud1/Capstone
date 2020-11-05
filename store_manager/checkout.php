@@ -1,7 +1,7 @@
 <?php include '../view/header.php'; ?> 
 <div id="shopping-cart">
 <div class="txt-heading">Shopping Cart</div>
-
+<?php echo $sku ?>
 <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
 <?php
 if(isset($_SESSION["cart_item"])){

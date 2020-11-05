@@ -24,18 +24,16 @@ switch ($action) {
         include("storefront.php");
     break;
     case "cart":
-        include("checkout.php");
+        include("storefront.php");
     break;
     case "add":
-        $sku = $_GET["code"];
-        $count = filter_input(INPUT_POST, "count");
         if(!empty($_POST["count"])) {
-            $productBySKU = Product_db::get_bySKU($sku);
-            $itemArray = array($productBySKU[0]["code"]=>array('productName'=>$productBySKU[0]["productName"], 'code'=>$productBySKU[0]["code"], 'count'=>$_POST["count"], 'price'=>$productBySKU[0]["price"], 'imageURL'=>$productBySKU[0]["imageURL"]));
+            $productBySKU = Product_db::get_bySKU($_GET["sku"]);
+            $itemArray = array($productBySKU[0]["sku"]=>array('productName'=>$productBySKU[0]["productName"], 'sku'=>$productBySKU[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productBySKU[0]["price"], 'imageURL'=>$productBySKU[0]["imageURL"]));
             if(!empty($_SESSION["cart_item"])) {
-                if(in_array($productBySKU[0]["code"],array_keys($_SESSION["cart_item"]))) {
+                if(in_array($productBySKU[0]["sku"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
-                            if($productBySKU[0]["code"] == $k) {
+                            if($productBySKU[0]["sku"] == $k) {
                                 if(empty($_SESSION["cart_item"][$k]["count"])) {
                                     $_SESSION["cart_item"][$k]["count"] = 0;
                                 }
@@ -49,7 +47,7 @@ switch ($action) {
                 $_SESSION["cart_item"] = $itemArray;
             }
         }
-        include("checkout.php");
+        include("storefront.php");
         break;
     	case "remove":
             if(!empty($_SESSION["cart_item"])) {
@@ -60,11 +58,11 @@ switch ($action) {
                             unset($_SESSION["cart_item"]);
                 }
             }
-        include("checkout.php");
+        include("storefront.php");
         break;
         case "empty":
             unset($_SESSION["cart_item"]);
-            include("checkout.php");
+            include("storefront.php");
         break;	
         case "pay":
             if(!isset($name)) { $name=''; }

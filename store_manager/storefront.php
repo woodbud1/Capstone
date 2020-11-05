@@ -7,7 +7,7 @@
 		foreach($product_array as $key=>$value){
 	?>
 		<div class="product-item">
-			<form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["sku"]; ?>">
+			<form method="post" action="index.php?action=add&sku=<?php echo $product_array[$key]["sku"]; ?>">
 			<div class="product-image"><img src="<?php echo $product_array[$key]["imageURL"]; ?>"></div>
 			<div class="product-tile-footer">
 			<div class="product-title"><?php echo $product_array[$key]["productName"]; ?></div>

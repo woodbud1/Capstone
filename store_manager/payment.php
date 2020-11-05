@@ -84,5 +84,11 @@
                 </div>
         </div></div></div>
         </form>
+<form action="." method="post">
+    <p><input type="submit" name="action" value="shop" ></p>
+</form>
+<form action="." method="post">
+        <p><input type="submit" name="action" value="cart" ></p>
+</form>
     </body>
 <?php include '../view/footer.php'; ?>
