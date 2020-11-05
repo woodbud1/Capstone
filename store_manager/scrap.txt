@@ -11,3 +11,6 @@
 
 \b(?:\d[ -]*?){13,16}\b
 \\ Credit Card Regex
+
+Check Regex
+^\w{1,17}$

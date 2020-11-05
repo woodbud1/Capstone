@@ -53,10 +53,12 @@ if(isset($_SESSION["cart_item"])){
 }
 ?>
 </div>
-<form action="." method="post" id="cart">
-        <p><input type="submit" name="action" value="Cart" ></p>
+<form action="." method="post">
+<input type="hidden" name="action" value="cart">
+<p><input type="submit" name="submit" value="Cart" ></p>
 </form>
-<form action="." method="post" id="pay">
-        <p><input type="submit" name="action" value="Pay" ></p>
+<form action="." method="post">
+<input type="hidden" name="action" value="pay">
+<p><input type="submit" name="submit" value="Pay" ></p>
 </form>
 <?php include '../view/footer.php'; ?>

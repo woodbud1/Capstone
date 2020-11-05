@@ -69,7 +69,9 @@ switch ($action) {
               $creditcard_num = filter_input(INPUT_POST, "ccNum");
               $creditcard_exp = filter_input(INPUT_POST, "ccExp");
               $creditcard_sec = filter_input(INPUT_POST, "ccSec");
+              $isValid = true;
               $address; 
+              $payment_type = $_POST["payment_type"];
 
               $error = '';
               $errorName ='';
@@ -82,65 +84,98 @@ switch ($action) {
               $errorCardNum = '';
               $errorCardExp = '';
               $errorCardSec = '';
-    
+              
             // Validate the inputs
         if($name === '') {
             $errorName .= "Please enter you full name. ";
+            $isValid = false;
         }else if(Validation::validName($name) === 0){
             $errorName .= "Name must begin with a letter. ";
             $name = "";
+            $isValid = false;
         }
         
         if($email === FALSE){
             $errorEmail = "Please enter a valid email. ";
+            $isValid = false;
         }
         
         if($street === '') {
             $errorStreet .= "Please enter your street address. ";
+            $isValid = false;
         }else if(Validation::validName($street) === 0){
             $errorStreet .= "Street Error. ";
             $errorStreet = "";
+            $isValid = false;
         }
         
             if($city === '') {
             $errorCity .= "Please enter your city of residence. ";
+            $isValid = false;
         }else if(Validation::validName($city) === 0){
             $errorCity .= "City Error. ";
             $city = "";
+            $isValid = false;
         }
         
             if($state === '') {
             $errorState .= "Please enter your state of residence. ";
+            $isValid = false;
         }else if(Validation::validName($state) === 0){
             $errorState .= "state error. ";
             $state = "";
+            $isValid = false;
         }
         
         if($postal === '') {
             $errorPostal .= "Please enter your postal (Zip) code. ";
+            $isValid = false;
         }
 
         if($creditcard_num === '') {
             $errorCardNum .= "Invalid number. ";
+            $isValid = false;
         }
 
         if($creditcard_exp === '') {
             $errorCardExp .= "Invalid date. ";
+            $isValid = false;
         }
 
         if($creditcard_sec === '') {
             $errorCardSec .= "Invalid number. ";
+            $isValid = false;
         }
         
-        if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
+        // Lazy, production build uncomment these. During testing leave it.
+        // if (preg_match('/^((0[1-9])|(1[0-2]))\/((2009)|(20[1-9][0-9]))$/', $creditcard_exp)) {
+        // } else {
+        //     $errorCardExp .= "Invalid date. ";
+        //     $isValid = false;
+        // }
+
+        // if (preg_match('/^[0-9]{3,4}$/', $creditcard_sec)) {
+        // } else {
+        //     $errorCardSec .= "Invalid number. ";
+        //     $isValid = false;
+        // }
+
+        // if (preg_match('/^[0-9]{13,16}$/', $creditcard_num)) {
+        // } else {
+        //     $errorCardNum .= "Invalid number. ";
+        //     $isValid = false;
+        // }
+        
+        if($isValid === false){
             include('payment.php');
             break;
         }else { 
-           $address = $street." ".$city." ".$state." ".$postal;
-            
+           $address = $street." ".$city.", ".$state." ".$postal;
+           
             include('confirmation.php'); 
             break;
         }
+        
         default:
             $error = "A single frickin' potato chip!";
             include("../errors/error.php");

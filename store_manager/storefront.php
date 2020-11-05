@@ -1,6 +1,7 @@
 <?php include '../view/header.php'; ?> 
 <div id="product-grid">
 	<div class="txt-heading"><h1>Products</h1></div>
+
 	<?php
 	if (!empty($product_array)) { 
 		foreach($product_array as $key=>$value){
@@ -21,10 +22,10 @@
 	}
 	?>
 </div>
-<form action="." method="post" id="cart">
-        <p><input type="submit" name="action" value="Cart" ></p>
+<form action="." method="post">
+        <p><input type="submit" name="action" value="cart" ></p>
 </form>
-<form action="." method="post" id="pay">
-        <p><input type="submit" name="action" value="Pay" ></p>
+<form action="." method="post">
+        <p><input type="submit" name="action" value="pay" ></p>
 </form>
 <?php include '../view/footer.php'; ?>
