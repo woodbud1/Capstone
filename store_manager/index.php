@@ -3,6 +3,8 @@ require_once('../model/database_oo.php');
 require_once('../model/validation.php');
 require_once('../model/Product_db.php');
 require_once('../model/Product.php');
+require_once('../model/Order_db.php');
+require_once('../model/Order.php');
 
 //session_start();
 $action = filter_input(INPUT_POST, 'action');
@@ -109,7 +111,7 @@ switch ($action) {
             $isValid = false;
         }
         
-            if($city === '') {
+        if($city === '') {
             $errorCity .= "Please enter your city of residence. ";
             $isValid = false;
         }else if(Validation::validName($city) === 0){
@@ -118,7 +120,7 @@ switch ($action) {
             $isValid = false;
         }
         
-            if($state === '') {
+        if($state === '') {
             $errorState .= "Please enter your state of residence. ";
             $isValid = false;
         }else if(Validation::validName($state) === 0){
@@ -132,21 +134,23 @@ switch ($action) {
             $isValid = false;
         }
 
-        if($creditcard_num === '') {
-            $errorCardNum .= "Invalid number. ";
-            $isValid = false;
+        if($payment_type === 'card'){
+            if($creditcard_num === '') {
+                $errorCardNum .= "Invalid number. ";
+                $isValid = false;
+            }
+    
+            if($creditcard_exp === '') {
+                $errorCardExp .= "Invalid date. ";
+                $isValid = false;
+            }
+    
+            if($creditcard_sec === '') {
+                $errorCardSec .= "Invalid number. ";
+                $isValid = false;
+            }
         }
 
-        if($creditcard_exp === '') {
-            $errorCardExp .= "Invalid date. ";
-            $isValid = false;
-        }
-
-        if($creditcard_sec === '') {
-            $errorCardSec .= "Invalid number. ";
-            $isValid = false;
-        }
-        
         // Lazy, production build uncomment these. During testing leave it.
         // if (preg_match('/^((0[1-9])|(1[0-2]))\/((2009)|(20[1-9][0-9]))$/', $creditcard_exp)) {
         // } else {
@@ -165,17 +169,26 @@ switch ($action) {
         //     $errorCardNum .= "Invalid number. ";
         //     $isValid = false;
         // }
-        
-        if($isValid === false){
+
+        $address = $street." ".$city.", ".$state." ".$postal;
+        // Can't figure out what's going wrong here. isValid a lot cleaner.
+        // if($isValid === true) {
+        //     $errorCardNum = "Returned a false";
+        //     include('confirmation.php'); 
+        // } else { 
+        //     include('payment.php');
+        // }
+        if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
-            break;
-        }else { 
-           $address = $street." ".$city.", ".$state." ".$postal;
-           
-            include('confirmation.php'); 
-            break;
+        } else {
+            include('confirmation.php');
         }
-        
+            break;
+        break;
+        case 'change_address':
+            // TO DO: Allow users to change address
+        break;
+
         default:
             $error = "A single frickin' potato chip!";
             include("../errors/error.php");
