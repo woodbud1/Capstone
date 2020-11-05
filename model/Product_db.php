@@ -28,12 +28,12 @@ class Product_db {
             return $product;
         }
     
-        public static function get_SKU($SKU) 
+        public static function get_bySKU($sku) 
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM products WHERE sku = :SKU';
+            $query = 'SELECT * FROM products WHERE sku = :sku';
             $statement = $db->prepare($query);
-            $statement->bindValue(':SKU', $SKU);
+            $statement->bindValue(':sku', $sku);
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();

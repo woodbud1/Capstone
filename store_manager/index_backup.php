@@ -29,26 +29,16 @@ switch ($action) {
     case "add":
         $sku = $_GET["code"];
         $count = filter_input(INPUT_POST, "count");
-        if(!empty($_POST["count"])) {
-            $productBySKU = Product_db::get_bySKU($sku);
-            $itemArray = array($productBySKU[0]["code"]=>array('productName'=>$productBySKU[0]["productName"], 'code'=>$productBySKU[0]["code"], 'count'=>$_POST["count"], 'price'=>$productBySKU[0]["price"], 'imageURL'=>$productBySKU[0]["imageURL"]));
-            if(!empty($_SESSION["cart_item"])) {
-                if(in_array($productBySKU[0]["code"],array_keys($_SESSION["cart_item"]))) {
-                    foreach($_SESSION["cart_item"] as $k => $v) {
-                            if($productBySKU[0]["code"] == $k) {
-                                if(empty($_SESSION["cart_item"][$k]["count"])) {
-                                    $_SESSION["cart_item"][$k]["count"] = 0;
-                                }
-                                $_SESSION["cart_item"][$k]["count"] += $_POST["count"];
-                            }
-                    }
-                } else {
-                    $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
-                }
-            } else {
-                $_SESSION["cart_item"] = $itemArray;
-            }
+        $itemArray = Product_db::get_product($sku);
+        if(empty($_SESSION["cart_item"])){
+            $_SESSION["cart_item"] = $itemArray;
         }
+        if(!empty($_SESSION["cart_item"])){
+
+        } else{
+            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+        }
+
         include("checkout.php");
         break;
     	case "remove":
