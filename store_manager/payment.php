@@ -1,7 +1,7 @@
 <?php include '../view/header.php'; ?>
     <body>
 
-    
+        <div class="row"><p>Total Price: <?php echo $final_price; ?></p></div>
         <div class="row">
                 <div class="large-12 columns">
                     <center><h1>Payment</h1></center>
@@ -86,9 +86,6 @@
         </form>
 <form action="." method="post">
     <p><input type="submit" name="action" value="shop" ></p>
-</form>
-<form action="." method="post">
-        <p><input type="submit" name="action" value="cart" ></p>
 </form>
     </body>
 <?php include '../view/footer.php'; ?>

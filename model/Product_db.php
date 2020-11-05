@@ -39,6 +39,7 @@ class Product_db {
             $statement->closeCursor();
             return $results;
         }
+
         
         public static function select_all()
         {

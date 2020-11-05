@@ -14,3 +14,9 @@
 
 Check Regex
 ^\w{1,17}$
+
+<input type="submit" name="submit" value="Delete">
+
+				<form action="." method="post">
+				<td><input type="submit" name="action" value="remove&productID=<?php echo $item["productID"]; ?>"></td>
+				</form>

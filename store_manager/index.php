@@ -5,8 +5,9 @@ require_once('../model/Product_db.php');
 require_once('../model/Product.php');
 require_once('../model/Order_db.php');
 require_once('../model/Order.php');
-
-//session_start();
+require_once("dbcontroller.php");
+$db_handle = new DBController();
+session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -23,17 +24,19 @@ switch ($action) {
         $product_array = Product_db::select_all();
         include("storefront.php");
     break;
-    case "cart":
-        include("storefront.php");
-    break;
-    case "add":
+    case "add": 
+        $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
-            $productBySKU = Product_db::get_bySKU($_GET["sku"]);
-            $itemArray = array($productBySKU[0]["sku"]=>array('productName'=>$productBySKU[0]["productName"], 'sku'=>$productBySKU[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productBySKU[0]["price"], 'imageURL'=>$productBySKU[0]["imageURL"]));
+            // $cartID = 0;
+            // It's the ugliest thing I ever seen but, I cannot get PHP database call to return the values not as an array.
+            // $productByID = Product_db::get_byID();
+            $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $_GET["productID"] . "'");
+            $itemArray = array($productByID[0]["productID"]=>array('productID'=>$productByID[0]["productID"], 'productName'=>$productByID[0]["productName"], 'sku'=>$productByID[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productByID[0]["price"], 'imageURL'=>$productByID[0]["imageURL"]));
             if(!empty($_SESSION["cart_item"])) {
-                if(in_array($productBySKU[0]["sku"],array_keys($_SESSION["cart_item"]))) {
+                if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
-                            if($productBySKU[0]["sku"] == $k) {
+                            // $cartID++;
+                            if($productByID[0]["productID"] == $k) {
                                 if(empty($_SESSION["cart_item"][$k]["count"])) {
                                     $_SESSION["cart_item"][$k]["count"] = 0;
                                 }
@@ -49,24 +52,30 @@ switch ($action) {
         }
         include("storefront.php");
         break;
-    	case "remove":
+        case "remove":
+            // Needs Fixing, will sometime it not get the right productID.
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
-                        if($_GET["code"] == $k)
+                        if($_GET["productID"] == $k)
                             unset($_SESSION["cart_item"][$k]);				
                         if(empty($_SESSION["cart_item"]))
                             unset($_SESSION["cart_item"]);
                 }
             }
+            $product_array = Product_db::select_all(); 
         include("storefront.php");
         break;
         case "empty":
-            unset($_SESSION["cart_item"]);
+            if(isset($_SESSION["cart_item"])){
+                unset($_SESSION["cart_item"]);
+            }
+            $product_array = Product_db::select_all();
             include("storefront.php");
         break;	
         case "pay":
             if(!isset($name)) { $name=''; }
             if(!isset($email)) { $email=''; }
+            $final_price = $_POST["total_price"];
             include("payment.php");
         break;	
         case 'payment':
@@ -82,6 +91,7 @@ switch ($action) {
               $isValid = true;
               $address; 
               $payment_type = $_POST["payment_type"];
+
 
               $error = '';
               $errorName ='';
