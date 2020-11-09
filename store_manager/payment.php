@@ -1,10 +1,11 @@
 <?php include '../view/header.php'; ?>
     <body>
 
-
+        <div class="row"><p>Total Price: <?php echo $final_price; ?></p></div>
         <div class="row">
                 <div class="large-12 columns">
                     <center><h1>Payment</h1></center>
+                    <span><font color="red"> <?php if(isset($error)) { echo $error; }?></font></span>      
         </div>    
         <form action="." method="post" id="payment">
         <input type="hidden" name="action" value="payment" />
@@ -54,7 +55,7 @@
                 <label for="cash">Cash</label><br>
                 <input type="radio" id="check" name="payment_type" value="check">
                 <label for="check">Check</label><br>
-                <input type="radio" id="card" name="payment_type" value="card">
+                <input type="radio" id="card" name="payment_type" value="card" checked>
                 <label for="card">Card</label>
   </div></div></div>
   <div class="grid-container" class="fieldset">
@@ -83,5 +84,8 @@
                 </div>
         </div></div></div>
         </form>
+<form action="." method="post">
+    <p><input type="submit" name="action" value="shop" ></p>
+</form>
     </body>
 <?php include '../view/footer.php'; ?>
