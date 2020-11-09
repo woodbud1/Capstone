@@ -1,7 +1,7 @@
 <?php
 class Order {
     private $orderID;
-    private $userID;
+    private $userID2;
     private $paymentAmount;
     private $paymentType;
     private $cardNum;
@@ -10,9 +10,9 @@ class Order {
     private $paid;
     private $delievered;
 
-    public function __construct($orderID, $userID, $paymentAmount, $paymentType, $cardNum, $userID, $address, $paid, $delievered) {
+    public function __construct($orderID, $userID2, $paymentAmount, $paymentType, $cardNum, $userID, $address, $paid, $delievered) {
         $this->orderID = $orderID;
-        $this->userID = $userID;
+        $this->userID2 = $userID2;
         $this->paymentAmount = $paymentAmount;
         $this->paymentType = $paymentType;
         $this->cardNum = $cardNum;
@@ -30,11 +30,11 @@ class Order {
         $this->orderID = $value;
     }
 
-    public function getUserID() {
+    public function getUserID2() {
         return $this->userID;
     }
 
-    public function setUserID($value) {
+    public function setUserID2($value) {
         $this->userID = $value;
     }
 
