@@ -203,6 +203,7 @@ switch ($action) {
         $type = 0;
         $image = 'initial';
         $_SESSION['username'] = $username;
+        $_SESSION['type'] = $type;
         $image = 'abc';
         User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
         // TODO: If a username is used and then later deleted mkdir() command will flag an error as the $username directory still exists. Pretty corner case issue.
@@ -242,8 +243,10 @@ switch ($action) {
                 if ($checkUser === true) {
                     $user = User_db::get_user($username);
                     $type = User_db::get_type($username);
+                    $email = User_db::get_email($username);
                     $_SESSION['username'] = $username;
                     $_SESSION['type'] = $type;
+                    $_SESSION['email'] = $email;
                     include('view/landing.php');
                 } else {
                     $errorLogin = 'Invalid User Code or Password';

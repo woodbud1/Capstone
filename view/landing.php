@@ -6,12 +6,11 @@
                 </div><br><br>
         <form action="." method="post" id="landing">
             <input type="submit" name="action" class="button" value="Edit Profile" >
-            <input type="submit" name="action" class="button" value="Image Upload">
-            <input type="submit" name="action" class="button" value="Manage Schedule" >
+            <?php if (($_SESSION['type']) > 0) 
+            { ?><input type="submit" name="action" class="button" value="Store Manager" >
             <input type="submit" name="action" class="button" value="Inventory Manager" >
-            <input type="submit" name="action" class="button" value="User Manager" >
+            <input type="submit" name="action" class="button" value="User Manager" ><?php } ?>
             <input type="submit" name="action" class="button" value="Shop" >
-            <input type="submit" name="action" class="button" value="Store Manager" >
             <input class="button" type="submit" name="action" value="Logout" >
         </form>
         <br>
