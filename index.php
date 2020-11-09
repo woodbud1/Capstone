@@ -372,6 +372,14 @@ switch ($action) {
 
     case 'Show Add Product Form':
     $categories = Category_db::getCategories();
+    if(!isset($category_id)) { $category_id=''; }
+    if(!isset($productName)) { $productName=''; }    
+    if(!isset($price)) { $price=''; }
+    if(!isset($sku)) { $sku=''; }    
+    if(!isset($imageURL)) { $imageURL=''; }
+    if(!isset($description)) { $description=''; }    
+    if(!isset($count)) { $count=''; }
+    
     include('manage_inventory/product_add.php');
     die;
     break;
@@ -389,19 +397,7 @@ switch ($action) {
     $current_category = Category_db::getCategory($category_id);
     $product = new Product($current_category, $productName, $price, $sku, $imageURL, $description, $count);
     Product_db::add_product($product);
-
-//    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
-//            $name == NULL || $price == NULL || $price == FALSE) {
-//        $error = "Invalid product data. Check all fields and try again.";
-//        include('./errors/error.php');
-//    } else {
-//        $current_category = CategoryDB::getCategory($category_id);
-//        $product = new Product($current_category, $code, $name, $price);
-//        ProductDB::addProduct($product);
-//
-//        // Display the Product List page for the current category
-//        header("Location: .?category_id=$category_id");
-//    }        
+      
     include('manage_inventory/product_add.php');
     die;
     break;    
