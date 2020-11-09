@@ -6365,3 +6365,6 @@ a.thumbnail {
  color: red;
  }
  
+ #floatRight {
+     float: right;
+ }

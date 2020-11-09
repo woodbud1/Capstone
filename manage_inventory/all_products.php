@@ -36,10 +36,12 @@
             <?php endforeach; ?>
         </table>
         <div id="add_product_btn">
-        <form action="index.php" method="post" id="Show Add Product Form">
+        <form action="." method="post" >
+            <input type="hidden" name="action" value="Landing" >
+            <input class="button" type="submit" value="Back" >
             <input type="hidden" name="action" value="Show Add Product Form" >
-            <input class="button" type="submit" value="Add Product" >
-        </form>    
+            <input class="button" type="submit" value="Add Product">
+        </form>
         </div>    
     </section>
 </main>

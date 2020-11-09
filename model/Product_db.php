@@ -50,13 +50,12 @@ class Product_db {
           return $results;
         }
         
-        public static function add_product($productID, $categoryID, $productName, $price, $sku, $imageURL, $description, $count)
+        public static function add_product($categoryID, $productName, $price, $sku, $imageURL, $description, $count)
         {
             $db = Database::getDB();
      
-          $query = 'INSERT INTO products (productID, categoryID, productName, price, sku, imageURL, description, count) VALUES (:productID, :categoryID, :productName, :price, :sku, :imageURL, :description, :count)';
+          $query = 'INSERT INTO products (categoryID, productName, price, sku, imageURL, description, count) VALUES (:categoryID, :productName, :price, :sku, :imageURL, :description, :count)';
           $statement = $db->prepare($query);
-          $statement->bindValue(':productID', $productID);
           $statement->bindValue(':categoryID', $categoryID);
           $statement->bindValue(':productName', $productName);
           $statement->bindValue(':price', $price);

@@ -377,11 +377,19 @@ switch ($action) {
     break;
     
     case 'Add Product':
-        $category_id = filter_input(INPUT_POST, 'category_id', 
-            FILTER_VALIDATE_INT);
-    $code = filter_input(INPUT_POST, 'code');
-    $name = filter_input(INPUT_POST, 'name');
+    $category_id = filter_input(INPUT_POST, 'category_id', FILTER_VALIDATE_INT);
+    $productName = filter_input(INPUT_POST, 'productName');
     $price = filter_input(INPUT_POST, 'price');
+    $sku = filter_input(INPUT_POST, 'sku');
+    $imageURL = filter_input(INPUT_POST, 'imageURL');
+    $description = filter_input(INPUT_POST, 'description');
+    $count = filter_input(INPUT_POST, 'count');
+    
+    
+    $current_category = Category_db::getCategory($category_id);
+    $product = new Product($current_category, $productName, $price, $sku, $imageURL, $description, $count);
+    Product_db::add_product($product);
+
 //    if ($category_id == NULL || $category_id == FALSE || $code == NULL || 
 //            $name == NULL || $price == NULL || $price == FALSE) {
 //        $error = "Invalid product data. Check all fields and try again.";
@@ -404,7 +412,8 @@ switch ($action) {
     break;    
     
     case 'View Product':
-        
+        $productID = filter_input(INPUT_GET, 'productID');   
+        $product = Product_db::get_product($productID);
     include('manage_inventory/product_view.php');
     die;
     break;
