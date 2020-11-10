@@ -203,6 +203,8 @@ switch ($action) {
                 if ($checkUser === true) {
                     $user = User_db::get_user($username);
                     $type = User_db::get_type($username);
+                    $userId = User_db::get_byUserName($username);
+                    $_SESSION['userID'] = $userId;
                     $_SESSION['username'] = $username;
                     $_SESSION['type'] = $type;
                     include('view/landing.php');

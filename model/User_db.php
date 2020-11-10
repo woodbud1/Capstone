@@ -172,6 +172,7 @@ class User_db {
     $statement->closeCursor();
     return $type;
     }
+<<<<<<< Updated upstream
     
     public static function get_email($username){
     $db = Database::getDB();
@@ -186,4 +187,19 @@ class User_db {
     $statement->closeCursor();
     return $type;
     }
+=======
+
+    public static function get_byUserName($username){
+        $db = Database::getDB();
+    
+        $query = 'SELECT UserId from users WHERE Username = :Username';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':Username', $username);
+        $statement->execute();
+        $results = $statement->fetch();
+        $id = $results['UserId'];
+        $statement->closeCursor();
+        return $id;
+        }
+>>>>>>> Stashed changes
 }
