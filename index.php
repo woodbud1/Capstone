@@ -352,18 +352,6 @@ switch ($action) {
 
     
     case 'Inventory Manager':
-//    $category_id = filter_input(INPUT_GET, 'category_id', 
-//            FILTER_VALIDATE_INT);
-//    if ($category_id == NULL || $category_id == FALSE) {
-//        $category_id = 1;
-//    }
-//
-//    // Get product and category data
-//    $current_category = Category_db::getCategory($category_id);
-//    $categories = Category_db::getCategories();
-//    $products = Product_db::getProductsByCategory($category_id);
-
-    // Display the product list
     $products = Product_db::select_all();    
         
     include('manage_inventory/all_products.php');
@@ -403,7 +391,17 @@ switch ($action) {
     break;    
     
     case 'Delete Product':
-        
+    
+    $product_id = filter_input(INPUT_POST, 'product_id', 
+            FILTER_VALIDATE_INT);
+    $category_id = filter_input(INPUT_POST, 'category_id', 
+            FILTER_VALIDATE_INT);
+
+    // Delete the product
+    Product_db::deleteProduct($product_id);    
+    
+    $products = Product_db::select_all(); 
+    include('manage_inventory/all_products.php');
     die;
     break;    
     

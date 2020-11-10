@@ -26,12 +26,14 @@
                 <td><?php echo htmlspecialchars($product['description']); ?></td>
                 <td class="right"><?php echo htmlspecialchars($product['price']); ?>
                 </td>
-                <td>
-                    <form action="index.php" method="post" id="<?php echo htmlspecialchars($product['productID']); ?>">
-                        <input type="hidden" name="action" value="Delete Product" >
-                        <input class="button" type="submit" value="Delete Product" >
-                    </form>
-                </td>
+                <td><form action="." method="post"
+                          id="delete_product_form">
+                    <input type="hidden" name="action"
+                           value="Delete Product">
+                    <input type="hidden" name="product_id"
+                           value="<?php echo htmlspecialchars($product['productID']); ?>">
+                    <input class="button" type="submit" value="Delete Product">
+                </form></td>
                 </tr>
             <?php endforeach; ?>
         </table>

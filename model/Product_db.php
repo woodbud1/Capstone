@@ -124,5 +124,14 @@ class Product_db {
         }
         return $products;
     }
+        public static function deleteProduct($product_id) {
+        $db = Database::getDB();
+        $query = 'DELETE FROM products
+                  WHERE productID = :product_id';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':product_id', $product_id);
+        $statement->execute();
+        $statement->closeCursor();
+        }
 }
 ?>
