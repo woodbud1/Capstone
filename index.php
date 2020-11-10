@@ -392,12 +392,13 @@ switch ($action) {
     $imageURL = filter_input(INPUT_POST, 'imageURL');
     $description = filter_input(INPUT_POST, 'description');
     $count = filter_input(INPUT_POST, 'count');
-    
-    
-    $current_category = Category_db::getCategory($category_id);
-    $product = new Product($current_category, $productName, $price, $sku, $imageURL, $description, $count);
+    // $productID = Product_db::find_AAValue();
+    // $productID = (int)$productID + 1;
+    // IDK, why are fetching everything right now when we just need the ID.
+    // $current_category = Category_db::getCategory($category_id);
+    // $current_category = (int)$current_category[0];
+    $product = new Product($category_id, $productName, $price, $sku, $imageURL, $description, $count);
     Product_db::add_product($product);
-      
     include('manage_inventory/product_add.php');
     die;
     break;    

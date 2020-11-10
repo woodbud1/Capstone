@@ -51,23 +51,35 @@ class Product_db {
           return $results;
         }
         
-        public static function add_product($categoryID, $productName, $price, $sku, $imageURL, $description, $count)
+        public static function add_product($p)
         {
             $db = Database::getDB();
      
           $query = 'INSERT INTO products (categoryID, productName, price, sku, imageURL, description, count) VALUES (:categoryID, :productName, :price, :sku, :imageURL, :description, :count)';
           $statement = $db->prepare($query);
-          $statement->bindValue(':categoryID', $categoryID);
-          $statement->bindValue(':productName', $productName);
-          $statement->bindValue(':price', $price);
-          $statement->bindValue(':sku', $sku);
-          $statement->bindValue(':imageURL', $imageURL);
-          $statement->bindValue(':description', $description);
-          $statement->bindValue(':count', $count);
+          $statement->bindValue(':categoryID', $p->getCategoryID());
+          $statement->bindValue(':productName', $p->getProductName());
+          $statement->bindValue(':price', $p->getPrice());
+          $statement->bindValue(':sku', $p->getSKU());
+          $statement->bindValue(':imageURL', $p->getImageURL());
+          $statement->bindValue(':description', $p->getDescription());
+          $statement->bindValue(':count', $p->getCount());
           $statement->execute();
           $statement->closeCursor();
         }
-    
+        
+        // public static function find_AAValue()
+        // {
+        //     $db = Database::getDB();
+     
+        //     $query = 'SELECT MAX(`productID`)FROM `products`';
+        //     $statement = $db->prepare($query);
+        //     $statement->execute();
+        //     $results = $statement->fetch();
+        //     $statement->closeCursor();
+        //     return $results;
+        // }
+        
         public static function product_exists($sku) 
         {
             $db = Database::getDB();
