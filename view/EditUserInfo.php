@@ -1,5 +1,4 @@
 <?php include 'header.php'; 
-  $email = $_SESSION['email'];
 ?>
 <main>
     <div class="row">
