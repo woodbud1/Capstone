@@ -392,8 +392,6 @@ switch ($action) {
     $imageURL = filter_input(INPUT_POST, 'imageURL');
     $description = filter_input(INPUT_POST, 'description');
     $count = filter_input(INPUT_POST, 'count');
-    // $productID = Product_db::find_AAValue();
-    // $productID = (int)$productID + 1;
     // IDK, why are fetching everything right now when we just need the ID.
     // $current_category = Category_db::getCategory($category_id);
     // $current_category = (int)$current_category[0];
