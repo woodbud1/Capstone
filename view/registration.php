@@ -40,30 +40,6 @@
                 </div></div></div>
         <div class="grid-container" class="fieldset">
                 <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">              
-                        <label>Street Address: </label>
-                        <input type="text" name="street" placeholder="please enter your street address"><span><font color="red"> <?php if(isset($errorStreet)) { echo $errorStreet; }?></font></span><br>
-                </div></div></div>
-        <div class="grid-container" class="fieldset">
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">               
-                        <label>City<font color="red">*</font>: </label>
-                        <input type="text" name="city" placeholder="please enter your city of residence"><span><font color="red"> <?php if(isset($errorCity)) { echo $errorCity; }?></font></span><br>
-                </div></div></div>
-        <div class="grid-container" class="fieldset">
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">   
-                        <label>State<font color="red">*</font>: </label>
-                        <input type="text" name="state" placeholder="please enter your state of residence"><span><font color="red"> <?php if(isset($errorState)) { echo $errorState; }?></font></span><br>
-                    </div></div></div>
-        <div class="grid-container" class="fieldset">
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-12 cell">   
-                        <label>Zip Code<font color="red">*</font>: </label>
-                        <input type="text" name="postal" placeholder="please enter your zip code"><span><font color="red"> <?php if(isset($errorPostal)) { echo $errorPostal; }?></font></span><br>
-                 </div></div></div>
-        <div class="grid-container" class="fieldset">
-                <div class="grid-x grid-padding-x">
                     <div class="medium-12 cell">            
                         <label>Username<font color="red">*</font>: </label>
                         <input type="text" name="username" placeholder="please enter a username"><span><font color="red"> <?php if(isset($errorUsername)) { echo $errorUsername; }?></font></span><br>

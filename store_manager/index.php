@@ -5,6 +5,8 @@ require_once('../model/Product_db.php');
 require_once('../model/Product.php');
 require_once('../model/Order_db.php');
 require_once('../model/Order.php');
+require_once('../model/User_db.php');
+require_once('../model/User.php');
 require_once("dbcontroller.php");
 $db_handle = new DBController();
 session_start();
@@ -21,15 +23,17 @@ switch ($action) {
     //     include("storefront.php");
     // break;
     case "shop":
+        // var_dump($_SESSION['userID']);
         $product_array = Product_db::select_all();
         include("storefront.php");
     break;
     case "add": 
+        $userID = $_SESSION['userID'];
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
-            // It's the ugliest thing I ever seen but, I cannot get PHP database call to return the values not as an array.
-            // $productByID = Product_db::get_byID();
-            // $cardID = rand(1,100000); 'productID'=>$productByID[0][$cartID];
+            // It's the ugliest thing I ever seen. But the array being passed back from the database is not working. 
+            // $productByID = Product_db::get_byID($_GET["productID"]);
+            // $cartID = rand(1,100000);
             $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $_GET["productID"] . "'");
             $itemArray = array($productByID[0]["productID"]=>array('productID'=>$productByID[0]["productID"], 'productName'=>$productByID[0]["productName"], 'sku'=>$productByID[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productByID[0]["price"], 'imageURL'=>$productByID[0]["imageURL"]));
             if(!empty($_SESSION["cart_item"])) {
@@ -73,7 +77,8 @@ switch ($action) {
         case "pay":
             if(!isset($name)) { $name=''; }
             if(!isset($email)) { $email=''; }
-            $final_price = $_POST["total_price"];
+            $_SESSION['paymentAmount'] = $_POST["total_price"];
+            $final_price = $_SESSION['paymentAmount'];
             include("payment.php");
         break;	
         case 'payment':
@@ -88,6 +93,7 @@ switch ($action) {
               $creditcard_sec = filter_input(INPUT_POST, "ccSec");
               $isValid = true;
               $address; 
+              $paid = 0;
               $payment_type = $_POST["payment_type"];
 
 
@@ -165,6 +171,9 @@ switch ($action) {
                 $errorCardSec .= "Invalid number. ";
                 $isValid = false;
             }
+            $paid = 1;
+        } else {
+            $creditcard_num = -1;
         }
 
         // Lazy, production build uncomment these. During testing leave it.
@@ -196,12 +205,20 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
+            $userID = $_SESSION['userID'];
+            $final_price = $_SESSION['paymentAmount'];
+            $delievered = 0;
+            $order = new Order($userID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delievered);
+            Order_db::add_order($order);
             include('confirmation.php');
         }
             break;
         break;
         case 'change_address':
             // TO DO: Allow users to change address
+            $address = filter_input(INPUT_POST, "address");
+            Order_db::update_address($address);
+            include('storefront.php');
         break;
 
         default:

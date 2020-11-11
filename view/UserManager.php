@@ -25,7 +25,7 @@
                     <td><form action="." method="post">
                         <input type="hidden" name="action" value="See_Profile">  
                         <input type="hidden" name="profile" value="<?php echo $user['Username']; ?>">
-                        <input class="button" type="submit" value="See Profile">
+                        <input class="button" type="submit" value="Edit User">
                     </form></td>
                 </tr>
                 <?php endforeach; ?>
@@ -33,10 +33,10 @@
           </div>
         </div>
         <form action="." method="post" >
-            <input type="hidden" name="action" value="Registration" >  
-            <input class="button" type="submit" value="Register a New User" >&nbsp;&nbsp;
             <input type="hidden" name="action" value="Landing" >
-            <input class="button" type="submit" value="Back" >
+            <input class="button" type="submit" value="Back" >&nbsp;&nbsp;
+            <input type="hidden" name="action" value="Registration" >  
+            <input class="button" type="submit" value="Register a New User" >
 
         </form>
     </div>    

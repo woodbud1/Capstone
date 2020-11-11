@@ -104,20 +104,12 @@ switch ($action) {
           $username = filter_input(INPUT_POST, "username");
           $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
           $password = filter_input(INPUT_POST, "password");
-          $street = filter_input(INPUT_POST, "street");
-          $city = filter_input(INPUT_POST, "city");
-          $state = filter_input(INPUT_POST, "state");
-          $postal = filter_input(INPUT_POST, "postal");
           $confirm_password = filter_input(INPUT_POST, "confirm_password");
           $error = '';
           $errorName ='';
           $errorUsername = '';
           $errorEmail = '';
           $errorPassword = '';
-          $errorStreet = '';
-          $errorCity = '';
-          $errorState = '';
-          $errorPostal = '';
           $errorPasswordConfirm = '';
 
         // Validate the inputs
@@ -168,45 +160,14 @@ switch ($action) {
 
         iv. at least 1 special character (punctuation)  ";
     }
-
-    if($street === '') {
-        $errorStreet .= "Please enter your street address. ";
-    }else if(Validation::validName($street) === 0){
-        $errorStreet .= "Street Error. ";
-        $errorStreet = "";
-    }
-    
-        if($city === '') {
-        $errorCity .= "Please enter your city of residence. ";
-    }else if(Validation::validName($city) === 0){
-        $errorCity .= "City Error. ";
-        $city = "";
-    }
-    
-        if($state === '') {
-        $errorState .= "Please enter your state of residence. ";
-    }else if(Validation::validName($state) === 0){
-        $errorState .= "state error. ";
-        $state = "";
-    }
-    
-        if($postal === '') {
-        $errorPostal .= "Please enter your postal (Zip) code. ";
-    }
-    
-    if($errorName !== '' || $errorUsername !== '' || $errorEmail !== '' || $errorPassword !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorPasswordConfirm !== ''){
+    if($errorName !== '' || $errorUsername !== '' || $errorEmail !== '' || $errorPassword !== '' || $errorPasswordConfirm !== ''){
         include('view/registration.php');
         break;
     }else {
-        $phonenumber = '0000000000';
-        $notes = 'notes';
         $type = 0;
-        $image = 'initial';
         $_SESSION['username'] = $username;
-        $image = 'abc';
-        User_db::add_user($username, $password, $name, $email, $image, $phonenumber, $street, $city, $state, $type, $notes);
-        // TODO: If a username is used and then later deleted mkdir() command will flag an error as the $username directory still exists. Pretty corner case issue.
-        // Warning: mkdir(): File exists in C:\xampp\htdocs\GroupProject2\Capstone\index.php on line 204
+        $image = '';
+        User_db::add_user($username, $password, $name, $email, $image, $type);
         mkdir("./images/".$username, 0777, true);
         $user = User_db::get_user($username);
         include('view/landing.php'); 
@@ -242,6 +203,8 @@ switch ($action) {
                 if ($checkUser === true) {
                     $user = User_db::get_user($username);
                     $type = User_db::get_type($username);
+                    $userId = User_db::get_byUserName($username);
+                    $_SESSION['userID'] = $userId;
                     $_SESSION['username'] = $username;
                     $_SESSION['type'] = $type;
                     include('view/landing.php');

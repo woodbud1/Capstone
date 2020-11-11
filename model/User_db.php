@@ -23,12 +23,7 @@ class User_db {
                          $results['Name'],
                          $results['Email'],
                          $results['Image'],
-                         $results['PhoneNumber'],
-                         $results['StreetAddress'],
-                         $results['City'],
-                         $results['State'],
-                         $results['Type'],
-                         $results['Notes']); 
+                         $results['Type']); 
 
         return $user;
     }
@@ -57,11 +52,11 @@ class User_db {
       return $results;
     }
     
-    public static function add_user($username,$password,$name,$email,$image, $phonenumber, $streetaddress, $city, $state, $type, $notes)
+    public static function add_user($username,$password,$name,$email,$image, $type)
     {
         $db = Database::getDB();
  
-      $query = 'INSERT INTO users (Username, Password, Name, Email, Image, PhoneNumber, StreetAddress, City, State, Type, Notes) VALUES (:Username, :Password, :Name, :Email, :Image, :PhoneNumber, :StreetAddress, :City, :State, :Type, :Notes)';
+      $query = 'INSERT INTO users (Username, Password, Name, Email, Image, Type) VALUES (:Username, :Password, :Name, :Email, :Image, :Type)';
       $statement = $db->prepare($query);
       $statement->bindValue(':Username', $username);
       $hash = password_hash($password, PASSWORD_BCRYPT);
@@ -69,12 +64,7 @@ class User_db {
       $statement->bindValue(':Name', $name);
       $statement->bindValue(':Email', $email);
       $statement->bindValue(':Image', $image);
-      $statement->bindValue(':PhoneNumber', $phonenumber);
-      $statement->bindValue(':StreetAddress', $streetaddress);
-      $statement->bindValue(':City', $city);
-      $statement->bindValue(':State', $state);
       $statement->bindValue(':Type', $type);
-      $statement->bindValue(':Notes', $notes);
       $statement->execute();
       $statement->closeCursor();
     }
@@ -182,4 +172,17 @@ class User_db {
     $statement->closeCursor();
     return $type;
     }
+
+    public static function get_byUserName($username){
+        $db = Database::getDB();
+    
+        $query = 'SELECT UserId from users WHERE Username = :Username';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':Username', $username);
+        $statement->execute();
+        $results = $statement->fetch();
+        $id = $results['UserId'];
+        $statement->closeCursor();
+        return $id;
+        }
 }

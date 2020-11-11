@@ -14,26 +14,16 @@ class User {
     private $Name;
     private $Email;
     private $Image;
-    private $Phone;
-    private $Street;
-    private $city;
-    private $state;
     private $type;
-    private $notes;
 
-    function __construct($userId, $Username, $Password, $Name, $Email, $Image, $Phone, $Street, $city, $state, $type, $notes) {
+    function __construct($userId, $Username, $Password, $Name, $Email, $Image, $type) {
         $this->userId = $userId;
         $this->Username = $Username;
         $this->Password = $Password;
         $this->Name = $Name;
         $this->Email = $Email;
         $this->Image = $Image;
-        $this->Phone = $Phone;
-        $this->Street = $Street;
-        $this->city = $city;
-        $this->state = $state;
         $this->type = $type;
-        $this->notes = $notes;
     }
 
     public function getUserId() {
@@ -60,29 +50,10 @@ class User {
         return $this->Image;
     }
 
-    public function getPhone() {
-        return $this->Phone;
-    }
-
-    public function getStreet() {
-        return $this->Street;
-    }
-
-    public function getCity() {
-        return $this->city;
-    }
-
-    public function getState() {
-        return $this->state;
-    }
-
     public function getType() {
         return $this->type;
     }
 
-    public function getNotes() {
-        return $this->notes;
-    }
 
     public function setUserId($userId) {
         $this->userId = $userId;
@@ -100,36 +71,12 @@ class User {
         $this->Name = $Name;
     }
 
-    public function setEmail($Email) {
-        $this->Email = $Email;
-    }
-
     public function setImage($Image) {
         $this->Image = $Image;
     }
 
-    public function setPhone($Phone) {
-        $this->Phone = $Phone;
-    }
-
-    public function setStreet($Street) {
-        $this->Street = $Street;
-    }
-
-    public function setCity($city) {
-        $this->city = $city;
-    }
-
-    public function setState($state) {
-        $this->state = $state;
-    }
-
     public function setType($type) {
         $this->type = $type;
-    }
-
-    public function setNotes($notes) {
-        $this->notes = $notes;
     }
 }
 
