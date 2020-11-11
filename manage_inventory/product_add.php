@@ -35,7 +35,7 @@
         
         <label>&nbsp;</label>
         <div id="add_product_btn">
-        <input type="submit" value="Add Product">
+        <input class="button" type="submit" value="Add Product">
         <br>
         </div>
     </form>

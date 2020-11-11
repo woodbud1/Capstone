@@ -8,12 +8,12 @@
 
 class Product_db {
 
-        public static function get_product($product) 
+        public static function get_product($product_id) 
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM products WHERE sku = :SKU';
+            $query = 'SELECT * FROM products WHERE productID = :product_id';
             $statement = $db->prepare($query);
-            $statement->bindValue(':SKU', $product);
+            $statement->bindValue(':product_id', $product_id);
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();

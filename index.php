@@ -385,6 +385,8 @@ switch ($action) {
     // $current_category = (int)$current_category[0];
     $product = new Product($category_id, $productName, $price, $sku, $imageURL, $description, $count);
     Product_db::add_product($product);
+    
+    
     include('manage_inventory/product_add.php');
     die;
     break;    
@@ -405,8 +407,8 @@ switch ($action) {
     break;    
     
     case 'View Product':
-        $productID = filter_input(INPUT_GET, 'productID');   
-        $product = Product_db::get_product($productID);
+        $product_id = filter_input(INPUT_GET, 'product_id');   
+        $product = Product_db::get_product($product_id);
     include('manage_inventory/product_view.php');
     die;
     break;
