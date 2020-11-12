@@ -12,15 +12,10 @@
                 <th>Description</th>
                 <th class="right">Price</th>
                 <th>&nbsp;</th>
+                <th></th>
             </tr>
             <?php foreach ($products as $product) : ?>
                 <tr>
-                <td><form action="." method="post">
-                        <input type="hidden" name="action" value="View Product">  
-                        <input type="hidden" name="product_id" value="<?php echo $product['productID']; ?>">
-                        <input class="button" type="submit" value="View Product">
-                    </form></td>
-
                 <td>
                 <form action="." method="post"
                           id="view_product">
@@ -43,6 +38,14 @@
                            value="<?php echo htmlspecialchars($product['productID']); ?>">
                     <input class="button" type="submit" value="Delete Product">
                 </form></td>
+                <td><form action="." method="post"
+                          id="edit_product_form">
+                    <input type="hidden" name="action"
+                           value="Edit Product">
+                    <input type="hidden" name="product_id"
+                           value="<?php echo htmlspecialchars($product['productID']); ?>">
+                    <input class="button" type="submit" value="Edit Product">
+                </form></td>
                 </tr>
             <?php endforeach; ?>
         </table>
@@ -58,4 +61,5 @@
         </div>    
     </section>
 </main>
+
 <?php include './view/footer.php'; ?>

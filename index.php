@@ -359,6 +359,11 @@ switch ($action) {
     die;
     break;
 
+    case 'Edit Product':
+    
+    include('manage_inventory/edit_product.php');    
+    die;
+    break;
 
     case 'User Manager':
 
