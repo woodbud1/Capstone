@@ -35,15 +35,13 @@ switch ($action) {
         include'./view/login.php';
         break;
     
-        case 'Edit Profile':
+    case 'Edit Profile':
         // instanciate fields
 
         if (!isset($errorpassword)) {
             $errorpassword = '';
         }
-        if (!isset($email)) {
-            $email = '';
-        }
+
         if (!isset($password)) {
             $password = '';
         }
@@ -52,6 +50,8 @@ switch ($action) {
             $errorEmail = '';
         }
         
+        $username = $_SESSION['username'];
+        $email = User_db::get_email($username);
         // Display the registration form
         include'./view/EditUserInfo.php';
         break;    
@@ -143,7 +143,7 @@ switch ($action) {
 
         i. at least 1 uppercase character (A-Z) 
 
-        ii. at least 1 lowercase character (a-z)
+        ii. at least 1 flowercase character (a-z)
 
         iii. at least 1 digit (0-9) 
 

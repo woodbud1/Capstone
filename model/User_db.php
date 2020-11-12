@@ -184,4 +184,17 @@ class User_db {
         $statement->closeCursor();
         return $id;
         }
+        
+    public static function get_email($username){
+    $db = Database::getDB();
+
+    $query = 'SELECT Email from users WHERE Username = :Username';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':Username', $username);
+    $statement->execute();
+    $results = $statement->fetch();
+    $id = $results['Email'];
+    $statement->closeCursor();
+    return $id;
+    }
 }
