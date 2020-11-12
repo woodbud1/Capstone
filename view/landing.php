@@ -27,5 +27,29 @@
                 echo "<img src='./images/image.jpg'>";
             } 
         ?>
-        </div></div><br><br>
+        <!-- For the future when there is a Newsletter -->
+        <div id='news-block'>
+            <h2 class="post-title">
+              Newsletter
+            </h2>
+            <h3 class="post-subtitle">
+              Sign up for our monthly newsletter about our company and our vision to provide the best experience for our employees!
+            </h3>
+        </div>
+        <hr>
+        <form action="." method="post">
+        <h3 class="post-subtitle">
+         Sign Up!
+        </h3>
+        <input type="hidden" name="action" value="news_sub">
+        <input type="text" name="newsletter_email">           
+        <div class="clearfix">
+        <input type="submit" name="submit" value="Submit"> 
+        </div>
+        </form>
+        </div>
+        </div>
+        </div>
+        <br>
+        <br>
 <?php include 'footer.php'; ?>

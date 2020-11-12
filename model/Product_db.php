@@ -96,7 +96,7 @@ class Product_db {
                 return false;
             }
         }
-
+        // Not sure what this is...
         public static function update_product()
         {
             $db = Database::getDB();
@@ -104,6 +104,20 @@ class Product_db {
             $query = 'UPDATE products SET Name = :Name WHERE Username = :Username';
             $statement = $db->prepare($query);
             $statement->bindValue(':Name', $name);
+            $statement->execute();
+            $statement->closeCursor();
+        }
+
+        public static function update_productCount($entry, $entry2)
+        {
+            $db = Database::getDB();
+     
+            $query = 'UPDATE products
+            SET count=(count - order = :order)
+            WHERE productID = :product_id';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':order', $entry);
+            $statement->bindValue(':order', $entry2);
             $statement->execute();
             $statement->closeCursor();
         }
