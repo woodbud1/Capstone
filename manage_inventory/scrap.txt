@@ -1,0 +1,32 @@
+<form action="." method="post"
+                          id="view_product">
+                    <input type="hidden" name="action"
+                           value="View Product">
+                    <input type="hidden" name="product_id"
+                           value="<?php echo htmlspecialchars($product['productID']); ?>">
+                    <input class="button" type="submit" value="View Product">
+
+                     <!-- <form action="." method="post">
+                    <input type="hidden" name="action"
+                       value="View Product">
+                    <input type="hidden" name="product_id"
+                       value="<?php echo htmlspecialchars($product->getProductID()); ?>">
+                    <input type="submit" name="submit" value="View Product Plox"> 
+                    </form>
+
+                    <?php echo htmlspecialchars($product['productID']); ?>
+
+                    <form action="." method="post">
+                    <input type="hidden" name="action"
+                       value="View Product">
+                    <input type="hidden" name="product_id"
+                       value="<?php echo htmlspecialchars($product['productID']); ?>">
+                    <input type="submit" name="submit" value="View Product"> 
+                    </form>
+
+                    "<?php echo htmlspecialchars($product['productID']); ?>"
+
+                            $product_id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
+        // $product_id = filter_input(INPUT_GET, 'product_id');   
+        $product = Product_db::get_product($product_id);
+        var_dump($product, $product_id);
