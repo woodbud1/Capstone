@@ -32,9 +32,13 @@
             </table>
           </div>
         </div>
-        <form action="." method="post" >
+        
+        </form></center>
+            <form action="index.php" method="post" id="EditProfile">
             <input type="hidden" name="action" value="Landing" >
-            <input class="button" type="submit" value="Back" >&nbsp;&nbsp;
+            <input class="button" type="submit" value="Back" >
+        </form>
+        <form action="." method="post" >
             <input type="hidden" name="action" value="Registration" >  
             <input class="button" type="submit" value="Register a New User" >
 

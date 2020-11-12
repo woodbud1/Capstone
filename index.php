@@ -37,11 +37,9 @@ switch ($action) {
     
         case 'Edit Profile':
         // instanciate fields
-        if (!isset($name)) {
-            $name = '';
-        }
-        if (!isset($username)) {
-            $username = '';
+
+        if (!isset($errorpassword)) {
+            $errorpassword = '';
         }
         if (!isset($email)) {
             $email = '';
@@ -49,15 +47,7 @@ switch ($action) {
         if (!isset($password)) {
             $password = '';
         }
-        if (!isset($errorName)) {
-            $errorName = '';
-        }
-        if (!isset($errorLName)) {
-            $errorLName = '';
-        }
-        if (!isset($errorUsername)) {
-            $errorUsername = '';
-        }
+
         if (!isset($errorEmail)) {
             $errorEmail = '';
         }
