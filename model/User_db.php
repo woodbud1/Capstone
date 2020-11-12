@@ -101,13 +101,12 @@ class User_db {
             return false;
         }
     }
-    public static function update_user($username,$name,$email,$password)
+    public static function update_user($username,$email,$password)
     {
         $db = Database::getDB();
  
-        $query = 'UPDATE users SET Name = :Name, Email = :Email, Password = :Password WHERE Username = :Username';
+        $query = 'UPDATE users SET Email = :Email, Password = :Password WHERE Username = :Username';
         $statement = $db->prepare($query);
-        $statement->bindValue(':Name', $name);
         $statement->bindValue(':Email', $email);
         $statement->bindValue(':Username', $username);
         $hash = password_hash($password, PASSWORD_BCRYPT);

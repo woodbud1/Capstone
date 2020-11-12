@@ -23,7 +23,7 @@
                     <td><?php echo htmlspecialchars($user['Name']); ?></td>
                     <td><?php echo htmlspecialchars($user['Email']); ?> </td>
                     <td><form action="." method="post">
-                        <input type="hidden" name="action" value="See_Profile">  
+                        <input type="hidden" name="action" value="Edit">  
                         <input type="hidden" name="profile" value="<?php echo $user['Username']; ?>">
                         <input class="button" type="submit" value="Edit User">
                     </form></td>

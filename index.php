@@ -69,7 +69,6 @@ switch ($action) {
     case 'Edit':
         // instanciate fields
 
-        if(!isset($errorName)) { $errorName=''; }
         if(!isset($errorUsername)) { $errorUsername=''; }
         if(!isset($errorEmail)) { $errorEmail=''; }
         
@@ -165,12 +164,11 @@ switch ($action) {
         break;
     }else {
         $type = 0;
-        $_SESSION['username'] = $username;
         $image = '';
         User_db::add_user($username, $password, $name, $email, $image, $type);
         mkdir("./images/".$username, 0777, true);
-        $user = User_db::get_user($username);
-        include('view/landing.php'); 
+        $users = User_db::select_all();
+        include('view/UserManager.php'); 
         break;
     }
     case 'Verify Login':
@@ -220,22 +218,14 @@ switch ($action) {
           break;
     case 'Save':
           $username = $_SESSION['username'];
-          $name = filter_input(INPUT_POST, "name");
           $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
           $password = filter_input(INPUT_POST, "password");
   
           $error = '';
-          $errorName ='';
           $errorEmail = '';
           $errorPassword = '';
 
         // Validate the inputs
-    if($name === '') {
-        $errorName .= "Please enter your name. ";
-    }else if(Validation::validName($name) === 0){
-        $errorName .= "Name must begin with a letter. ";
-        $name = "";
-    }
     
     if($email === FALSE){
         $errorEmail = "Please enter a valid email. ";
@@ -258,12 +248,12 @@ switch ($action) {
         iv. at least 1 special character (punctuation)  ";
     }
     
-    if($errorName !== '' || $errorEmail !== '' || $errorPassword !== '') {
+    if($errorEmail !== '' || $errorPassword !== '') {
         include('view/EditUserInfo.php'); 
         break;
     }else {
         $username = $_SESSION['username'];
-        User_db::update_user($username,$name, $email, $password);
+        User_db::update_user($username,$email, $password);
         $user = User_db::get_user($username);
         include('view/landing.php'); 
         break;
@@ -277,6 +267,7 @@ switch ($action) {
     case 'Image Upload':
         include('view/ImageUpload.php'); 
         break;
+    
     case 'uploadImage':
       if(isset($_FILES['image'])){
       $errors= array();

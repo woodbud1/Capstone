@@ -58,7 +58,7 @@
         <div class="grid-x grid-padding-x">
                 <div class="medium-12 cell">
                         <label>&nbsp;</label>
-                        <input class="button" type="submit" value="Sign Up">
+                        <input class="button" type="submit" value="Save">
                         <input type="hidden" name="action" value="Add" />
             <center><form action="." method="post">
                         <input type="hidden" name="action" value="Add" />
