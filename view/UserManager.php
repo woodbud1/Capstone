@@ -23,7 +23,7 @@
                     <td><?php echo htmlspecialchars($user['Name']); ?></td>
                     <td><?php echo htmlspecialchars($user['Email']); ?> </td>
                     <td><form action="." method="post">
-                        <input type="hidden" name="action" value="See_Profile">  
+                        <input type="hidden" name="action" value="Edit">  
                         <input type="hidden" name="profile" value="<?php echo $user['Username']; ?>">
                         <input class="button" type="submit" value="Edit User">
                     </form></td>
@@ -32,9 +32,13 @@
             </table>
           </div>
         </div>
-        <form action="." method="post" >
+        
+        </form></center>
+            <form action="index.php" method="post" id="EditProfile">
             <input type="hidden" name="action" value="Landing" >
-            <input class="button" type="submit" value="Back" >&nbsp;&nbsp;
+            <input class="button" type="submit" value="Back" >
+        </form>
+        <form action="." method="post" >
             <input type="hidden" name="action" value="Registration" >  
             <input class="button" type="submit" value="Register a New User" >
 
