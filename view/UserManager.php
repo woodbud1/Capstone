@@ -25,6 +25,7 @@
                     <td><form action="." method="post">
                         <input type="hidden" name="action" value="Edit">  
                         <input type="hidden" name="profile" value="<?php echo $user['Username']; ?>">
+                        <input type="hidden" name="email" value="<?php echo $user['Email']; ?>">
                         <input class="button" type="submit" value="Edit User">
                     </form></td>
                 </tr>
