@@ -351,8 +351,10 @@ switch ($action) {
     break;    
     
     case 'View Product':
-        $product_id = filter_input(INPUT_GET, 'product_id');   
+        $product_id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
+        // $product_id = filter_input(INPUT_GET, 'product_id');   
         $product = Product_db::get_product($product_id);
+        var_dump($product, $product_id);
     include('manage_inventory/product_view.php');
     die;
     break;

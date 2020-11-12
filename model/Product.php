@@ -9,8 +9,8 @@ class Product {
     private $description;
     private $count;
 
-    function __construct($categoryID, $productName, $price, $sku, $imageURL, $description, $count) {
-//        $this->productID = $productID;
+    function __construct($productID, $categoryID, $productName, $price, $sku, $imageURL, $description, $count) {
+        // $this->productID = $productID;
         $this->categoryID = $categoryID;
         $this->productName = $productName;
         $this->price = $price;
