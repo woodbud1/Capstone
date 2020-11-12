@@ -20,13 +20,9 @@ if ($action === NULL) {
 switch ($action) {
     case 'Login':
         // instanciate fields
-        if(!isset($fname)) { $fname=''; }
-        if(!isset($lname)) { $lname=''; }
         if(!isset($username)) { $username=''; }
         if(!isset($email)) { $email=''; }
         if(!isset($password)) { $password=''; }
-        if(!isset($errorFName)) { $errorFName=''; }
-        if(!isset($errorLName)) { $errorLName=''; }
         if(!isset($errorUsername)) { $errorUsername=''; }
         if(!isset($errorEmail)) { $errorEmail=''; }
         
@@ -58,7 +54,7 @@ switch ($action) {
         
     case 'Edit':
         // instanciate fields
-
+        $email = filter_input(INPUT_POST, 'email');
         if(!isset($errorUsername)) { $errorUsername=''; }
         if(!isset($errorEmail)) { $errorEmail=''; }
         
