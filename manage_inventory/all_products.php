@@ -50,6 +50,8 @@
         <form action="." method="post" >
             <input type="hidden" name="action" value="Landing" >
             <input class="button" type="submit" value="Back" >
+        </form>
+        <form action="." method="post" >
             <input type="hidden" name="action" value="Show Add Product Form" >
             <input class="button" type="submit" value="Add Product">
         </form>
