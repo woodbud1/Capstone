@@ -79,11 +79,6 @@ switch ($action) {
             if(!isset($email)) { $email=''; }
             $_SESSION['paymentAmount'] = $_POST["total_price"];
             $final_price = $_SESSION['paymentAmount'];
-            foreach($_SESSION["cart_item"] as $k => $v) {
-                var_dump((int)$_SESSION["cart_item"][$k]["productID"]);
-                var_dump((int)$_SESSION["cart_item"][$k]["count"]);
-                }
-            // var_dump($_SESSION["cart_item"]);
             include("payment.php");
         break;	
         case 'payment':
@@ -178,7 +173,7 @@ switch ($action) {
             }
             $paid = 1;
         } else {
-            $creditcard_num = NULL;
+            $creditcard_num = -1;
         }
 
         // Lazy, production build uncomment these. During testing leave it.
@@ -200,13 +195,13 @@ switch ($action) {
         //     $isValid = false;
         // }
 
+        $address = $street." ".$city.", ".$state." ".$postal;
         // if($isValid === true) {
         //     $errorCardNum = "Returned a false";
         //     include('confirmation.php'); 
         // } else { 
         //     include('payment.php');
         // }
-        $address = $street." ".$city.", ".$state." ".$postal;
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
@@ -215,9 +210,6 @@ switch ($action) {
             $delievered = 0;
             $order = new Order($userID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delievered);
             Order_db::add_order($order);
-
-            // the hard part actually updating the count.
- 
             include('confirmation.php');
         }
             break;
