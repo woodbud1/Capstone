@@ -15,20 +15,11 @@
             </tr>
             <?php foreach ($products as $product) : ?>
                 <tr>
-                    <td>
-                        <form action="index.php" method="post" id="<?php echo htmlspecialchars($product['productID']); ?>">
-                        <input type="hidden" name="action" value="View Product" >
-                        <input class="button" type="submit" value="View Product" >
-                        </form>
-                    </td>
-                    <td><form action="." method="post"
-                          id="view_product">
-                    <input type="hidden" name="action"
-                           value="View Product">
-                    <input type="hidden" name="product_id"
-                           value="<?php echo htmlspecialchars($product['productID']); ?>">
-                    <input class="button" type="submit" value="View Product">
-                </form></td>
+                <td><form action="." method="post">
+                        <input type="hidden" name="action" value="View Product">  
+                        <input type="hidden" name="product_id" value="<?php echo $product['productID']; ?>">
+                        <input class="button" type="submit" value="View Product">
+                    </form></td>
 
                 <td><?php echo htmlspecialchars($product['productName']); ?></td>
                 <td><?php echo htmlspecialchars($product['description']); ?></td>
