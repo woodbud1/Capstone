@@ -356,6 +356,9 @@ switch ($action) {
     break;
 
     case 'Edit Product':
+    // instanciate fields
+        $productName = filter_input(INPUT_POST, 'productName');
+  
     
     include('manage_inventory/edit_product.php');    
     die;
