@@ -209,8 +209,8 @@ switch ($action) {
             $userID = $_SESSION['userID'];
             $final_price = $_SESSION['paymentAmount'];
             $delievered = 0;
-            $order = new Order($userID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delievered);
-            Order_db::add_order($order);
+            // $order = new Order($userID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delievered);
+            // Order_db::add_order($order);
             include('confirmation.php');
         }
             break;
@@ -221,7 +221,38 @@ switch ($action) {
             Order_db::update_address($address);
             include('storefront.php');
         break;
-
+        case 'get_allorders':
+            // Fetch all orders and display (ADMIN only function)
+            $orders = Order_db::get_orders();
+            include('all_orders.php');
+        break;
+        case 'get_userID_orders':
+            // Fetch all orders done by a user.
+            $userID = $_SESSION['userID'];
+            $orders = Order_db::get_ordersByUserID($userID);
+            include('user_orders.php');
+        break;
+        case 'update_paid':
+            // Admin can update payments
+        if(isset($_POST['isPaid']) && 
+        $_POST['isPaid'] === 'yes') 
+        {
+        $paid = 1;
+        }
+        else
+        {
+        $paid = 0;
+        }	 
+        Order_db::update_paid($paid);
+        break;
+        case 'update_payment':
+            // Fetch a form to add a credit card to the order to pay
+            include('update_payment.php');
+        break;
+        case 'update_payment_form':
+            // Make a payment with credit card.
+            include('update_payment.php');
+        break;
         default:
             $error = "A single frickin' potato chip!";
             include("./errors/error.php");

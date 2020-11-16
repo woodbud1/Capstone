@@ -6,7 +6,49 @@
 
 class Order_db {
 
-        public static function get_order($order) 
+    public static function get_orders() 
+    {
+        $db = Database::getDB();
+        $query = 'SELECT * FROM orders';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':orderID', $order);
+        $statement->execute();
+        $results = $statement->fetch();
+        $statement->closeCursor();
+        $order = new Order($results['orderID'],
+                         $results['userID'],
+                         $results['paymentAmount'],
+                         $results['paymentType'],
+                         $results['cardNum'],
+                         $results['name'],
+                         $results['address'],
+                         $results['paid'],
+                         $results['delievered']);
+        return $order;
+    }
+
+    public static function get_ordersByUserID($userID) 
+    {
+        $db = Database::getDB();
+        $query = 'SELECT * FROM orders WHERE userID = :userID';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':userID', $userID);
+        $statement->execute();
+        $results = $statement->fetch();
+        $statement->closeCursor();
+        $order = new Order($results['orderID'],
+                         $results['userID'],
+                         $results['paymentAmount'],
+                         $results['paymentType'],
+                         $results['cardNum'],
+                         $results['name'],
+                         $results['address'],
+                         $results['paid'],
+                         $results['delievered']);
+        return $order;
+    }
+
+        public static function get_ordersByOrderID($order) 
         {
             $db = Database::getDB();
             $query = 'SELECT * FROM orders WHERE orderID = :orderID';
@@ -16,6 +58,7 @@ class Order_db {
             $results = $statement->fetch();
             $statement->closeCursor();
             $order = new Order($results['orderID'],
+                             $results['userID'],
                              $results['paymentAmount'],
                              $results['paymentType'],
                              $results['cardNum'],

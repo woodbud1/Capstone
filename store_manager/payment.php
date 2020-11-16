@@ -80,7 +80,6 @@
                 <div class="medium-12 cell">
                         <label>&nbsp;</label>
                         <input class="button" type="submit" value="Done!">
-            </form>
                 </div>
         </div></div></div>
         </form>
