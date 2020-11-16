@@ -348,18 +348,28 @@ switch ($action) {
     
     case 'View Product':
         $product_id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
-        // $product_id = filter_input(INPUT_GET, 'product_id');   
-        $product = Product_db::get_product($product_id);
-        var_dump($product, $product_id);
+        // Storing the product ID as a session makes it a bit easier to work with when editing.
+        $_SESSION['productID'] = $product_id;  
+        $product = Product_db::get_product($_SESSION['productID']);
     include('manage_inventory/product_view.php');
     die;
     break;
 
     case 'Edit Product':
-    
+        
     include('manage_inventory/edit_product.php');    
     die;
     break;
+
+    case 'Update Count':
+        $product_id = $_SESSION['productID'];
+        $count = filter_input(INPUT_POST, 'new_count', FILTER_VALIDATE_INT);
+        Product_db::update_productCount($count, $product_id);
+        $product = Product_db::get_product($_SESSION['productID']);
+        include('manage_inventory/product_view.php');    
+        die;
+        break;
+    
 
     case 'User Manager':
 

@@ -97,6 +97,18 @@ class Product_db {
             }
         }
 
+        public static function update_productCount($entry, $key)
+        {
+            $db = Database::getDB();
+     
+            $query = 'UPDATE products SET count = :count WHERE productID = :productID';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':count', $entry);
+            $statement->bindValue(':productID', $key);
+            $statement->execute();
+            $statement->closeCursor();
+        }
+
         public static function update_product()
         {
             $db = Database::getDB();

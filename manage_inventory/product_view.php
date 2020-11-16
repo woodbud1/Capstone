@@ -12,7 +12,12 @@
             <p><b>Description:</b> <?php echo $product->getDescription(); ?></p>
             <p><b>SKU:</b> <?php echo $product->getSKU(); ?></p>
             <p><b>Count:</b> <?php echo $product->getCount(); ?></p>
-            
+            <p>Update Count: 
+            <form action="index.php" method="post" id="Inventory Manager">
+            <input type="hidden" name="action" value="Update Count">
+            <input type="number" name="new_count">
+            <input class="button" type="submit" value="Update Count" >
+            </form></p>
         </div>
     <form action="index.php" method="post" id="Inventory Manager">
             <input type="hidden" name="action" value="Inventory Manager" >
