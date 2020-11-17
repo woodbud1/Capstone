@@ -69,6 +69,10 @@ switch ($action) {
             $product_array = Product_db::select_all(); 
         include("storefront.php");
         break;
+        case "update_count":
+            $product_array = Product_db::select_all(); 
+        include("storefront.php");
+        break;
         case "empty":
             if(isset($_SESSION["cart_item"])){
                 unset($_SESSION["cart_item"]);
