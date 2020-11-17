@@ -17,7 +17,7 @@ class Order_db {
                              $results['productid'],
                              $results['categoryid'],
                              $results['wholesaleprice'],
-                             $results['wetailprice'],
+                             $results['retailprice'],
                              $results['count']);
             return $order;
         }
