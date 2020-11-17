@@ -20,3 +20,22 @@ Check Regex
 				<form action="." method="post">
 				<td><input type="submit" name="action" value="remove&productID=<?php echo $item["productID"]; ?>"></td>
 				</form>
+
+                            $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $_GET["productID"] . "'");
+            $itemArray = array($productByID[0]["productID"]=>array('productID'=>$productByID[0]["productID"], 'productName'=>$productByID[0]["productName"], 'sku'=>$productByID[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productByID[0]["price"], 'imageURL'=>$productByID[0]["imageURL"]));
+            if(!empty($_SESSION["cart_item"])) {
+                if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
+                    foreach($_SESSION["cart_item"] as $k => $v) {
+                            if($productByID[0]["productID"] == $k) {
+                                if(empty($_SESSION["cart_item"][$k]["count"])) {
+                                    $_SESSION["cart_item"][$k]["count"] = 0;
+                                }
+                                $_SESSION["cart_item"][$k]["count"] += $_POST["count"];
+                            }
+                    }
+                } else {
+                    $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+                }
+            } else {
+                $_SESSION["cart_item"] = $itemArray;
+            }

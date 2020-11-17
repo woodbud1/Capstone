@@ -40,7 +40,18 @@ class Product_db {
             return $results;
         }
 
-        
+        public static function get_byID($entry)
+        {
+          $db = Database::getDB();
+          $query = 'SELECT * FROM products WHERE productID = :product_id';
+          $statement = $db->prepare($query);
+          $statement->bindValue(':product_id', $entry);
+          $statement->execute();
+          $results = $statement->fetch();
+          $statement->closeCursor();
+          return $results;
+        }
+
         public static function select_all()
         {
           $db = Database::getDB();

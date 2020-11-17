@@ -1,4 +1,4 @@
-<?php include '../view/header.php'; ?>
+<?php include './view/header.php'; ?>
 <main>
 <h1>Update Payment</h1>
 <p>Only Credit or Debit Cards are being accepted for online payment. Payments with cash or check must be done in store.</p>
@@ -31,4 +31,4 @@
         </div></div></div>
         </form>
 </main>
-<?php require_once '../view/footer.php'; ?> 
+<?php require_once './view/footer.php'; ?> 

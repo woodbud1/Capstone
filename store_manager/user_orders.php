@@ -1,4 +1,4 @@
-<?php include '../view/header.php'; ?>
+<?php include './view/header.php'; ?>
 <main>
 <div class="container">
 <div class="row">
@@ -36,4 +36,4 @@
 </div>
 </div>
 </div>
-<?php require_once '../view/footer.php'; ?> 
+<?php require_once './view/footer.php'; ?> 

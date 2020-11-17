@@ -125,7 +125,7 @@ class Order_db {
         {
             $db = Database::getDB();
      
-            $query = 'UPDATE orders SET cardNum = :cardNUm WHERE orderID = :orderID';
+            $query = 'UPDATE orders SET cardNum = :cardNum WHERE orderID = :orderID';
             $statement = $db->prepare($query);
             $statement->bindValue(':cardNum', $card);
             $statement->execute();

@@ -1,4 +1,4 @@
-<?php include '../view/header.php'; ?>
+<?php include './view/header.php'; ?>
     <body>
 
         <div class="row"><p>Total Price: <?php echo $final_price; ?></p></div>
@@ -87,4 +87,4 @@
     <p><input type="submit" name="action" value="shop" ></p>
 </form>
     </body>
-<?php include '../view/footer.php'; ?>
+<?php include './view/footer.php'; ?>
