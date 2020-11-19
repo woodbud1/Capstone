@@ -1,7 +1,7 @@
 <?php
 class Product {
+    private $category;
     private $productID;
-    private $categoryID;
     private $productName;
     private $price;
     private $sku;
@@ -9,9 +9,9 @@ class Product {
     private $description;
     private $count;
 
-    function __construct($productID, $categoryID, $productName, $price, $sku, $imageURL, $description, $count) {
+    function __construct($category, $productName, $price, $sku, $imageURL, $description, $count) {
         // $this->productID = $productID;
-        $this->categoryID = $categoryID;
+        $this->category = $category;
         $this->productName = $productName;
         $this->price = $price;
         $this->sku = $sku;
@@ -28,12 +28,12 @@ class Product {
         $this->productID = $value;
     }
 
-    public function getCategoryID() {
-        return $this->categoryID;
+    public function getCategory() {
+        return $this->category;
     }
 
-    public function setCategoryID($value) {
-        $this->categoryID = $value;
+    public function setCategory($value) {
+        $this->category = $value;
     }
 
     public function getProductName() {

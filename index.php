@@ -321,8 +321,7 @@ switch ($action) {
     $description = filter_input(INPUT_POST, 'description');
     $count = filter_input(INPUT_POST, 'count');
     // IDK, why are fetching everything right now when we just need the ID.
-    // $current_category = Category_db::getCategory($category_id);
-    // $current_category = (int)$current_category[0];
+    $category_id = Category_db::getCategory($category_id);
     $product = new Product($category_id, $productName, $price, $sku, $imageURL, $description, $count);
     Product_db::add_product($product);
     
@@ -348,21 +347,46 @@ switch ($action) {
     
     case 'View Product':
         $product_id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
-        // $product_id = filter_input(INPUT_GET, 'product_id');   
-        $product = Product_db::get_product($product_id);
-        var_dump($product, $product_id);
+        // Storing the product ID as a session makes it a bit easier to work with when editing.
+        $_SESSION['productID'] = $product_id;  
+        $product = Product_db::get_product($_SESSION['productID']);
     include('manage_inventory/product_view.php');
     die;
     break;
-
-    case 'Edit Product':
-    // instanciate fields
-        $productName = filter_input(INPUT_POST, 'productName');
-  
     
-    include('manage_inventory/edit_product.php');    
+    case 'Show Edit Product Form':
+        $productName = filter_input(INPUT_POST, 'productName');
+        $price = filter_input(INPUT_POST, 'price');
+        $sku = filter_input(INPUT_POST, 'sku');
+        $imageURL = filter_input(INPUT_POST, 'imageURL');
+        $description = filter_input(INPUT_POST, 'description');
+        
+    include('manage_inventory/edit_product.php');
+    die;    
+    break;    
+        
+    case 'Edit Product':
+        $productName = filter_input(INPUT_POST, 'productName');
+        $price = filter_input(INPUT_POST, 'price');
+        $sku = filter_input(INPUT_POST, 'sku');
+        $imageURL = filter_input(INPUT_POST, 'imageURL');
+        $description = filter_input(INPUT_POST, 'description');
+
+        Product_db::update_product($productName, $price, $sku, $imageURL, $description); 
+    
+    include('manage_inventory/all_products.php');    
     die;
     break;
+
+    case 'Update Count':
+        $product_id = $_SESSION['productID'];
+        $count = filter_input(INPUT_POST, 'new_count', FILTER_VALIDATE_INT);
+        Product_db::update_productCount($count, $product_id);
+        $product = Product_db::get_product($_SESSION['productID']);
+        include('manage_inventory/product_view.php');    
+        die;
+        break;
+    
 
     case 'User Manager':
 
@@ -378,12 +402,13 @@ switch ($action) {
 
      case 'Store Manager':
          $product_array = Product_db::select_all();
-         include('./store_manager/index.php');
+         include('store_manager/index.php');
      break;
-}
-//     case 'Shop':
+
+     case 'Shop':
 //         $product_array = Product_db::select_all();
-//         include('./store_manager/index.php');
-//     break;
+         include('view/NothingToSee.php');
+     break;
 
 
+}
