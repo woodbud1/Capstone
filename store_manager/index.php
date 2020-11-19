@@ -225,19 +225,19 @@ switch ($action) {
         case 'change_address':
             // TO DO: Allow users to change address
             $address = filter_input(INPUT_POST, "address");
-            Order_db::update_address($address);
+            Invoice_db::update_address($address);
             include('storefront.php');
         break;
-        case 'get_allorders':
-            // Fetch all orders and display (ADMIN only function)
-            $invoices = Order_db::get_orders();
-            include('all_orders.php');
+        case 'get_all_invoices':
+            // Fetch all invoices and display (ADMIN only function)
+            $invoices = Invoice_db::get_invoicesAll();
+            include('all_invoices.php');
         break;
-        case 'get_ID_orders':
-            // Fetch all orders done by a user.
+        case 'get_ID_invoices':
+            // Fetch all invoices done by a user.
             $buyerID = $_SESSION['userID'];
-            $invoices = Order_db::get_ordersByUserID($buyerID);
-            include('user_orders.php');
+            $invoices = Invoice_db::get_invoicesByBuyerID($buyerID);
+            include('user_invoices.php');
         break;
         case 'update_paid':
             // Admin can update payments
