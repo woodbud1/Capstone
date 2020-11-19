@@ -1,6 +1,5 @@
 <?php
 
-require('../model/database_oo.php');
 require('order.php');
 require('orders_db.php');
 
@@ -12,6 +11,6 @@ if ($action == NULL) {
     }
 }
 
-if ($action == 'list_orders') {
-   include(all_orders.php);
+if ($action == 'list_orders' || $action == 'Order Manager') {
+    include(all_orders.php);
 }

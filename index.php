@@ -455,8 +455,9 @@ switch ($action) {
          include('store_manager/storefront.php');
      break;
 
-     case 'Shop':
-//         $product_array = Product_db::select_all();
+     case 'Order Manager':
+         
+    include('order_manager/index.php');
          
      break;
 
