@@ -5,6 +5,7 @@
         <div id="left_column">
             <p>
                 <img src="<?php echo $product->getImageURL(); ?>">
+                
             </p>
         </div>
         <div id="right_column">
@@ -19,7 +20,7 @@
             <input class="button" type="submit" value="Update Count" >
             </form></p>
         </div>
-    <form action="index.php" method="post" id="Inventory Manager">
+        <form action="index.php" method="post" id="Inventory Manager">
             <input type="hidden" name="action" value="Inventory Manager" >
             <input class="button" type="submit" value="Back To Products" >
         </form>

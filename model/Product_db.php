@@ -17,7 +17,7 @@ class Product_db {
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();
-            $product = new Product($results['productID'],
+            $product = new Product(
                              $results['categoryID'],
                              $results['productName'],
                              $results['price'],
@@ -62,19 +62,26 @@ class Product_db {
           return $results;
         }
         
-        public static function add_product($p)
-        {
-            $db = Database::getDB();
+        public static function add_product($product){
+        $db = Database::getDB();
+        
+        $category_id = $product->getCategory()->getID();
+        $productName = $product->getProductName();
+        $price = $product->getPrice();
+        $sku = $product->getSKU();
+        $imageURL = $product->getImageURL();
+        $description = $product->getDescription();
+        $count = $product->getCount();
      
           $query = 'INSERT INTO products (categoryID, productName, price, sku, imageURL, description, count) VALUES (:categoryID, :productName, :price, :sku, :imageURL, :description, :count)';
           $statement = $db->prepare($query);
-          $statement->bindValue(':categoryID', $p->getCategoryID());
-          $statement->bindValue(':productName', $p->getProductName());
-          $statement->bindValue(':price', $p->getPrice());
-          $statement->bindValue(':sku', $p->getSKU());
-          $statement->bindValue(':imageURL', $p->getImageURL());
-          $statement->bindValue(':description', $p->getDescription());
-          $statement->bindValue(':count', $p->getCount());
+          $statement->bindValue(':categoryID', $category_id);
+          $statement->bindValue(':productName', $productName);
+          $statement->bindValue(':price', $price);
+          $statement->bindValue(':sku', $sku);
+          $statement->bindValue(':imageURL', $imageURL);
+          $statement->bindValue(':description', $description);
+          $statement->bindValue(':count', $count);
           $statement->execute();
           $statement->closeCursor();
         }
@@ -124,9 +131,19 @@ class Product_db {
         {
             $db = Database::getDB();
      
-            $query = 'UPDATE products SET Name = :Name WHERE Username = :Username';
+            $query = 'UPDATE products
+                    SET productName = :productName,
+                    price = :price,
+                    sku = :sku,
+                    imageURL = :imageURL,
+                    description = :description
+                WHERE sku = :sku';
             $statement = $db->prepare($query);
-            $statement->bindValue(':Name', $name);
+            $statement->bindValue(':productName', $productName);
+            $statement->bindValue(':price', $price);
+            $statement->bindValue(':sku', $sku);
+            $statement->bindValue(':imageURL', $imageURL);
+            $statement->bindValue(':description', $description);
             $statement->execute();
             $statement->closeCursor();
         }

@@ -376,8 +376,7 @@ switch ($action) {
     $description = filter_input(INPUT_POST, 'description');
     $count = filter_input(INPUT_POST, 'count');
     // IDK, why are fetching everything right now when we just need the ID.
-    // $current_category = Category_db::getCategory($category_id);
-    // $current_category = (int)$current_category[0];
+    $category_id = Category_db::getCategory($category_id);
     $product = new Product($category_id, $productName, $price, $sku, $imageURL, $description, $count);
     Product_db::add_product($product);
     
@@ -409,10 +408,28 @@ switch ($action) {
     include('manage_inventory/product_view.php');
     die;
     break;
-
-    case 'Edit Product':
+    
+    case 'Show Edit Product Form':
+        $productName = filter_input(INPUT_POST, 'productName');
+        $price = filter_input(INPUT_POST, 'price');
+        $sku = filter_input(INPUT_POST, 'sku');
+        $imageURL = filter_input(INPUT_POST, 'imageURL');
+        $description = filter_input(INPUT_POST, 'description');
         
-    include('manage_inventory/edit_product.php');    
+    include('manage_inventory/edit_product.php');
+    die;    
+    break;    
+        
+    case 'Edit Product':
+        $productName = filter_input(INPUT_POST, 'productName');
+        $price = filter_input(INPUT_POST, 'price');
+        $sku = filter_input(INPUT_POST, 'sku');
+        $imageURL = filter_input(INPUT_POST, 'imageURL');
+        $description = filter_input(INPUT_POST, 'description');
+
+        Product_db::update_product($productName, $price, $sku, $imageURL, $description); 
+    
+    include('manage_inventory/all_products.php');    
     die;
     break;
 
@@ -437,10 +454,10 @@ switch ($action) {
          include('store_manager/storefront.php');
      break;
 
-//     case 'Shop':
+     case 'Shop':
 //         $product_array = Product_db::select_all();
-//         include('./store_manager/index.php');
-//     break;
+         
+     break;
 
 
 }
