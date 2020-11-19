@@ -47,19 +47,20 @@ switch ($action) {
         }
         
         $username = $_SESSION['username'];
-        $email = User_db::get_email($username);
         // Display the registration form
         include'./view/EditUserInfo.php';
         break;    
         
     case 'Edit':
         // instanciate fields
-        $email = filter_input(INPUT_POST, 'email');
-        if(!isset($errorUsername)) { $errorUsername=''; }
-        if(!isset($errorEmail)) { $errorEmail=''; }
+        $username = filter_input(INPUT_POST, 'username');
+        //var_dump($username);
         
+        if(!isset($errorEmail)) { $errorEmail=''; }
+         if(!isset($errorName)) { $errorName=''; }
+         
         // Display the registration form
-        include'./view/EditUserInfo.php';
+        include'./view/profile.php';
         break;
     case 'Registration':
         // instanciate fields
@@ -244,6 +245,60 @@ switch ($action) {
         include('view/landing.php'); 
         break;
     }
+    
+       case 'SaveUser':
+          $username = filter_input(INPUT_POST, "username");
+          $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
+          $password = filter_input(INPUT_POST, "password");
+          $name = filter_input(INPUT_POST, "name");
+          
+//        var_dump($username);
+//         var_dump($email);
+//         var_dump($name);
+//         var_dump($password);
+         
+          $errorName = '';
+          $error = '';
+          $errorEmail = '';
+          $errorPassword = '';
+
+        // Validate the inputs
+    
+    if($email === FALSE){
+        $errorEmail = "Please enter a valid email. ";
+    }
+    
+    if($name === ''){
+        $errorName .= "Please enter a valid name. ";
+    }
+    
+    if($password === ''){
+        $errorPassword .= "Please enter a password. ";
+    }else if(Validation::validPasswordLength($password) === false){
+        $errorPassword = "Password must be between 12 and 100 characters";
+    }
+    else if(Validation::isValidPassword($password) === false){
+        $errorPassword = "Password must meet at least 3 out of the following 4 complexity rules: 
+
+        i. at least 1 uppercase character (A-Z) 
+
+        ii. at least 1 lowercase character (a-z)
+
+        iii. at least 1 digit (0-9) 
+
+        iv. at least 1 special character (punctuation)  ";
+    }
+    
+    if($errorEmail !== '' || $errorPassword !== '' || $errorName !== '') {
+        include('view/profile.php'); 
+        break;
+    }else {
+        User_db::update_user($username,$email, $password);
+        $users = User_db::select_all();
+        include('view/UserManager.php');
+        break;
+    }
+    
     case 'Landing':
     $username = $_SESSION['username'];
     $user = User_db::get_user($username);
@@ -394,15 +449,9 @@ switch ($action) {
         include('view/UserManager.php');
         break;
 
-    case 'See_Profile':
-        $profile = filter_input(INPUT_POST, 'profile');
-        $user = User_db::get_user($profile);
-        include('view/profile.php');
-        break;   
-
      case 'Store Manager':
          $product_array = Product_db::select_all();
-         include('store_manager/index.php');
+         include('store_manager/storefront.php');
      break;
 
      case 'Shop':

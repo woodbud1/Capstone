@@ -1,4 +1,4 @@
-<?php include '../view/header.php'; ?> 
+<?php include './view/header.php'; ?> 
 <div id="shopping-cart">
 <div class="txt-heading">Shopping Cart</div>
 <?php echo $sku ?>
@@ -61,4 +61,4 @@ if(isset($_SESSION["cart_item"])){
 <input type="hidden" name="action" value="pay">
 <p><input type="submit" name="submit" value="Pay" ></p>
 </form>
-<?php include '../view/footer.php'; ?>
+<?php include './view/footer.php'; ?>

@@ -146,6 +146,20 @@ class User_db {
         $statement->closeCursor();
         return $image;
     }
+
+        public static function get_name($username){
+        $db = Database::getDB();
+ 
+        $query = 'SELECT Name from users WHERE Username = :Username';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':Username', $username);
+
+        $statement->execute();
+        $results = $statement->fetch();
+        $name = $results['Name'];
+        $statement->closeCursor();
+        return $name;
+    }
     
        public static function change_image($username, $image){
         $db = Database::getDB();

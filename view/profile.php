@@ -1,7 +1,7 @@
 <?php include 'header.php'; 
-$name = $user->getName();
-$username = $user->getUsername();
-$password = $user->getEmail();
+$name = User_db::get_name($username);
+$email = User_db::get_email($username);
+$user = User_db::get_user($username);
 ?>
 <main>
     <div class="row">
@@ -11,9 +11,13 @@ $password = $user->getEmail();
     </div>   
     <div id="form-wrapper" style="max-width:500px;margin:auto;">
         <form action="index.php" method="post" id="edituserinfo">
-            <input type="hidden" name="action" value="Save" />
+            <input type="hidden" name="action" value="SaveUser" />
 
             <p>Please update user information as needed.</p>
+            
+            <label>Name: </label>
+            <input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>"><font color="red"><b><?php if (isset($errorName)) {
+                 echo $errorName;} ?></b></font><br>
             
             <label>Email Address: </label>
             <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>"><font color="red"><b><?php if (isset($errorEmail)) {
@@ -24,6 +28,7 @@ $password = $user->getEmail();
                 echo $errorPassword; } ?></b></font></span><br>
 
             <label>&nbsp;</label>
+            <input type="hidden" name="username" value="<?php echo $username?>">
             <input class="button" type="submit" value="Save"><br>
         </form>
         <form action="index.php" method="post" id="edituserinfo">

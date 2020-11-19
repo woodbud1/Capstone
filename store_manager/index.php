@@ -1,42 +1,41 @@
 <?php
-require_once('./model/database_oo.php');
-require_once('./model/validation.php');
-require_once('./model/Product_db.php');
-require_once('./model/Product.php');
-require_once('./model/Order_db.php');
-require_once('./model/Order.php');
-require_once('./model/User_db.php');
-require_once('./model/User.php');
-require_once("dbcontroller.php");
-$db_handle = new DBController();
+require_once('../model/database_oo.php');
+require_once('../model/validation.php');
+require_once('../model/Product_db.php');
+require_once('../model/Product.php');
+require_once('../model/Order_db.php');
+require_once('../model/Order.php');
+require_once('../model/User_db.php');
+require_once('../model/User.php');
 //session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'shop';
+        $action = 'Store Manager';
     }
 }
 
 switch ($action) {
-    // case "initial":
-    //     include("storefront.php");
-    // break;
-//    case "shop":
+    case "shop":
+        $product_array = Product_db::select_all();
+         include("storefront.php");
+     break;
         case "Store Manager":
+        // Completely broke store manager, initial action, buttons, and other navigations will need to be updated.
         // var_dump($_SESSION['userID']);
         $product_array = Product_db::select_all();
         include("storefront.php");
     break;
     case "add": 
-        $userID = $_SESSION['userID'];
+        // $buyerID = $_SESSION['userID'];
+        // Can't add a user ID without a session.
+        // Ideally this session is created with login.
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
-            // It's the ugliest thing I ever seen. But the array being passed back from the database is not working. 
-            // $productByID = Product_db::get_byID($_GET["productID"]);
-            // $cartID = rand(1,100000);
-            $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $_GET["productID"] . "'");
-            $itemArray = array($productByID[0]["productID"]=>array('productID'=>$productByID[0]["productID"], 'productName'=>$productByID[0]["productName"], 'sku'=>$productByID[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productByID[0]["price"], 'imageURL'=>$productByID[0]["imageURL"]));
+            $cartID = rand(1,100000);
+            $productByID = Product_db::get_byID($_GET["productID"]);
+            $itemArray = array($productByID[0]=>array('productID'=>$productByID["productID"], 'productName'=>$productByID["productName"], 'sku'=>$productByID["sku"], 'count'=>$_POST["count"], 'price'=>$productByID["price"], 'imageURL'=>$productByID["imageURL"], 'cartID'=>$cartID));
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
@@ -65,6 +64,11 @@ switch ($action) {
                             unset($_SESSION["cart_item"]);
                 }
             }
+            $product_array = Product_db::select_all(); 
+        include("storefront.php");
+        break;
+        case "update_count":
+            // Updating Cart Count
             $product_array = Product_db::select_all(); 
         include("storefront.php");
         break;
@@ -206,11 +210,11 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
-            $userID = $_SESSION['userID'];
+            $buyerID = $_SESSION['userID'];
             $final_price = $_SESSION['paymentAmount'];
-            $delievered = 0;
-            $order = new Order($userID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delievered);
-            Order_db::add_order($order);
+            $delivered = 0;
+            $invoice = new Invoice($buyerID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delivered);
+            Invoice_db::add_invoice($invoice);
             include('confirmation.php');
         }
             break;
@@ -221,7 +225,38 @@ switch ($action) {
             Order_db::update_address($address);
             include('storefront.php');
         break;
-
+        case 'get_allorders':
+            // Fetch all orders and display (ADMIN only function)
+            $invoices = Order_db::get_orders();
+            include('all_orders.php');
+        break;
+        case 'get_ID_orders':
+            // Fetch all orders done by a user.
+            $buyerID = $_SESSION['userID'];
+            $invoices = Order_db::get_ordersByUserID($buyerID);
+            include('user_orders.php');
+        break;
+        case 'update_paid':
+            // Admin can update payments
+        if(isset($_POST['isPaid']) && 
+        $_POST['isPaid'] === 'yes') 
+        {
+        $paid = 1;
+        }
+        else
+        {
+        $paid = 0;
+        }	 
+        Order_db::update_paid($paid);
+        break;
+        case 'update_payment':
+            // Fetch a form to add a credit card to the order to pay
+            include('update_payment.php');
+        break;
+        case 'update_payment_form':
+            // Make a payment with credit card.
+            include('update_payment.php');
+        break;
         default:
             $error = "A single frickin' potato chip!";
             include("./errors/error.php");

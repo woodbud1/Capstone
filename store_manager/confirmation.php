@@ -1,3 +1,4 @@
+<?php include './view/header.php'; ?>
 <p>Wow you placed an order</p>
 <p>Name: <?php echo $name; ?></p>
 <p>Email: <?php echo $email; ?></p>
@@ -11,3 +12,4 @@
                 <input type="text" name="address" value="<?php echo $address; ?>"><br>
     <p><input class="button" type="submit" name="submit" value="Change Address" ></p>
 </form>
+<?php require_once './view/footer.php'; ?> 

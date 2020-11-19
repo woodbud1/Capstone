@@ -1,7 +1,7 @@
 <?php include './view/header.php'; ?> 
 <div id="shopping-cart">
 <div class="txt-heading">Shopping Cart</div>
-<a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
+<a id="btnEmpty" href="./index.php?action=empty">Empty Cart</a>
 <?php
 if(isset($_SESSION["cart_item"])){
     $total_count = 0;
@@ -28,7 +28,26 @@ if(isset($_SESSION["cart_item"])){
 				<td><?php echo $item["count"]; ?></td>
 				<td><?php echo "$ ".$item["price"]; ?></td>
 				<td><?php echo "$ ". number_format($item_price,2); ?></td>
-				<td><a href="index.php?action=remove&productID=<?php echo $item["productID"]; ?>" class="btnRemoveAction">Remove</a></td>
+				<td>
+				<form action="." method="post"
+                          id="empty">
+                    <input type="hidden" name="action"
+                           value="remove">
+                    <input type="hidden" name="product_id"
+                           value="<?php echo $item["productID"]; ?>">
+                    <input class="button" type="submit" value="Remove">
+                </form>
+				<td>
+				<form action="." method="post"
+                          id="update_count">
+						  <input type="number" class="product-quantity" name="count" id="count" />
+                    <input type="hidden" name="action"
+                           value="update_count">
+                    <input type="hidden" name="product_id"
+                           value="<?php echo $item["productID"]; ?>">
+                    <input class="button" type="submit" value="Update Count">
+                </form>
+				</td>
 				</tr>
 				<?php
 				$total_count += $item["count"];
@@ -63,15 +82,17 @@ if(isset($_SESSION["cart_item"])){
 
 	<?php
 	if (!empty($product_array)) { 
-		foreach($product_array as $key=>$value){
+		foreach($product_array as $product){
 	?>
 		<div class="product-item">
-			<form method="post" action="index.php?action=add&productID=<?php echo $product_array[$key]["productID"]; ?>">
-			<div class="product-image"><img src="<?php echo $product_array[$key]["imageURL"]; ?>"></div>
+			<form method="post" action=".">
+			<input type="hidden" name="action" value="add">
+            <input type="hidden" name="productID" value="<?php echo $product["productID"]; ?>">
+			<div class="product-image"><img src="<?php echo $product["imageURL"]; ?>"></div>
 			<div class="product-tile-footer">
-			<div class="product-title"><?php echo $product_array[$key]["productName"]; ?></div>
-			<div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
-			<div class="cart-action"><input type="text" class="product-quantity" name="count" id="count" value="1" size="2" />
+			<div class="product-title"><?php echo $product["productName"]; ?></div>
+			<div class="product-price"><?php echo "$".$product["price"]; ?></div>
+			<div class="cart-action"><input type="number" class="product-quantity" name="count" id="count" value="1" size="1" />
 			<input type="submit" value="Add to Cart" class="btnAddAction" /></div>
 			</div>
 			</form>
