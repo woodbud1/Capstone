@@ -456,7 +456,7 @@ switch ($action) {
 
      case 'Shop':
 //         $product_array = Product_db::select_all();
-         include('view/NothingToSee.php');
+         
      break;
 
 
