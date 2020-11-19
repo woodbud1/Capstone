@@ -127,7 +127,7 @@ class Product_db {
             $statement->closeCursor();
         }
 
-        public static function update_product()
+        public static function update_product($productName,$price,$sku,$imageURL,$description)
         {
             $db = Database::getDB();
      
