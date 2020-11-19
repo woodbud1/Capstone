@@ -1,41 +1,41 @@
 <?php
-class Order {
-    private $orderID;
-    private $userID2;
+class Invoice {
+    private $invoiceID;
+    private $buyerID;
     private $paymentAmount;
     private $paymentType;
     private $cardNum;
     private $name;
     private $address; 
     private $paid;
-    private $delievered;
+    private $delivered;
 
-    public function __construct($orderID, $userID2, $paymentAmount, $paymentType, $cardNum, $userID, $address, $paid, $delievered) {
-        $this->orderID = $orderID;
-        $this->userID2 = $userID2;
+    public function __construct($invoiceID, $buyerID, $paymentAmount, $paymentType, $cardNum, $userID, $address, $paid, $delivered) {
+        $this->invoiceID = $invoiceID;
+        $this->buyerID = $buyerID;
         $this->paymentAmount = $paymentAmount;
         $this->paymentType = $paymentType;
         $this->cardNum = $cardNum;
         $this->name = $name;
         $this->address = $address;
         $this->paid = $paid;
-        $this->delievered = $delievered;
+        $this->delivered = $delivered;
     }
 
-    public function getOrderID() {
-        return $this->orderID;
+    public function getInvoiceID() {
+        return $this->invoiceID;
     }
 
-    public function setOrderID($value) {
-        $this->orderID = $value;
+    public function setInvoiceID($value) {
+        $this->invoiceID = $value;
     }
 
-    public function getUserID2() {
-        return $this->userID;
+    public function getBuyerID() {
+        return $this->buyerID;
     }
 
-    public function setUserID2($value) {
-        $this->userID = $value;
+    public function setBuyerID($value) {
+        $this->buyerID = $value;
     }
 
     public function getPaymentAmount() {
@@ -87,12 +87,12 @@ class Order {
         $this->paid = $value;
     }
     
-    public function getDelievered() {
-        return $this->delievered;
+    public function getdelivered() {
+        return $this->delivered;
     }
     
-    public function setDelievered($value) {
-        $this->delievered = $value;
+    public function setdelivered($value) {
+        $this->delivered = $value;
     }
 }
 ?>

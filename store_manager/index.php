@@ -28,7 +28,7 @@ switch ($action) {
         include("storefront.php");
     break;
     case "add": 
-        // $userID = $_SESSION['userID'];
+        // $buyerID = $_SESSION['userID'];
         // Can't add a user ID without a session.
         // Ideally this session is created with login.
         $product_array = Product_db::select_all();
@@ -36,8 +36,6 @@ switch ($action) {
             $cartID = rand(1,100000);
             $productByID = Product_db::get_byID($_GET["productID"]);
             $itemArray = array($productByID[0]=>array('productID'=>$productByID["productID"], 'productName'=>$productByID["productName"], 'sku'=>$productByID["sku"], 'count'=>$_POST["count"], 'price'=>$productByID["price"], 'imageURL'=>$productByID["imageURL"], 'cartID'=>$cartID));
-            // var_dump($productByID);
-            // var_dump($itemArray);
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
@@ -70,6 +68,7 @@ switch ($action) {
         include("storefront.php");
         break;
         case "update_count":
+            // Updating Cart Count
             $product_array = Product_db::select_all(); 
         include("storefront.php");
         break;
@@ -211,11 +210,11 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
-            $userID = $_SESSION['userID'];
+            $buyerID = $_SESSION['userID'];
             $final_price = $_SESSION['paymentAmount'];
-            $delievered = 0;
-            // $order = new Order($userID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delievered);
-            // Order_db::add_order($order);
+            $delivered = 0;
+            $invoice = new Invoice($buyerID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delivered);
+            Invoice_db::add_invoice($invoice);
             include('confirmation.php');
         }
             break;
@@ -228,13 +227,13 @@ switch ($action) {
         break;
         case 'get_allorders':
             // Fetch all orders and display (ADMIN only function)
-            $orders = Order_db::get_orders();
+            $invoices = Order_db::get_orders();
             include('all_orders.php');
         break;
-        case 'get_userID_orders':
+        case 'get_ID_orders':
             // Fetch all orders done by a user.
-            $userID = $_SESSION['userID'];
-            $orders = Order_db::get_ordersByUserID($userID);
+            $buyerID = $_SESSION['userID'];
+            $invoices = Order_db::get_ordersByUserID($buyerID);
             include('user_orders.php');
         break;
         case 'update_paid':

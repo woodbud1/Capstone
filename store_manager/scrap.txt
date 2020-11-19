@@ -15,14 +15,10 @@
 Check Regex
 ^\w{1,17}$
 
-<input type="submit" name="submit" value="Delete">
-
-				<form action="." method="post">
-				<td><input type="submit" name="action" value="remove&productID=<?php echo $item["productID"]; ?>"></td>
-				</form>
-
-                            $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $_GET["productID"] . "'");
-            $itemArray = array($productByID[0]["productID"]=>array('productID'=>$productByID[0]["productID"], 'productName'=>$productByID[0]["productName"], 'sku'=>$productByID[0]["sku"], 'count'=>$_POST["count"], 'price'=>$productByID[0]["price"], 'imageURL'=>$productByID[0]["imageURL"]));
+ if(!empty($_POST["count"])) {
+            $cartID = rand(1,100000);
+            $productByID = Product_db::get_byID($_GET["productID"]);
+            $itemArray = array($productByID[0]=>array('productID'=>$productByID["productID"], 'productName'=>$productByID["productName"], 'sku'=>$productByID["sku"], 'count'=>$_POST["count"], 'price'=>$productByID["price"], 'imageURL'=>$productByID["imageURL"], 'cartID'=>$cartID));
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
                     foreach($_SESSION["cart_item"] as $k => $v) {
@@ -39,3 +35,4 @@ Check Regex
             } else {
                 $_SESSION["cart_item"] = $itemArray;
             }
+        }

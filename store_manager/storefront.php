@@ -32,7 +32,7 @@ if(isset($_SESSION["cart_item"])){
 				<form action="." method="post"
                           id="empty">
                     <input type="hidden" name="action"
-                           value="empty">
+                           value="remove">
                     <input type="hidden" name="product_id"
                            value="<?php echo $item["productID"]; ?>">
                     <input class="button" type="submit" value="Remove">
@@ -82,14 +82,16 @@ if(isset($_SESSION["cart_item"])){
 
 	<?php
 	if (!empty($product_array)) { 
-		foreach($product_array as $key=>$value){
+		foreach($product_array as $product){
 	?>
 		<div class="product-item">
-			<form method="post" action="./index.php?action=add&productID=<?php echo $product_array[$key]["productID"]; ?>">
-			<div class="product-image"><img src="<?php echo $product_array[$key]["imageURL"]; ?>"></div>
+			<form method="post" action=".">
+			<input type="hidden" name="action" value="add">
+            <input type="hidden" name="productID" value="<?php echo $product["productID"]; ?>">
+			<div class="product-image"><img src="<?php echo $product["imageURL"]; ?>"></div>
 			<div class="product-tile-footer">
-			<div class="product-title"><?php echo $product_array[$key]["productName"]; ?></div>
-			<div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
+			<div class="product-title"><?php echo $product["productName"]; ?></div>
+			<div class="product-price"><?php echo "$".$product["price"]; ?></div>
 			<div class="cart-action"><input type="number" class="product-quantity" name="count" id="count" value="1" size="1" />
 			<input type="submit" value="Add to Cart" class="btnAddAction" /></div>
 			</div>

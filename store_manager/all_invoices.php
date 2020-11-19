@@ -15,17 +15,17 @@
             <th>Delivered</th>
             <th>Paid</th>
         </tr>
-        <?php foreach ($orders as $order) : ?>
+        <?php foreach ($invoices as $invoice) : ?>
             <tr>
-                <td><?php echo htmlspecialchars($order->getPlayer1_Name()); ?></td>
-                <td><?php echo htmlspecialchars($order->getUserID2()); ?></td>
-                <td><?php echo htmlspecialchars($order->getName()); ?></td>
-                <td><?php echo htmlspecialchars($order->getPaymentAmount()); ?></td>
-                <td><?php echo htmlspecialchars($order->getPaymentType()); ?></td>
-                <td><?php echo htmlspecialchars($order->getAddress()); ?></td>
-                <td><?php echo htmlspecialchars($order->getDelievered()); ?></td>
-                <td><?php echo htmlspecialchars($order->getPaid()); ?></td>
-                <td><form action="index.php" method="post" id="Order Manager">
+                <td><?php echo htmlspecialchars($invoice->getPlayer1_Name()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getBuyerID()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getName()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getPaymentAmount()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getPaymentType()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getAddress()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getDelievered()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getPaid()); ?></td>
+                <td><form action="index.php" method="post">
                 <input type="hidden" name="action" value="update_paid">
                 <input type="checkbox" name="isPaid" value="yes">
                 <input class="button" type="submit" value="Update Paid" >
