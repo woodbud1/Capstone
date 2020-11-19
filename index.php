@@ -428,7 +428,7 @@ switch ($action) {
         $description = filter_input(INPUT_POST, 'description');
 
         Product_db::update_product($productName, $price, $sku, $imageURL, $description); 
-    
+        $products = Product_db::select_all(); 
     include('manage_inventory/all_products.php');    
     die;
     break;
