@@ -10,8 +10,8 @@ class Invoice {
     private $paid;
     private $delivered;
 
-    public function __construct($invoiceID, $buyerID, $paymentAmount, $paymentType, $cardNum, $userID, $address, $paid, $delivered) {
-        $this->invoiceID = $invoiceID;
+    public function __construct($buyerID, $paymentAmount, $paymentType, $cardNum, $name, $address, $paid, $delivered) {
+        // $this->invoiceID = $invoiceID;
         $this->buyerID = $buyerID;
         $this->paymentAmount = $paymentAmount;
         $this->paymentType = $paymentType;
