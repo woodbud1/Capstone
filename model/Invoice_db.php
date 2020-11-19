@@ -86,17 +86,26 @@ class Invoice_db {
           return $results;
         }
         
-        public static function add_order($orderID, $paymentAmount, $paymentType, $cardNum, $buyerID, $address, $paid, $delievered)
+        public static function add_invoice($invoice)
         {
             $db = Database::getDB();
-     
-          $query = 'INSERT INTO invoices (orderID, paymentAmount, paymentType, cardNum, buyerID, address, paid, delievered) VALUES (:orderID, :paymentAmount, :paymentType, :cardNum, :buyerID, :address, :paid, :delievered)';
+            
+            $buyerID = $invoice->getBuyerID();
+            $paymentAmount = $invoice->getPaymentAmount();
+            $paymentType = $invoice->getPaymentType();
+            $cardNum = $invoice->getCardNum();
+            $name = $invoice->getName();
+            $address = $invoice->getAddress();
+            $paid = $invoice->getPaid();
+            $delievered = $invoice->getdelivered();
+
+          $query = 'INSERT INTO invoices (buyerID, paymentAmount, paymentType, cardNum, name, address, paid, delievered) VALUES (:buyerID, :paymentAmount, :paymentType, :cardNum, :name, :address, :paid, :delievered)';
           $statement = $db->prepare($query);
-          $statement->bindValue(':orderID', $orderID);
+          $statement->bindValue(':buyerID', $buyerID);
           $statement->bindValue(':paymentAmount', $paymentAmount);
           $statement->bindValue(':paymentType', $paymentType);
           $statement->bindValue(':cardNum', $cardNum);
-          $statement->bindValue(':buyerID', $buyerID);
+          $statement->bindValue(':name', $name);
           $statement->bindValue(':address', $address);
           $statement->bindValue(':paid', $paid);
           $statement->bindValue(':delievered', $delievered);

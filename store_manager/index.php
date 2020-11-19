@@ -7,7 +7,7 @@ require_once('../model/Invoice_db.php');
 require_once('../model/Invoice.php');
 require_once('../model/User_db.php');
 require_once('../model/User.php');
-//session_start();
+session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -34,7 +34,8 @@ switch ($action) {
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
             $cartID = rand(1,100000);
-            $productByID = Product_db::get_byID($_GET["productID"]);
+            $PID = filter_input(INPUT_POST, 'productID', FILTER_VALIDATE_INT);
+            $productByID = Product_db::get_byID($PID);
             $itemArray = array($productByID[0]=>array('productID'=>$productByID["productID"], 'productName'=>$productByID["productName"], 'sku'=>$productByID["sku"], 'count'=>$_POST["count"], 'price'=>$productByID["price"], 'imageURL'=>$productByID["imageURL"], 'cartID'=>$cartID));
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
@@ -56,9 +57,10 @@ switch ($action) {
         include("storefront.php");
         break;
         case "remove":
+            $PID = filter_input(INPUT_POST, 'productID', FILTER_VALIDATE_INT);
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
-                        if($_GET["productID"] == $k)
+                        if($PID === $k)
                             unset($_SESSION["cart_item"][$k]);				
                         if(empty($_SESSION["cart_item"]))
                             unset($_SESSION["cart_item"]);
@@ -210,7 +212,8 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
-            $buyerID = $_SESSION['userID'];
+            // $buyerID = $_SESSION['userID'];
+            $buyerID = 007;
             $final_price = $_SESSION['paymentAmount'];
             $delivered = 0;
             $invoice = new Invoice($buyerID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delivered);
