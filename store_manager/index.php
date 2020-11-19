@@ -3,8 +3,8 @@ require_once('../model/database_oo.php');
 require_once('../model/validation.php');
 require_once('../model/Product_db.php');
 require_once('../model/Product.php');
-require_once('../model/Order_db.php');
-require_once('../model/Order.php');
+require_once('../model/Invoice_db.php');
+require_once('../model/Invoice.php');
 require_once('../model/User_db.php');
 require_once('../model/User.php');
 //session_start();
@@ -12,7 +12,7 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'Store Manager';
+        $action = 'shop';
     }
 }
 
