@@ -10,7 +10,7 @@
             { ?><input type="submit" name="action" class="button" value="Store Manager" >
             <input type="submit" name="action" class="button" value="Inventory Manager" >
             <input type="submit" name="action" class="button" value="User Manager" ><?php } ?>
-            <input type="submit" name="action" class="button" value="Shop" >
+            <input type="submit" name="action" class="button" value="Order Manager" >
             <input class="button" type="submit" name="action" value="Logout" >
         </form>
         <br>

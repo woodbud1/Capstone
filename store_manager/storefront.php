@@ -1,7 +1,16 @@
 <?php include './view/header.php'; ?> 
-<div id="shopping-cart">
-<div class="txt-heading">Shopping Cart</div>
-<a id="btnEmpty" href="./index.php?action=empty">Empty Cart</a>
+    <div class="row">
+            <div class="large-12 columns">
+                <center><h1>User List</h1></center>
+            </div>
+    </div>  
+    <div id="form-wrapper" style="max-width:1000px;margin:auto;">
+        <div class="row">
+        <div class="small-12 column">
+<form action="." method="post">
+<input type="hidden" name="action" value="empty">
+<input type="submit" value="Empty" >
+</form>	
 <?php
 if(isset($_SESSION["cart_item"])){
     $total_count = 0;
@@ -30,7 +39,7 @@ if(isset($_SESSION["cart_item"])){
 				<td><?php echo "$ ". number_format($item_price,2); ?></td>
 				<td>
 				<form action="." method="post"
-                          id="empty">
+                          id="remove">
                     <input type="hidden" name="action"
                            value="remove">
                     <input type="hidden" name="product_id"
@@ -101,5 +110,18 @@ if(isset($_SESSION["cart_item"])){
 		}
 	}
 	?>
+</div>
+<div>
+<form method="post" action=".">
+<input type="hidden" name="action" value="get_ID_invoices">
+<input type="submit" value="Purchases by ID" />
+</form>
+</div>
+<!-- I don't really have a better place to put this atm. Should be an admin only thing -->
+<div>
+<form method="post" action=".">
+<input type="hidden" name="action" value="get_all_invoices">
+<input type="submit" value="All Purchases" />
+</form>
 </div>
 <?php include './view/footer.php'; ?>

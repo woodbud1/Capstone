@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2020 at 01:59 AM
+-- Generation Time: Nov 24, 2020 at 01:33 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -45,6 +45,30 @@ INSERT INTO `categories` (`categoryID`, `categoryName`) VALUES
 (5, 'Wearable Technology'),
 (6, 'Car Electronics & GPS'),
 (7, 'Cameras & Camcorders');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `OrderID` bigint(20) NOT NULL,
+  `SupplierName` varchar(2000) NOT NULL,
+  `SupplierID` bigint(20) NOT NULL,
+  `ProductID` bigint(20) NOT NULL,
+  `CategoryID` int(11) NOT NULL,
+  `WholesalePrice` decimal(15,0) NOT NULL,
+  `RetailPrice` decimal(15,0) NOT NULL,
+  `Count` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `SupplierName`, `SupplierID`, `ProductID`, `CategoryID`, `WholesalePrice`, `RetailPrice`, `Count`) VALUES
+(1, 'Bob Dole', 123, 6, 2, '11', '12', 22);
 
 -- --------------------------------------------------------
 
@@ -94,13 +118,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserId`, `Username`, `Password`, `Name`, `Email`, `Image`, `Type`) VALUES
-(1, 'Benjamin85', '$2y$10$6V6/eOdo4c2EwzgP5tgDzeu4kvCnnr7hVnOHG.3R5kBRGZANuj8vy', 'Drew', 'a@b.com', '', 1),
-(9, 'Dylan', '$2y$10$b1GdftYU6sID1vwD8Xdzz.Cst7eLxK3yRdKluOKSfJvhjufOnWqve', 'Dylan', 'd@b.com', '', 0),
-(10, 'DylanA', '$2y$10$AEbyHbl66GD.SpQ8TObSFOv5XvYi3rZyTghmv9QuhFEpzOYZFDpHS', 'DylanA', 'd@a.com', '', 1),
+(1, 'Benjamin85', '$2y$10$dPzR/dWNYaWh2ZO7Pgr4hewLohh2C2Ng9PbfBuwJdYokCrjtrj7pe', 'Drew', 'a@bb.com', '', 1),
+(9, 'Dylan', '$2y$10$NAgFLiKh9ibqLawFYPEZB.6QzvCpuAyut/De1wTkc.4kv27G1L0gi', 'Dylan', 'd@123b.com', '', 0),
+(10, 'DylanA', '$2y$10$HSq5ttvExbjLQdnnVpTq8OVT.uz7J6RoSmSR0a/e41G.Y3JyOMKNS', 'DylanA', 'a@bbb.com', '', 1),
 (11, 'John', '$2y$10$0BF1N1AwfJchHRhH39GSYuvRuycqO4AIlqcuGo/.NH5OwhknJcJoS', 'John', 'j@u.com', '', 0),
-(12, 'JohnA', '$2y$10$QnG27XfBzLHXyDTILE0ypOK5NcwM3DRua9joc9.r61KnMY1EPAFRi', 'JohnA', 'j@a.com', '', 1),
+(12, 'JohnA', '$2y$10$BH8LFstneBwtIZOY.Ph6EO5jU3YT5rmMpwHv53.lh4ZEShX9TvKk2', 'JohnA', 'j@a123123123.com', '', 1),
 (13, 'Sean', '$2y$10$gGYIgEWwYvu8KsOxZ3yQdeFvj8hNJEWM9lS2RzkXLLmghhkw6TwJe', 'Sean', 's@u.com', '', 0),
-(14, 'SeanA', '$2y$10$Naz5NIjsd3e4gr8KuoEBrOcaFyob0ZmU55BnQ5kIBAhGqwX0TBm4y', 'SeanA', 's@a.com', '', 1);
+(14, 'SeanA', '$2y$10$Naz5NIjsd3e4gr8KuoEBrOcaFyob0ZmU55BnQ5kIBAhGqwX0TBm4y', 'SeanA', 's@a.com', '', 1),
+(16, 'username', '$2y$10$3cI24DTaU9aLzkRaGw5efOM/xMeeRadW9T3iaXs3tg1F9qy8yLfA6', 'Bob Hope', 'a@bc.com', '', 1);
 
 --
 -- Indexes for dumped tables
@@ -111,6 +136,14 @@ INSERT INTO `users` (`UserId`, `Username`, `Password`, `Name`, `Email`, `Image`,
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryID`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`OrderID`),
+  ADD KEY `Products` (`ProductID`),
+  ADD KEY `Categories` (`CategoryID`);
 
 --
 -- Indexes for table `products`
@@ -137,6 +170,12 @@ ALTER TABLE `categories`
   MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `OrderID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -146,11 +185,18 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `UserId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `Categories` FOREIGN KEY (`CategoryID`) REFERENCES `categories` (`categoryID`),
+  ADD CONSTRAINT `Products` FOREIGN KEY (`ProductID`) REFERENCES `products` (`productID`);
 
 --
 -- Constraints for table `products`

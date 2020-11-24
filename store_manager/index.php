@@ -1,18 +1,18 @@
 <?php
-require_once('../model/database_oo.php');
-require_once('../model/validation.php');
-require_once('../model/Product_db.php');
-require_once('../model/Product.php');
-require_once('../model/Invoice_db.php');
-require_once('../model/Invoice.php');
-require_once('../model/User_db.php');
-require_once('../model/User.php');
-//session_start();
+require_once('./model/database_oo.php');
+require_once('./model/validation.php');
+require_once('./model/Product_db.php');
+require_once('./model/Product.php');
+require_once('./model/Invoice_db.php');
+require_once('./model/Invoice.php');
+require_once('./model/User_db.php');
+require_once('./model/User.php');
+
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'shop';
+        $action = 'landing';
     }
 }
 
@@ -21,11 +21,19 @@ switch ($action) {
         $product_array = Product_db::select_all();
          include("storefront.php");
      break;
-        case "Store Manager":
+
+    case "Back":
+         include("./view/landing.php");
+     break; 
+ 
+    case "landing":
+         include("landing.php");
+     break;
+    case "Store Manager":
         // Completely broke store manager, initial action, buttons, and other navigations will need to be updated.
         // var_dump($_SESSION['userID']);
         $product_array = Product_db::select_all();
-        include("storefront.php");
+        include("Landing.php");
     break;
     case "add": 
         // $buyerID = $_SESSION['userID'];
@@ -34,7 +42,8 @@ switch ($action) {
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
             $cartID = rand(1,100000);
-            $productByID = Product_db::get_byID($_GET["productID"]);
+            $PID = filter_input(INPUT_POST, 'productID', FILTER_VALIDATE_INT);
+            $productByID = Product_db::get_byID($PID);
             $itemArray = array($productByID[0]=>array('productID'=>$productByID["productID"], 'productName'=>$productByID["productName"], 'sku'=>$productByID["sku"], 'count'=>$_POST["count"], 'price'=>$productByID["price"], 'imageURL'=>$productByID["imageURL"], 'cartID'=>$cartID));
             if(!empty($_SESSION["cart_item"])) {
                 if(in_array($productByID[0]["productID"],array_keys($_SESSION["cart_item"]))) {
@@ -56,9 +65,10 @@ switch ($action) {
         include("storefront.php");
         break;
         case "remove":
+            $PID = filter_input(INPUT_POST, 'productID', FILTER_VALIDATE_INT);
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
-                        if($_GET["productID"] == $k)
+                        if($PID === $k)
                             unset($_SESSION["cart_item"][$k]);				
                         if(empty($_SESSION["cart_item"]))
                             unset($_SESSION["cart_item"]);
@@ -210,7 +220,8 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
-            $buyerID = $_SESSION['userID'];
+            // $buyerID = $_SESSION['userID'];
+            $buyerID = 007;
             $final_price = $_SESSION['paymentAmount'];
             $delivered = 0;
             $invoice = new Invoice($buyerID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delivered);
@@ -222,19 +233,20 @@ switch ($action) {
         case 'change_address':
             // TO DO: Allow users to change address
             $address = filter_input(INPUT_POST, "address");
-            Order_db::update_address($address);
+            Invoice_db::update_address($address);
             include('storefront.php');
         break;
-        case 'get_allorders':
-            // Fetch all orders and display (ADMIN only function)
-            $invoices = Order_db::get_orders();
-            include('all_orders.php');
+        case 'All Invoices':
+            var_dump($action);
+            // Fetch all invoices and display (ADMIN only function)
+            $invoices = Invoice_db::get_invoicesAll();
+            include('all_invoices.php');
         break;
-        case 'get_ID_orders':
-            // Fetch all orders done by a user.
+        case 'get_ID_invoices':
+            // Fetch all invoices done by a user.
             $buyerID = $_SESSION['userID'];
-            $invoices = Order_db::get_ordersByUserID($buyerID);
-            include('user_orders.php');
+            $invoices = Invoice_db::get_invoicesByBuyerID($buyerID);
+            include('user_invoices.php');
         break;
         case 'update_paid':
             // Admin can update payments
