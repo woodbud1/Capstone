@@ -39,7 +39,7 @@
                 <input class="button" type="submit" value="Update Paid" >
                 </form></td>
                 <td><form action="." method="post">
-                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="action" value="delete_invoice">
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($invoice->getInvoiceID()); ?>">
                 <input class="button" type="submit" value="Delete!" >
                 </form></td>
