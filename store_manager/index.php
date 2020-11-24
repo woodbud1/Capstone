@@ -31,6 +31,7 @@ switch ($action) {
         // $buyerID = $_SESSION['userID'];
         // Can't add a user ID without a session.
         // Ideally this session is created with login.
+        // Using a fake $buyerID for now (7).
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
             $cartID = rand(1,100000);
@@ -237,10 +238,22 @@ switch ($action) {
             // Fetch all invoices done by a user.
             $buyerID = $_SESSION['userID'];
             $invoices = Invoice_db::get_invoicesByBuyerID($buyerID);
-            include('user_invoices.php');
+            if(!empty($invoices)) {
+                var_dump($invoices);
+                include('user_invoices.php');
+            } else {
+                $error = "No invoices with that User ID found!";
+                include("../errors/error.php");
+            }
+        break;
+        case 'delete_invoice':
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        Invoice_db::deleteInvoice_ByID($id);
+        $invoices = Invoice_db::get_invoicesAll();
+        include('all_invoices.php');
         break;
         case 'update_paid':
-            // Admin can update payments
+        // Admin can update payments
         if(isset($_POST['isPaid']) && 
         $_POST['isPaid'] === 'yes') 
         {
@@ -250,7 +263,26 @@ switch ($action) {
         {
         $paid = 0;
         }	 
-        Order_db::update_paid($paid);
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        Invoice_db::update_paid($paid, $id);
+        $invoices = Invoice_db::get_invoicesAll();
+        include('all_invoices.php');
+        break;
+        case 'update_delivered':
+            // Admin can update delivered
+        if(isset($_POST['isDelivered']) && 
+        $_POST['isDelivered'] === 'yes') 
+        {
+        $delivered = 1;
+        }
+        else
+        {
+        $delivered = 0;
+        }	 
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        Invoice_db::update_delivered($delivered, $id);
+        $invoices = Invoice_db::get_invoicesAll();
+        include('all_invoices.php');
         break;
         case 'update_payment':
             // Fetch a form to add a credit card to the order to pay

@@ -87,11 +87,11 @@ class Invoice {
         $this->paid = $value;
     }
     
-    public function getdelivered() {
+    public function getDelivered() {
         return $this->delivered;
     }
     
-    public function setdelivered($value) {
+    public function setDelivered($value) {
         $this->delivered = $value;
     }
 }
