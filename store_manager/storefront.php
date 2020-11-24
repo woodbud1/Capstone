@@ -1,6 +1,12 @@
 <?php include './view/header.php'; ?> 
-<div id="shopping-cart">
-<div class="txt-heading">Shopping Cart</div>
+    <div class="row">
+            <div class="large-12 columns">
+                <center><h1>User List</h1></center>
+            </div>
+    </div>  
+    <div id="form-wrapper" style="max-width:1000px;margin:auto;">
+        <div class="row">
+        <div class="small-12 column">
 <form action="." method="post">
 <input type="hidden" name="action" value="empty">
 <input type="submit" value="Empty" >

@@ -1,18 +1,18 @@
 <?php
-require_once('../model/database_oo.php');
-require_once('../model/validation.php');
-require_once('../model/Product_db.php');
-require_once('../model/Product.php');
-require_once('../model/Invoice_db.php');
-require_once('../model/Invoice.php');
-require_once('../model/User_db.php');
-require_once('../model/User.php');
-session_start();
+require_once('./model/database_oo.php');
+require_once('./model/validation.php');
+require_once('./model/Product_db.php');
+require_once('./model/Product.php');
+require_once('./model/Invoice_db.php');
+require_once('./model/Invoice.php');
+require_once('./model/User_db.php');
+require_once('./model/User.php');
+
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action === NULL) {
-        $action = 'shop';
+        $action = 'landing';
     }
 }
 
@@ -21,11 +21,19 @@ switch ($action) {
         $product_array = Product_db::select_all();
          include("storefront.php");
      break;
-        case "Store Manager":
+
+    case "Back":
+         include("./view/landing.php");
+     break; 
+ 
+    case "landing":
+         include("landing.php");
+     break;
+    case "Store Manager":
         // Completely broke store manager, initial action, buttons, and other navigations will need to be updated.
         // var_dump($_SESSION['userID']);
         $product_array = Product_db::select_all();
-        include("storefront.php");
+        include("Landing.php");
     break;
     case "add": 
         // $buyerID = $_SESSION['userID'];
@@ -229,7 +237,8 @@ switch ($action) {
             Invoice_db::update_address($address);
             include('storefront.php');
         break;
-        case 'get_all_invoices':
+        case 'All Invoices':
+            var_dump($action);
             // Fetch all invoices and display (ADMIN only function)
             $invoices = Invoice_db::get_invoicesAll();
             include('all_invoices.php');

@@ -16,16 +16,16 @@
                 <th>Retail Price</th>
                 <th>Count</th>
             </tr>
-            <?php foreach ($Orders as $order) : ?>
+            <?php foreach ($orders as $order) : ?>
                 <tr>
-                <td><?php echo htmlspecialchars($order['orderID']); ?></td>
-                <td><?php echo htmlspecialchars($order['supplierName']); ?></td>
-                <td><?php echo htmlspecialchars($order['supplierID']); ?></td>
-                <td><?php echo htmlspecialchars($order['productID']); ?></td>
-                <td><?php echo htmlspecialchars($order['categoryID']); ?></td>
-                <td><?php echo htmlspecialchars($order['wholesalePrice']); ?></td>
-                <td><?php echo htmlspecialchars($order['retailPrice']); ?></td>
-                <td><?php echo htmlspecialchars($order['count']); ?></td>
+                <td><?php echo htmlspecialchars($order['OrderID']); ?></td>
+                <td><?php echo htmlspecialchars($order['SupplierName']); ?></td>
+                <td><?php echo htmlspecialchars($order['SupplierID']); ?></td>
+                <td><?php echo htmlspecialchars($order['ProductID']); ?></td>
+                <td><?php echo htmlspecialchars($order['CategoryID']); ?></td>
+                <td><?php echo htmlspecialchars($order['WholesalePrice']); ?></td>
+                <td><?php echo htmlspecialchars($order['RetailPrice']); ?></td>
+                <td><?php echo htmlspecialchars($order['Count']); ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
