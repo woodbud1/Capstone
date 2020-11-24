@@ -6363,3 +6363,39 @@ a.thumbnail {
 .price-right {
     text-align: right;
 }
+.image-btn {
+    width: 100%;
+}
+.categories-btn {
+    width: 300px;
+    background-image: url("https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6401/6401850_sd.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 100px;
+    padding-bottom: 40px;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    
+}
+.categories-btn button {
+    margin: auto;
+}
+.products-btn {
+    width: 300px;
+    background-image: url("https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6401/6401850_sd.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 100px;
+    padding-bottom: 40px;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    
+}
+.products-btn button {
+    margin: auto;
+}
+.inventory-landing {
+    display: inline;
+}

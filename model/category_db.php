@@ -29,5 +29,17 @@ class Category_db {
                                  $row['categoryName']);
         return $category;
     }
+    
+    public static function add_category($category){
+        $db = Database::getDB();
+        
+        $categoryName = $category->getName();
+     
+          $query = 'INSERT INTO categories (categoryName) VALUES (:categoryName)';
+          $statement = $db->prepare($query);
+          $statement->bindValue(':categoryName', $categoryName);
+          $statement->execute();
+          $statement->closeCursor();
+        }
 }
 ?>

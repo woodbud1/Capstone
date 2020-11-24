@@ -347,11 +347,42 @@ switch ($action) {
 
     
     case 'Inventory Manager':
+        
+    include('manage_inventory/inventory_landing.php');
+    die;
+    break;
+
+    case 'All Products':
     $products = Product_db::select_all();    
         
     include('manage_inventory/all_products.php');
     die;
     break;
+
+    case 'All Categories':
+    $categories = Category_db::getCategories();    
+        
+    include('manage_inventory/all_categories.php');
+    die;
+    break;
+
+    case 'Show Add Category Form':
+    if(!isset($categoryName)) { $categoryName=''; }
+    include('manage_inventory/category_add.php');
+    die;
+    break;
+    
+    case 'Add Category':
+    
+    $categoryName = filter_input(INPUT_POST, 'categoryName');
+
+    $category = new Category($categoryName);
+    Category_db::add_category($category);
+    
+    
+    include('manage_inventory/category_add.php');
+    die;
+    break;    
 
     case 'Show Add Product Form':
     $categories = Category_db::getCategories();
