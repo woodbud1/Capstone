@@ -457,8 +457,8 @@ switch ($action) {
 
      case 'Order Manager':
          
-    include('order_manager/index.php');
-         
+    include('order_manager/all_orders.php');
+         die;
      break;
 
 
