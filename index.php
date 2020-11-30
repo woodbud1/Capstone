@@ -7,6 +7,9 @@ require_once('./model/category_db.php');
 require_once('./model/category.php');
 require_once('./model/product_db.php');
 require_once('./model/product.php');
+require_once('./order_manager/orders_db.php');
+require_once('./order_manager/order.php');
+
 
 session_start();
 $action = filter_input(INPUT_POST, 'action');
@@ -499,8 +502,8 @@ switch ($action) {
      break;
 
      case 'Order Manager':
-         
-    include('order_manager/all_orders.php');
+         $orders = Order_db::select_all();
+         include('order_manager/all_orders.php');
          die;
      break;
 

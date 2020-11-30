@@ -36,3 +36,40 @@ Check Regex
                 $_SESSION["cart_item"] = $itemArray;
             }
         }
+
+                        <td><?php echo htmlspecialchars($invoice->getInvoiceID()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getBuyerID()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getName()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getPaymentAmount()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getPaymentType()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getAddress()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getDelievered()); ?></td>
+                <td><?php echo htmlspecialchars($invoice->getPaid()); ?></td>
+                <td><form action="index.php" method="post">
+                <input type="hidden" name="action" value="update_paid">
+                <input type="checkbox" name="isPaid" value="yes">
+                <input class="button" type="submit" value="Update Paid" >
+                </form></td>
+                <td><form action="index.php" method="post">
+                <input type="hidden" name="action" value="update_delievered">
+                <input type="checkbox" name="Delievered" value="yes">
+                <input class="button" type="submit" value="Delievered" >
+                </form></td>
+            </tr>
+
+                            <td><?php echo htmlspecialchars($invoice['invoiceID']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['buyerID']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['paymentAmount']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['paymentType']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['cardNum']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['name']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['address']); ?></td>
+                <td><?php echo htmlspecialchars($invoice['paid']); ?></td>
+
+                <p>Change Address?</p>
+<form action="." method="post" >
+    <input type="hidden" name="action" value="change_address" />
+                <label>Address: </label>
+                <input type="text" name="address" value="<?php echo $address; ?>"><br>
+    <p><input class="button" type="submit" name="submit" value="Change Address" ></p>
+</form>

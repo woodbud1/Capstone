@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
@@ -8,7 +8,6 @@
 -- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -49,6 +48,28 @@ INSERT INTO `categories` (`categoryID`, `categoryName`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `invoiceID` int(11) NOT NULL,
+  `buyerID` int(11) NOT NULL,
+  `paymentAmount` double NOT NULL,
+  `paymentType` varchar(12) NOT NULL,
+  `cardNum` double NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `address` varchar(256) NOT NULL,
+  `paid` tinyint(4) NOT NULL,
+  `delivered` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`invoiceID`, `buyerID`, `paymentAmount`, `paymentType`, `cardNum`, `name`, `address`, `paid`, `delivered`) VALUES
+(1, 7, 1300, 'card', 2147483647, 'John C Kyker', '5000 Saint Ave. SMB: 4026 Lincoln, NE 68504', 1, 0),
+(2, 7, 10000, 'card', 2147483647, 'Mark Gudgel', '5000 Saint Ave Lincoln, Nebraska 68504', 1, 0);
 -- Table structure for table `orders`
 --
 
@@ -138,6 +159,10 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`categoryID`);
 
 --
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`invoiceID`);
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -170,6 +195,10 @@ ALTER TABLE `categories`
   MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `invoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -179,7 +208,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `productID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

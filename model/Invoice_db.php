@@ -5,22 +5,37 @@ class Invoice_db {
     public static function get_invoicesAll() 
     {
         $db = Database::getDB();
-        $query = 'SELECT * FROM invoices';
+        $query = 'SELECT * FROM invoices ORDER BY invoiceID';
         $statement = $db->prepare($query);
         $statement->execute();
-        $results = $statement->fetch();
+        $rows = $statement->fetchAll();
         $statement->closeCursor();
-        $invoice = new Invoice($results['invoiceID'],
-                         $results['buyerID'],
-                         $results['paymentAmount'],
-                         $results['paymentType'],
-                         $results['cardNum'],
-                         $results['name'],
-                         $results['address'],
-                         $results['paid'],
-                         $results['delivered']);
-        return $invoice;
+        $invoices = array();
+        foreach ($rows as $row) {
+        $i = new Invoice(
+                         $row['buyerID'],
+                         $row['paymentAmount'],
+                         $row['paymentType'],
+                         $row['cardNum'],
+                         $row['name'],
+                         $row['address'],
+                         $row['paid'],
+                         $row['delivered']);
+            $i->setInvoiceID($row['invoiceID']);
+                         $invoices[] = $i;
+        }
+        return $invoices;
     }
+
+    public static function deleteInvoice_ByID($entry) {
+        $db = Database::getDB();
+        $query = 'DELETE FROM invoices
+                  WHERE invoice_id = :entry';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':entry', $entry);
+        $statement->execute();
+        $statement->closeCursor();
+        }
 
     public static function get_invoicesByBuyerID($buyerID) 
     {
@@ -31,15 +46,20 @@ class Invoice_db {
         $statement->execute();
         $results = $statement->fetch();
         $statement->closeCursor();
-        $invoice = new Invoice($results['invoiceID'],
-                         $results['buyerID'],
-                         $results['paymentAmount'],
-                         $results['paymentType'],
-                         $results['cardNum'],
-                         $results['name'],
-                         $results['address'],
-                         $results['paid'],
-                         $results['delivered']);
+        if ( ! $results) {
+            $invoice = NULL;
+        } else {
+            $invoice = new Invoice($results['invoiceID'],
+            $results['buyerID'],
+            $results['paymentAmount'],
+            $results['paymentType'],
+            $results['cardNum'],
+            $results['name'],
+            $results['address'],
+            $results['paid'],
+            $results['delivered']);
+        }
+
         return $invoice;
     }
 
@@ -136,24 +156,26 @@ class Invoice_db {
             $statement->closeCursor();
         }
 
-        public static function update_paid($paid)
+        public static function update_paid($paid, $invoiceID)
         {
             $db = Database::getDB();
      
             $query = 'UPDATE invoices SET paid = :paid WHERE invoiceID = :invoiceID';
             $statement = $db->prepare($query);
             $statement->bindValue(':paid', $paid);
+            $statement->bindValue(':invoiceID', $invoiceID);
             $statement->execute();
             $statement->closeCursor();
         }
 
-        public static function update_delievered($delievered)
+        public static function update_delivered($delivered, $invoiceID)
         {
             $db = Database::getDB();
      
-            $query = 'UPDATE invoices SET delievered = :delievered WHERE invoiceID = :invoiceID';
+            $query = 'UPDATE invoices SET delivered = :delivered WHERE invoiceID = :invoiceID';
             $statement = $db->prepare($query);
-            $statement->bindValue(':delievered', $delievered);
+            $statement->bindValue(':delivered', $delivered);
+            $statement->bindValue(':invoiceID', $invoiceID);
             $statement->execute();
             $statement->closeCursor();
         }
