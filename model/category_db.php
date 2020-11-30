@@ -40,6 +40,16 @@ class Category_db {
           $statement->bindValue(':categoryName', $categoryName);
           $statement->execute();
           $statement->closeCursor();
-        }
+    }
+        
+    public static function deleteCategory($category_id) {
+        $db = Database::getDB();
+        $query = 'DELETE FROM categories
+                  WHERE categoryID = :category_id';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':category_id', $category_id);
+        $statement->execute();
+        $statement->closeCursor();
+    }
 }
 ?>

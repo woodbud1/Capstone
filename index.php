@@ -384,6 +384,18 @@ switch ($action) {
     die;
     break;    
 
+    case 'Delete Category':
+    $category_id = filter_input(INPUT_POST, 'category_id', 
+            FILTER_VALIDATE_INT);
+
+    Category_db::deleteCategory($category_id);    
+    
+    $categories = Category_db::getCategories();  
+    include('manage_inventory/all_categories.php');
+    die;
+    break; 
+
+
     case 'Show Add Product Form':
     $categories = Category_db::getCategories();
     if(!isset($category_id)) { $category_id=''; }
