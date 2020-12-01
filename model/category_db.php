@@ -51,5 +51,18 @@ class Category_db {
         $statement->execute();
         $statement->closeCursor();
     }
+    
+    public static function updateCategory($categoryName)
+        {
+            $db = Database::getDB();
+     
+            $query = 'UPDATE categories
+                    SET categoryName = :categoryName
+                WHERE categoryName = :categoryName';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':categoryName', $categoryName);
+            $statement->execute();
+            $statement->closeCursor();
+        }
 }
 ?>
