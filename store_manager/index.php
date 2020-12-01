@@ -1,13 +1,13 @@
 <?php
-require_once('./model/database_oo.php');
-require_once('./model/validation.php');
-require_once('./model/Product_db.php');
-require_once('./model/Product.php');
-require_once('./model/Invoice_db.php');
-require_once('./model/Invoice.php');
-require_once('./model/User_db.php');
-require_once('./model/User.php');
-
+require_once('../model/database_oo.php');
+require_once('../model/validation.php');
+require_once('../model/Product_db.php');
+require_once('../model/Product.php');
+require_once('../model/Invoice_db.php');
+require_once('../model/Invoice.php');
+require_once('../model/User_db.php');
+require_once('../model/User.php');
+session_start();
 $action = filter_input(INPUT_POST, 'action');
 if ($action === NULL) {
     $action = filter_input(INPUT_GET, 'action');
@@ -80,6 +80,14 @@ switch ($action) {
         break;
         case "update_count":
             // Updating Cart Count
+            //  $newCount = filter_input(INPUT_POST, 'newCount', FILTER_VALIDATE_INT);
+            // Count $productByID[$k]["count"] = $newCount);
+            if(!empty($_SESSION["cart_item"])) {
+                foreach($_SESSION["cart_item"] as $k => $v) {
+                        if($PID === $k)
+                            $_SESSION["cart_item"][$k]['count'] = $newCount;				
+                }
+            }
             $product_array = Product_db::select_all(); 
         include("storefront.php");
         break;
@@ -91,6 +99,8 @@ switch ($action) {
             include("storefront.php");
         break;	
         case "pay":
+            
+            var_dump($_SESSION["cart_item"][1]);
             if(!isset($name)) { $name=''; }
             if(!isset($email)) { $email=''; }
             $_SESSION['paymentAmount'] = $_POST["total_price"];
@@ -221,9 +231,9 @@ switch ($action) {
         if($errorName !== '' || $errorEmail !== '' || $errorStreet !== '' || $errorCity !== '' || $errorState !== '' || $errorPostal !== '' || $errorCardNum !== '' || $errorCardExp !== '' || $errorCardSec !== ''){
             include('payment.php');
         } else {
-            // $buyerID = $_SESSION['userID'];
-            $buyerID = 007;
+            // $buyerID = 007;
             $final_price = $_SESSION['paymentAmount'];
+            $buyerID = $_SESSION['userID'];
             $delivered = 0;
             $invoice = new Invoice($buyerID, $final_price, $payment_type, $creditcard_num, $name, $address, $paid, $delivered);
             Invoice_db::add_invoice($invoice);
@@ -278,7 +288,7 @@ switch ($action) {
         include('all_invoices.php');
         break;
         case 'update_delivered':
-            // Admin can update delivered
+        // Admin can update delivered
         if(isset($_POST['isDelivered']) && 
         $_POST['isDelivered'] === 'yes') 
         {
