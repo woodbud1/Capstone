@@ -6373,9 +6373,9 @@ a.thumbnail {
     background-repeat: no-repeat;
     padding-top: 100px;
     padding-bottom: 40px;
-    display: flex;  
+/*    display: flex;  
     justify-content: center;  
-    align-items: center;  
+    align-items: center;  */
     
 }
 .categories-btn button {
@@ -6388,9 +6388,9 @@ a.thumbnail {
     background-repeat: no-repeat;
     padding-top: 100px;
     padding-bottom: 40px;
-    display: flex;  
+/*    display: flex;
     justify-content: center;  
-    align-items: center;  
+    align-items: center;  */
     
 }
 .products-btn button {
@@ -6399,3 +6399,7 @@ a.thumbnail {
 .inventory-landing {
     display: inline;
 }
+
+.categories-btn, .products-btn {text-align: center;}
+.categories-btn input,
+.products-btn input {display: inline-block;}
