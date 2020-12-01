@@ -18,6 +18,10 @@
             </td>
         </tr>
     </table>
+        <form action="." method="post" >
+                <input type="hidden" name="action" value="Landing" >
+                <input class="button" type="submit" value="Back" >
+            </form>
     </div>
 </main>    
 <?php include './view/footer.php'; ?>
