@@ -10,6 +10,7 @@
                     <input class="button" type="submit" value="View Categories" >
                 </form>
             </td>
+            <td></td>
             <td class="products-btn">
                 <form action="." method="post" >
                     <input type="hidden" name="action" value="All Products" >
