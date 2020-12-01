@@ -49,7 +49,7 @@ if(isset($_SESSION["cart_item"])){
 				<td>
 				<form action="." method="post"
                           id="update_count">
-						  <input type="number" class="product-quantity" name="count" id="count" />
+						  <input type="number" class="product-quantity" name="newCount" id="newCount" min="0" />
                     <input type="hidden" name="action"
                            value="update_count">
                     <input type="hidden" name="product_id"
@@ -101,7 +101,7 @@ if(isset($_SESSION["cart_item"])){
 			<div class="product-tile-footer">
 			<div class="product-title"><?php echo $product["productName"]; ?></div>
 			<div class="product-price"><?php echo "$".$product["price"]; ?></div>
-			<div class="cart-action"><input type="number" class="product-quantity" name="count" id="count" value="1" size="1" />
+			<div class="cart-action"><input type="number" class="product-quantity" name="count" id="count" min="0" value="1" size="1" />
 			<input type="submit" value="Add to Cart" class="btnAddAction" /></div>
 			</div>
 			</form>
