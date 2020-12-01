@@ -41,7 +41,7 @@
     </form>
     </div>    
     <form action="index.php" method="post" id="Inventory Manager">
-            <input type="hidden" name="action" value="Inventory Manager" >
+            <input type="hidden" name="action" value="All Products" >
             <input class="button" type="submit" value="Back To Products" >
         </form> 
 </main>
