@@ -30,16 +30,11 @@ switch ($action) {
          include("landing.php");
      break;
     case "Store Manager":
-        // Completely broke store manager, initial action, buttons, and other navigations will need to be updated.
-        // var_dump($_SESSION['userID']);
+        // I can't figure out why this is fixed now and I'm giving up on why it broke in the first place...
         $product_array = Product_db::select_all();
         include("Landing.php");
     break;
     case "add": 
-        // $buyerID = $_SESSION['userID'];
-        // Can't add a user ID without a session.
-        // Ideally this session is created with login.
-        // Using a fake $buyerID for now (7).
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
             $cartID = rand(1,100000);
@@ -79,12 +74,12 @@ switch ($action) {
         include("storefront.php");
         break;
         case "update_count":
-            // Updating Cart Count
-            //  $newCount = filter_input(INPUT_POST, 'newCount', FILTER_VALIDATE_INT);
-            // Count $productByID[$k]["count"] = $newCount);
+            $newCount = filter_input(INPUT_POST, 'newCount', FILTER_VALIDATE_INT);
+            $CID = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
+            // var_dump($newCount, $CID);
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
-                        if($PID === $k)
+                        if($CID === $k)
                             $_SESSION["cart_item"][$k]['count'] = $newCount;				
                 }
             }
@@ -99,8 +94,13 @@ switch ($action) {
             include("storefront.php");
         break;	
         case "pay":
-            
-            var_dump($_SESSION["cart_item"][1]);
+            // $cart = $_SESSION["cart_item"];
+            // foreach($_SESSION["cart_item"] as $k => $v) {
+            //        echo $_SESSION["cart_item"][$k]['count'] . ' ';	
+            //     }
+            //     foreach($_SESSION["cart_item"] as $k => $v) {
+            //         echo $_SESSION["cart_item"][$k]['productID'] . " ";
+            //      }
             if(!isset($name)) { $name=''; }
             if(!isset($email)) { $email=''; }
             $_SESSION['paymentAmount'] = $_POST["total_price"];
@@ -232,6 +232,14 @@ switch ($action) {
             include('payment.php');
         } else {
             // $buyerID = 007;
+            $cartUpdate = $_SESSION["cart_item"];
+            foreach($_SESSION["cart_item"] as $k => $v) {
+                $cartItemID = $_SESSION["cart_item"][$k]['productID'];
+                $cartItemCount = $_SESSION["cart_item"][$k]['count'];
+                $existingCount = Product_db::getCountByID($cartItemID);
+                $newCount = (int)$existingCount[0] - (int)$cartItemCount;
+                Product_db::update_productCount($newCount, $cartItemID);			
+                }
             $final_price = $_SESSION['paymentAmount'];
             $buyerID = $_SESSION['userID'];
             $delivered = 0;

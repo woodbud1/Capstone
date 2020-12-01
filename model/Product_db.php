@@ -115,6 +115,18 @@ class Product_db {
             }
         }
 
+        public static function getCountByID($entry)
+        {
+          $db = Database::getDB();
+          $query = 'SELECT count FROM products WHERE productID = :product_id';
+          $statement = $db->prepare($query);
+          $statement->bindValue(':product_id', $entry);
+          $statement->execute();
+          $results = $statement->fetch();
+          $statement->closeCursor();
+          return $results;
+        }
+
         public static function update_productCount($entry, $key)
         {
             $db = Database::getDB();
