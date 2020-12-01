@@ -120,7 +120,7 @@ if(isset($_SESSION["cart_item"])){
 <!-- I don't really have a better place to put this atm. Should be an admin only thing -->
 <div>
 <form method="post" action=".">
-<input type="hidden" name="action" value="get_all_invoices">
+<input type="hidden" name="action" value="All Invoices">
 <input type="submit" value="All Purchases" />
 </form>
 </div>

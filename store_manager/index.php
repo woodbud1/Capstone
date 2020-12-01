@@ -256,7 +256,6 @@ switch ($action) {
             include('storefront.php');
         break;
         case 'All Invoices':
-            var_dump($action);
             // Fetch all invoices and display (ADMIN only function)
             $invoices = Invoice_db::get_invoicesAll();
             include('all_invoices.php');
@@ -310,6 +309,13 @@ switch ($action) {
         Invoice_db::update_delivered($delivered, $id);
         $invoices = Invoice_db::get_invoicesAll();
         include('all_invoices.php');
+        break;
+        case 'search_invoices':
+            $IID = filter_input(INPUT_POST, 'invoice_id', FILTER_VALIDATE_INT);
+            $invoices = Invoice_db::get_invoicesAll();
+            var_dump($IID);
+            include('all_invoices.php');
+            
         break;
         case 'update_payment':
             // Fetch a form to add a credit card to the order to pay

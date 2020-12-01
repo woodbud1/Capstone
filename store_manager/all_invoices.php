@@ -4,6 +4,12 @@
 <div class="row">
 <div class="col-lg-8 col-md-10 mx-auto"> 
 <section>
+<h2>Search for Invoice by ID</h2>
+    <form action="." method="post">
+                <input type="hidden" name="action" value="search_invoices">
+                <input type="number" name="invoice_id" placeholder="Enter Invoice ID">
+                <input class="button" type="submit" value="Search" >
+    </form>
     <table>
         <tr>
             <th>Invoice ID</th>
@@ -24,14 +30,14 @@
                 <td><?php echo htmlspecialchars($invoice->getPaymentAmount()); ?></td>
                 <td><?php echo htmlspecialchars($invoice->getPaymentType()); ?></td>
                 <td><?php echo htmlspecialchars($invoice->getAddress()); ?></td>
-                <td><?php echo htmlspecialchars($invoice->getDelivered()); ?></td>
+                <td style="text-align:center;"><?php echo htmlspecialchars($invoice->getDelivered()); ?></td>
                 <td><form action="." method="post">
                 <input type="hidden" name="action" value="update_delivered">
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($invoice->getInvoiceID()); ?>">
                 <input type="checkbox" name="isDelivered" value="yes">
                 <input class="button" type="submit" value="Delivered" >
                 </form></td>
-                <td><?php echo htmlspecialchars($invoice->getPaid()); ?></td>
+                <td style="text-align:center;"><?php echo htmlspecialchars($invoice->getPaid()); ?></td>
                 <td><form action="." method="post">
                 <input type="hidden" name="action" value="update_paid">
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($invoice->getInvoiceID()); ?>">
