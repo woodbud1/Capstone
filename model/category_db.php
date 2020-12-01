@@ -30,16 +30,13 @@ class Category_db {
         return $category;
     }
     
-    public static function add_category($category){
+    public static function add_category($categoryName){
         $db = Database::getDB();
-        
-        $categoryName = $category->getName();
-     
-          $query = 'INSERT INTO categories (categoryName) VALUES (:categoryName)';
-          $statement = $db->prepare($query);
-          $statement->bindValue(':categoryName', $categoryName);
-          $statement->execute();
-          $statement->closeCursor();
+        $query = 'INSERT INTO categories (categoryName) VALUES (:categoryName)';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':categoryName', $categoryName);
+        $statement->execute();
+        $statement->closeCursor();
     }
         
     public static function deleteCategory($category_id) {
@@ -51,5 +48,18 @@ class Category_db {
         $statement->execute();
         $statement->closeCursor();
     }
+    
+    public static function updateCategory($categoryName)
+        {
+            $db = Database::getDB();
+     
+            $query = 'UPDATE categories
+                    SET categoryName = :categoryName
+                WHERE categoryName = :categoryName';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':categoryName', $categoryName);
+            $statement->execute();
+            $statement->closeCursor();
+        }
 }
 ?>

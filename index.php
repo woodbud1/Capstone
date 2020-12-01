@@ -479,6 +479,22 @@ switch ($action) {
     die;
     break;
 
+    case 'Show Edit Category Form' :
+        $categoryName = filter_input(INPUT_POST, 'categoryName');
+        
+    include('manage_inventory/edit_category.php');    
+    die;
+    break;    
+
+    case 'Edit Category':
+        $categoryName = filter_input(INPUT_POST, 'categoryName');
+        
+        Category_db::updateCategory($categoryName);
+        $categories = Category_db::getCategories(); 
+    include('manage_inventory/all_categories.php');    
+    die;
+    break;
+
     case 'Update Count':
         $product_id = $_SESSION['productID'];
         $count = filter_input(INPUT_POST, 'new_count', FILTER_VALIDATE_INT);
