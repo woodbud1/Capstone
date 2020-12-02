@@ -42,6 +42,10 @@ if ($action == 'list_products') {
 } else if ($action == 'show_add_form') {
     $categories = CategoryDB::getCategories();
     include('product_add.php');
+} else if ($action == 'search_SKU') {
+    $entry = filter_input(INPUT_POST, 'sku', FILTER_VALIDATE_INT);
+    $product = ProductDB::get_bySKU($entry);
+    include('product_view.php');
 } else if ($action == 'add_product') {
     $category_id = filter_input(INPUT_POST, 'category_id', 
             FILTER_VALIDATE_INT);

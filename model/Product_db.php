@@ -37,7 +37,15 @@ class Product_db {
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();
-            return $results;
+            $product = new Product(
+                $results['categoryID'],
+                $results['productName'],
+                $results['price'],
+                $results['sku'],
+                $results['imageURL'],
+                $results['description'],
+                $results['count']);
+            return $product;
         }
 
         public static function get_byID($entry)

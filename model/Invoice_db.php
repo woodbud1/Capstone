@@ -84,12 +84,12 @@ class Invoice_db {
             return $order;
         }
     
-        public static function get_address($order) 
+        public static function get_address($entry) 
         {
             $db = Database::getDB();
-            $query = 'SELECT * FROM invoices WHERE invoiceID = :invoiceID';
+            $query = 'SELECT address FROM invoices WHERE invoiceID = :invoiceID';
             $statement = $db->prepare($query);
-            $statement->bindValue(':invoiceID', $order);
+            $statement->bindValue(':invoiceID', $entry);
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();

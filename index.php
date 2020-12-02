@@ -454,7 +454,18 @@ switch ($action) {
     include('manage_inventory/product_view.php');
     die;
     break;
-    
+    case 'search_SKU':
+        $entry = filter_input(INPUT_POST, 'sku', FILTER_VALIDATE_INT);
+        $product = Product_db::get_bySKU($entry);
+        if(empty($product)){
+            $products = Product_db::select_all();    
+            include('manage_inventory/all_products.php');
+        } else{
+            include('manage_inventory/product_view.php');
+        }
+        
+    die;
+    break;
     case 'Show Edit Product Form':
         $productName = filter_input(INPUT_POST, 'productName');
         $price = filter_input(INPUT_POST, 'price');
