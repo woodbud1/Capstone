@@ -39,9 +39,9 @@ if(isset($_SESSION["cart_item"])){
 				<td><?php echo "$ ". number_format($item_price,2); ?></td>
 				<td>
 				<form action="." method="post"
-                          id="remove">
+                          id="remove_cartitem">
                     <input type="hidden" name="action"
-                           value="remove">
+                           value="remove_cartitem">
                     <input type="hidden" name="product_id"
                            value="<?php echo $item["productID"]; ?>">
                     <input class="button" type="submit" value="Remove">
@@ -95,7 +95,7 @@ if(isset($_SESSION["cart_item"])){
 	?>
 		<div class="product-item">
 			<form method="post" action=".">
-			<input type="hidden" name="action" value="add">
+			<input type="hidden" name="action" value="add_cartitem">
             <input type="hidden" name="productID" value="<?php echo $product["productID"]; ?>">
 			<div class="product-image"><img src="<?php echo $product["imageURL"]; ?>"></div>
 			<div class="product-tile-footer">

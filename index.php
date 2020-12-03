@@ -546,7 +546,7 @@ switch ($action) {
          die;
      break;
 
-     case "add": 
+     case "add_cartitem": 
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
             $cartID = rand(1,100000);
@@ -572,7 +572,7 @@ switch ($action) {
         }
         include("store_manager/storefront.php");
         break;
-        case "remove":
+        case "remove_cartitem":
             $PID = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
