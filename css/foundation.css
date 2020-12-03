@@ -6413,3 +6413,9 @@ a.thumbnail image {
 
 .inventory-landing table {width: 90% !important;}
 .inventory-landing form {text-align: left;}
+
+
+form{width:100%;}
+ul{display: inline-block;list-style-type:none;margin:0;padding:0;}
+li{float:left;margin:5px;}
+#form-wrapper {max-width: 1000px !important;}

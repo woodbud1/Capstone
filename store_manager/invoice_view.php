@@ -1,28 +1,21 @@
 <?php include './view/header.php'; ?>
 
 <main>
-    <h3><?php echo $product->getProductName(); ?></h3>
+    <h3><?php echo htmlspecialchars($invoice->getInvoiceID()); ?></h3>
         <div id="left_column">
-            <p>
-                <img src="<?php echo $product->getImageURL(); ?>">
-                
-            </p>
+            <p><b>Buyer ID:</b><?php echo htmlspecialchars($invoice->getBuyerID()); ?></p>
+            <p><b>Name:</b><?php echo htmlspecialchars($invoice->getName()); ?></p>
         </div>
         <div id="right_column">
-            <p><b>List Price:</b> $<?php echo $product->getPrice(); ?></p>
-            <p><b>Description:</b> <?php echo $product->getDescription(); ?></p>
-            <p><b>SKU:</b> <?php echo $product->getSKU(); ?></p>
-            <p><b>Count:</b> <?php echo $product->getCount(); ?></p>
-            <p>Update Count: 
-            <form action="index.php" method="post" id="Inventory Manager">
-            <input type="hidden" name="action" value="Update Count">
-            <input type="number" name="new_count">
-            <input class="button" type="submit" value="Update Count" >
-            </form></p>
+            <p><b>Payment Amount:</b> <?php echo htmlspecialchars($invoice->getPaymentAmount()); ?></p>
+            <p><b>Payment Type:</b> <?php echo htmlspecialchars($invoice->getPaymentType()); ?></p>
+            <p><b>Address:</b> <?php echo htmlspecialchars($invoice->getAddress()); ?></p>
+            <p><b>Is is Delievered?:</b><?php echo htmlspecialchars($invoice->getDelivered()); ?></p>
+            <p><b>Is is Paid?:</b><?php echo htmlspecialchars($invoice->getPaid()); ?></p>
         </div>
-        <form action="index.php" method="post" id="Inventory Manager">
+        <!-- <form action="index.php" method="post" id="Inventory Manager">
             <input type="hidden" name="action" value="All Products" >
             <input class="button" type="submit" value="Back To Products" >
-        </form>
+        </form> -->
 </main>
 <?php include './view/footer.php'; ?>

@@ -30,7 +30,6 @@ switch ($action) {
          include("landing.php");
      break;
     case "Store Manager":
-        // I can't figure out why this is fixed now and I'm giving up on why it broke in the first place...
         $product_array = Product_db::select_all();
         include("Landing.php");
     break;
@@ -312,10 +311,13 @@ switch ($action) {
         break;
         case 'search_invoices':
             $IID = filter_input(INPUT_POST, 'invoice_id', FILTER_VALIDATE_INT);
-            $invoices = Invoice_db::get_invoicesAll();
-            var_dump($IID);
-            include('all_invoices.php');
-            
+            $invoice = Invoice_db::get_invoicesByinvoiceID($IID);
+            if($invoice === NULL){
+                $invoices = Invoice_db::get_invoicesAll();    
+                include('all_invoices.php');
+            } else{
+                include('invoice_view.php');
+            }         
         break;
         case 'update_payment':
             // Fetch a form to add a credit card to the order to pay
@@ -328,5 +330,5 @@ switch ($action) {
         default:
             $error = "A single frickin' potato chip!";
             include("./errors/error.php");
-    break;
+        break;
 }
