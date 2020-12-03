@@ -9,7 +9,7 @@
             </p>
         </div>
         <div id="right_column">
-            <p><b>List Price:</b> $<?php echo $product->getPrice(); ?></p>
+            <p><b>List Price:</b> <?php echo $product->getPrice(); ?></p>
             <p><b>Description:</b> <?php echo $product->getDescription(); ?></p>
             <p><b>SKU:</b> <?php echo $product->getSKU(); ?></p>
             <p><b>Count:</b> <?php echo $product->getCount(); ?></p>

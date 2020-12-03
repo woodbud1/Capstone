@@ -63,16 +63,19 @@ class Invoice_db {
         return $invoice;
     }
 
-        public static function get_invoicesByinvoiceID($order) 
+        public static function get_invoicesByinvoiceID($entry) 
         {
             $db = Database::getDB();
             $query = 'SELECT * FROM invoices WHERE invoiceID = :invoiceID';
             $statement = $db->prepare($query);
-            $statement->bindValue(':invoiceID', $order);
+            $statement->bindValue(':invoiceID', $entry);
             $statement->execute();
             $results = $statement->fetch();
             $statement->closeCursor();
-            $order = new Order($results['invoiceID'],
+            if ( ! $results) {
+                $invoice = NULL;
+            } else {
+            $invoice = new Invoice($results['invoiceID'],
                              $results['buyerID'],
                              $results['paymentAmount'],
                              $results['paymentType'],
@@ -81,7 +84,8 @@ class Invoice_db {
                              $results['address'],
                              $results['paid'],
                              $results['delivered']);
-            return $order;
+            }
+            return $invoice;
         }
     
         public static function get_address($entry) 
