@@ -3,7 +3,14 @@
 <main>
     <h1>Product List</h1>
     <section>
-        <!-- display a table of products -->
+           <div id="search_product_function">
+    <h2>Search for Product</h2>
+    <form action="." method="post">
+    <input type="hidden" name="action" value="search_SKU">
+    <input type="number" name="sku" placeholder="Enter SKU">
+    <input class="button" type="submit" value="Search" >
+    </form>  
+    </div>
 
         <table>
             <tr>
@@ -97,15 +104,6 @@
                 <input class="button" type="submit" value="Add Product">
             </form>
         </div>  
-
-    <div id="search_product_function">
-    <h2>Search for Product</h2>
-    <form action="." method="post">
-    <input type="hidden" name="action" value="search_SKU">
-    <input type="number" name="sku" placeholder="Enter SKU">
-    <input class="button" type="submit" value="Search" >
-    </form>  
-    </div>
 
     </section>
 </main>

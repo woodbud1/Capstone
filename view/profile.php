@@ -11,7 +11,7 @@ $user = User_db::get_user($username);
     </div>   
     <div id="form-wrapper" style="max-width:500px;margin:auto;">
         <form action="index.php" method="post" id="edituserinfo">
-            <input type="hidden" name="action" value="SaveUser" />
+            
 
             <p>Please update user information as needed.</p>
             
@@ -29,12 +29,9 @@ $user = User_db::get_user($username);
 
             <label>&nbsp;</label>
             <input type="hidden" name="username" value="<?php echo $username?>">
-            <input class="button" type="submit" value="Save"><br>
-        </form>
-        <form action="index.php" method="post" id="edituserinfo">
-            <input type="hidden" name="action" value="User Manager" >
-            <input class="button" type="submit" value="Back" ></p>
-        </form>
+            <input type="hidden" name="action" value="SaveUser" />
+            <input class="button" type="submit" value="Save">
+            <input type="submit" name="action" class="button" value="Back To Users" >
         </form>
     </div>
 </main>

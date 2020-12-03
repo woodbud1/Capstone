@@ -40,10 +40,7 @@
         <form action="." method="post" >
             <input type="hidden" name="action" value="Inventory Manager" >
             <input class="button" type="submit" value="Back" >
-        </form>
-        <form action="." method="post" >
-            <input type="hidden" name="action" value="Show Add Category Form" >
-            <input class="button" type="submit" value="Add Category">
+            <input type="submit" name="action" class="button" value="Add New Category" >
         </form>
     </div>
 </main>

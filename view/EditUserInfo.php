@@ -21,11 +21,9 @@
                 echo $errorPassword; } ?></b></font></span><br>
 
             <label>&nbsp;</label>
-            <input class="button" type="submit" value="Save"><br>
-        </form>
-        <form action="index.php" method="post" id="edituserinfo">
             <input type="hidden" name="action" value="Landing" >
             <input class="button" type="submit" value="Back" >
+            <input type="submit" name="action" class="button" value="Save" >    
             <input type="submit" name="action" class="button" value="Image Upload">
         </form>
     </div>

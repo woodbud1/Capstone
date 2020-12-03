@@ -50,6 +50,7 @@ switch ($action) {
         }
         
         $username = $_SESSION['username'];
+        $email = User_db::get_email($username);
         // Display the registration form
         include'./view/EditUserInfo.php';
         break;    
@@ -65,7 +66,7 @@ switch ($action) {
         // Display the registration form
         include'./view/profile.php';
         break;
-    case 'Registration':
+    case 'Register a New User':
         // instanciate fields
         if(!isset($name)) { $name=''; }
         if(!isset($username)) { $username=''; }
@@ -308,6 +309,12 @@ switch ($action) {
     include('view/landing.php');
     break;
 
+    case 'Back':
+    $username = $_SESSION['username'];
+    $user = User_db::get_user($username);
+    include('view/landing.php');
+    break;
+
     case 'Image Upload':
         include('view/ImageUpload.php'); 
         break;
@@ -369,7 +376,7 @@ switch ($action) {
     die;
     break;
 
-    case 'Show Add Category Form':
+    case 'Add New Category':
     if(!isset($categoryName)) { $categoryName=''; }
     include('manage_inventory/category_add.php');
     die;
@@ -379,11 +386,11 @@ switch ($action) {
     
     $categoryName = filter_input(INPUT_POST, 'categoryName');
 
-    $category = new Category($categoryName);
-    Category_db::add_category($category);
+    Category_db::add_category($categoryName);
     
-    
-    include('manage_inventory/category_add.php');
+    $categories = Category_db::getCategories();    
+        
+    include('manage_inventory/all_categories.php');
     die;
     break;    
 
@@ -516,6 +523,12 @@ switch ($action) {
         break;
     
 
+    case 'Back To Users':
+
+    $users = User_db::select_all();
+    include('view/UserManager.php');
+    break;
+    
     case 'User Manager':
 
         $users = User_db::select_all();

@@ -36,14 +36,9 @@
         </div>
         
         </form></center>
-            <form action="index.php" method="post" id="EditProfile">
-            <input type="hidden" name="action" value="Landing" >
-            <input class="button" type="submit" value="Back" >
-        </form>
-        <form action="." method="post" >
-            <input type="hidden" name="action" value="Registration" >  
-            <input class="button" type="submit" value="Register a New User" >
-
+            <form action="." method="post" id="EditProfile">
+            <input type="submit" name="action" class="button" value="Back" >
+            <input type="submit" name="action" class="button" value="Register a New User" >
         </form>
     </div>    
 </main>

@@ -1,16 +1,4 @@
-<?php include 'header.php'; 
-
-        // if(!isset($name)) { $name=''; }
-        // if(!isset($username)) { $username=''; }
-        // if(!isset($email)) { $email=''; }
-        // if(!isset($password)) { $password=''; }
-        // if(!isset($errorEmail)) { $errorEmail=''; }
-        // if(!isset($errorStreet)) { $errorStreet=''; }
-        // if(!isset($errorCity)) { $errorCity=''; }
-        // if(!isset($errorState)) { $errorState=''; }
-        // if(!isset($errorPostal)) { $errorPostal=''; }
-        // if(!isset($errorPasswordConfirm)) { $errorPasswordConfirm=''; }
-        ?>
+<?php include 'header.php'; ?>
     <body>
 
 
@@ -54,19 +42,17 @@
                     <div class="medium-12 cell">                
                         <label>Confirm Password<font color="red">*</font>: </label>
                         <input type="text" name="confirm_password" placeholder="please re-enter password"><span><font color="red"> <?php if(isset($errorPasswordConfirm)) { echo $errorPasswordConfirm; }?></font></span><br>          
-                </div></div>
+                </div></div></div>
         <div class="grid-x grid-padding-x">
                 <div class="medium-12 cell">
                         <label>&nbsp;</label>
-                        <input class="button" type="submit" value="Save">
-                        <input type="hidden" name="action" value="Add" />
-            <center><form action="." method="post">
-                        <input type="hidden" name="action" value="Add" />
+
+            <center>
+            <form action="." method="post">
+             <input type="hidden" name="action" value="User Manager" >
+            <input class="button" type="submit" value="Back" >               
+            <input type="submit" name="action" class="button" value="Add" >
             </form></center>
-            <form action="index.php" method="post" id="edituserinfo">
-            <input type="hidden" name="action" value="Landing" >
-            <input class="button" type="submit" value="Back" >
-        </form>
                 </div>
         </div></div></div>
         </form>
