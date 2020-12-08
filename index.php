@@ -840,8 +840,11 @@ switch ($action) {
             // Make a payment with credit card.
             include('store_manager/update_payment.php');
         break;
+        case 'About':
+        include('view/about.php');
+        break;
         default:
-            $error = "A single frickin' potato chip!";
+            $error = "A single frickin' potato chip! And also you are not suppose to be here.";
             include("errors/error.php");
         break;
 

@@ -6,6 +6,7 @@
                 </div><br><br>
         <form action="." method="post" id="landing">
             <input type="submit" name="action" class="button" value="Edit Profile" >
+            <input type="submit" name="action" class="button" value="About" >
             <?php if (($_SESSION['type']) > 0) 
             { ?><input type="submit" name="action" class="button" value="Store Manager" >
             <input type="submit" name="action" class="button" value="Inventory Manager" >

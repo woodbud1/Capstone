@@ -9,4 +9,18 @@
 </head>
 <!-- the body section -->
 <body>
-    <header><h1>Inventory Manager</h1></header>
+    <header>
+        <form action="." method="post" id="landing" class="header_style">
+        <span><img src="./images/favicon.png" alt="Company Logo" height="40" width="40">
+        <span>Inventory Manager<span>
+            <input type="submit" name="action" class="button" value="Edit Profile" >
+            <?php if (($_SESSION['type']) > 0) 
+            { ?><input type="submit" name="action" class="button" value="Store Manager" >
+            <input type="submit" name="action" class="button" value="Inventory Manager" >
+            <input type="submit" name="action" class="button" value="User Manager" ><?php } ?>
+            <input type="submit" name="action" class="button" value="Order Manager" >
+            <input class="button" type="submit" name="action" value="Logout" >
+        </form>
+        <br>
+        <br>
+    </header>
