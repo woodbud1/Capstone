@@ -30,3 +30,17 @@
         // $product_id = filter_input(INPUT_GET, 'product_id');   
         $product = Product_db::get_product($product_id);
         var_dump($product, $product_id);
+
+                <?php $username = $_SESSION['username'];
+            $image = User_db::get_image($username);
+            if($image != null && $image != 'initial'){
+               $filepath = './images/' . $username . '/' . $image; 
+               echo "<img src=$filepath>";
+            }
+            // elseif($image === 'initial') {
+            //     echo "<img src='./images/image.jpg'>";
+            // }
+            else{
+                echo "<img src='./images/image.jpg'>";
+            } 
+        ?>

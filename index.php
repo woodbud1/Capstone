@@ -546,7 +546,7 @@ switch ($action) {
          die;
      break;
 
-     case "add": 
+     case "add_cartitem": 
         $product_array = Product_db::select_all();
         if(!empty($_POST["count"])) {
             $cartID = rand(1,100000);
@@ -572,7 +572,7 @@ switch ($action) {
         }
         include("store_manager/storefront.php");
         break;
-        case "remove":
+        case "remove_cartitem":
             $PID = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
             if(!empty($_SESSION["cart_item"])) {
                 foreach($_SESSION["cart_item"] as $k => $v) {
@@ -840,8 +840,11 @@ switch ($action) {
             // Make a payment with credit card.
             include('store_manager/update_payment.php');
         break;
+        case 'About':
+        include('view/about.php');
+        break;
         default:
-            $error = "A single frickin' potato chip!";
+            $error = "A single frickin' potato chip! And also you are not suppose to be here.";
             include("errors/error.php");
         break;
 
