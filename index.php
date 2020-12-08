@@ -50,7 +50,11 @@ switch ($action) {
         if (!isset($errorEmail)) {
             $errorEmail = '';
         }
-        
+        if(!isset($_SESSION['username'])){
+            $error = "A single frickin' potato chip! No username!";
+            include("./errors/error.php");
+        break;
+        }
         $username = $_SESSION['username'];
         $email = User_db::get_email($username);
         // Display the registration form
@@ -61,7 +65,7 @@ switch ($action) {
         // instanciate fields
         $username = filter_input(INPUT_POST, 'username');
         //var_dump($username);
-        
+
         if(!isset($errorEmail)) { $errorEmail=''; }
          if(!isset($errorName)) { $errorName=''; }
          
@@ -855,7 +859,7 @@ switch ($action) {
             break;
         default:
             $error = "A single frickin' potato chip! And also you are not suppose to be here.";
-            include("errors/error.php");
+            include("./errors/error.php");
         break;
 
 }
