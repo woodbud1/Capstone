@@ -17,11 +17,11 @@
                 <input class="button" type="submit" value="Login" >  
         </form>
             </div>
-            <div style="text-align:center;">
+            <!-- <div style="text-align:center;">
             <form action = "index.php" method = "post"> 
             <input type="hidden" name="action" value="Register a New User" />
             <p>Not a member? Sign up here!
             <input class="button" type="submit" value="Register" >  
-            </div>
+            </div> -->
     </main>
 <?php include 'footer.php'; ?>

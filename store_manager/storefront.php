@@ -111,6 +111,7 @@ if(isset($_SESSION["cart_item"])){
 	}
 	?>
 </div>
+<br>
 <div>
 <form method="post" action=".">
 <input type="hidden" name="action" value="get_ID_invoices">
@@ -118,6 +119,7 @@ if(isset($_SESSION["cart_item"])){
 </form>
 </div>
 <!-- I don't really have a better place to put this atm. Should be an admin only thing -->
+<br>
 <div>
 <form method="post" action=".">
 <input type="hidden" name="action" value="All Invoices">

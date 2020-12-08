@@ -1,6 +1,8 @@
 <?php include 'header.php'; ?>
-<form action="contact.php" method="post">
+<form action="." method="post">
+<input type="hidden" name="action" value="Contact Message" />
   <div class="elem-group">
+  <span><b><?php if(isset($contact_msg)) { echo $contact_msg; }?></b></span><br>
     <label for="name">Name</label>
     <input type="text" id="name" name="visitor_name" placeholder="John Doe" pattern=[A-Z\sa-z]{3,20} required>
   </div>

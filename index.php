@@ -7,6 +7,8 @@ require_once('./model/category_db.php');
 require_once('./model/category.php');
 require_once('./model/product_db.php');
 require_once('./model/product.php');
+require_once('./model/Invoice_db.php');
+require_once('./model/Invoice.php');
 require_once('./order_manager/orders_db.php');
 require_once('./order_manager/order.php');
 
@@ -844,6 +846,11 @@ switch ($action) {
         include('view/about.php');
         break;
         case 'Contact':
+            if(!isset($contact_msg)) { $contact_msg=''; }
+            include('view/contact.php');
+            break;
+        case 'Contact Message':
+            if(!isset($contact_msg)) { $contact_msg='Message sent!'; }
             include('view/contact.php');
             break;
         default:
