@@ -843,6 +843,9 @@ switch ($action) {
         case 'About':
         include('view/about.php');
         break;
+        case 'Contact':
+            include('view/contact.php');
+            break;
         default:
             $error = "A single frickin' potato chip! And also you are not suppose to be here.";
             include("errors/error.php");
