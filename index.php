@@ -783,7 +783,7 @@ switch ($action) {
             $buyerID = $_SESSION['userID'];
             $invoices = Invoice_db::get_invoicesByBuyerID($buyerID);
             if(!empty($invoices)) {
-                var_dump($invoices);
+                // var_dump($invoices);
                 include('store_manager/user_invoices.php');
             } else {
                 $error = "No invoices with that User ID found!";
